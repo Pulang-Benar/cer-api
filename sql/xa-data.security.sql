@@ -49,7 +49,9 @@ INSERT INTO security.sec_menu (menu_uuid, code, title, url, "level", ordering, o
 ('0019a3e6-86ed-46d4-b6b2-e9525385c65f', '#REPORT-AGE-PAGE', 'Age', '/app/report/age', 1, 0, '002.003', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '5f4872f1-627e-4789-adf7-dc6db3884267'),
 ('e76e6cfa-5ef2-4bc4-b5d4-dac5353d071c', '#FAKE-REPORTS-PAGE', 'Fake Reports', '/app/fake-reports', 0, 3, '003', 'slash-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
 ('f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8', '#USER-MANAGEMENT-PAGE', 'User Management', '/app/user-management', 0, 4, '004', 'people-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
-('3cf5bced-7def-426a-99f7-c8d44e1ce74c', '#URGENCY-MANAGEMENT-PAGE', 'Urgency Management', '/app/urgency-management', 0, 5, '005', 'book-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL);
+('3cf5bced-7def-426a-99f7-c8d44e1ce74c', NULL, 'System Configuration', '#', 0, 5, '005', 'settings-2-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
+('8c66c75e-5931-40af-af28-7c60b366ffd4', '#SYSCONF-PARAMETER-PAGE', 'Parameter', '/app/sysconf/parameter', 1, 0, '001.000', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '3cf5bced-7def-426a-99f7-c8d44e1ce74c'),
+('b81076bf-dda0-4278-b639-ba6f750eb8c9', '#SYSCONF-LANGUAGE-PAGE', 'Language', '/app/sysconf/language', 1, 0, '001.000', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '3cf5bced-7def-426a-99f7-c8d44e1ce74c');
 --- Extra Menu
 INSERT INTO security.sec_menu (menu_uuid, code, title, url, "level", ordering, ordering_str, "type", icon, is_leaf, is_home, is_group, "version", is_active, created_date, created_by, modified_date, modified_by, parent_uuid) VALUES
 ('59e7e128-fe95-48d4-97a9-5441ae3d320c', '#PROFILE-PAGE', 'Profile', '/app/user/profile', 0, 0, '100', 'extra', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
@@ -74,7 +76,9 @@ INSERT INTO security.sec_menu_i18n (menu_i18n_uuid, menu_uuid, locale_code, titl
 ('e1366802-e57a-4a9c-9813-dddb133b072d', '0019a3e6-86ed-46d4-b6b2-e9525385c65f', 'id-ID', 'Usia', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
 ('f6ea0727-8911-4e34-b1f7-26d50570f959', 'e76e6cfa-5ef2-4bc4-b5d4-dac5353d071c', 'id-ID', 'Laporan Fiktif', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
 ('e4d513bf-bebf-4167-bd46-062277f1b7ae', 'f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8', 'id-ID', 'Manajemen Pengguna', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
-('b104f88a-d41f-4941-8d67-3b1aa3ce6b17', '3cf5bced-7def-426a-99f7-c8d44e1ce74c', 'id-ID', 'Manajemen Urgensi', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL);
+('b104f88a-d41f-4941-8d67-3b1aa3ce6b17', '3cf5bced-7def-426a-99f7-c8d44e1ce74c', 'id-ID', 'Konfigurasi Sistem', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
+('4b6bf4dd-e8e5-48a3-8573-235659497c9f', '8c66c75e-5931-40af-af28-7c60b366ffd4', 'id-ID', 'Parameter', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
+('3dbb0fcb-0228-4f12-b3ad-27c3b5de5c0f', 'b81076bf-dda0-4278-b639-ba6f750eb8c9', 'id-ID', 'Bahasa', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL);
 --- Extra Menu
 INSERT INTO security.sec_menu_i18n (menu_i18n_uuid, menu_uuid, locale_code, title, "version", is_active, created_date, created_by, modified_date, modified_by) VALUES
 ('1d78db6e-7352-4957-a13f-0f94e354a884', '59e7e128-fe95-48d4-97a9-5441ae3d320c', 'id-ID', 'Profil', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
