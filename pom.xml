@@ -87,6 +87,7 @@
         <module>xa-file</module>
         <module>xa-general</module>
         <module>xa-notification</module>
+        <module>xa-panic</module>
         <module>xa-master</module>
         <module>xa-security</module>
         <module>xa-main</module>

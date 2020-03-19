@@ -1,36 +1,3 @@
---
--- Table Shcema of Business
---
-
-CREATE TABLE master.mst_urgency (
-	urgency_uuid varchar(36) NOT NULL,
-	urgency_code varchar(100) NOT NULL,
-	urgency_name varchar(200) NOT NULL,
-	"version" int DEFAULT 0 NOT NULL,
-	is_active boolean DEFAULT true NOT NULL,
-	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
-	created_by varchar(25),
-	modified_date timestamp,
-	modified_by varchar(25),
-	PRIMARY KEY (urgency_uuid)
-);
-CREATE TABLE master.mst_status_report (
-	status_uuid varchar(36) NOT NULL,
-	status_code varchar(100) NOT NULL,
-	status_name varchar(200) NOT NULL,
-	"version" int DEFAULT 0 NOT NULL,
-	is_active boolean DEFAULT true NOT NULL,
-	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
-	created_by varchar(25),
-	modified_date timestamp,
-	modified_by varchar(25),
-	PRIMARY KEY (status_uuid)
-);
-
---
--- Table Shcema of Default
---
-
 CREATE TABLE master.mst_city (
 	"id" int NOT NULL,
 	code varchar(100),
