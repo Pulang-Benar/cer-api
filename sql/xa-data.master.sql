@@ -10,10 +10,10 @@ INSERT INTO master.mst_locale (locale_uuid, locale_code, locale_identifier, loca
 -- Dumping data for table mst_parameter_group
 --
 
-INSERT INTO master.mst_parameter_group (parameter_group_uuid, parameter_group_code, parameter_group_name, "version", is_active, created_date, created_by, modified_date, modified_by) VALUES
-('a34ce03b-35e5-40d7-9e95-47cb77cf623a', 'GENDER', 'Gender', 0, true, '2018-12-05 11:45:42', NULL, NULL, NULL),
-('799bcdcb-b922-4fee-8266-6cd1e2142492', 'FILE_EXCLUSION', 'File Exclusion', 0, true, '2018-12-05 11:45:42', NULL, NULL, NULL),
-('c1e38b92-ab8c-4925-bc42-3a5acfd3b162', 'STATUS_EMERGENCY_REPORT', 'Status Emergency Report', 0, true, '2018-12-05 11:45:42', NULL, NULL, NULL);
+INSERT INTO master.mst_parameter_group (parameter_group_uuid, parameter_group_code, parameter_group_name, is_i18n, "version", is_active, created_date, created_by, modified_date, modified_by) VALUES
+('a34ce03b-35e5-40d7-9e95-47cb77cf623a', 'GENDER', 'Gender', true, 0, true, '2018-12-05 11:45:42', NULL, NULL, NULL),
+('799bcdcb-b922-4fee-8266-6cd1e2142492', 'FILE_EXCLUSION', 'File Exclusion', false, 0, true, '2018-12-05 11:45:42', NULL, NULL, NULL),
+('c1e38b92-ab8c-4925-bc42-3a5acfd3b162', 'STATUS_EMERGENCY_REPORT', 'Status Emergency Report', true, 0, true, '2018-12-05 11:45:42', NULL, NULL, NULL);
 
 --
 -- Dumping data for table mst_parameter
@@ -31,18 +31,34 @@ INSERT INTO master.mst_parameter (parameter_uuid, parameter_code, parameter_valu
 ('f2aa8a47-d509-4fa1-8c83-f7840f25d046', 'THEFT', 'Theft', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
 ('8b288bbd-6aee-4170-b29e-4eeefe8fc574', 'HER', 'Hospital Emergency Room', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
 ('baa612fe-e587-444a-9dcb-14401dcdaf79', 'UNREST', 'Unrest', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
-('13a20c8b-f6ff-4470-82d4-290f6acc4ba2', 'HARASSMENT', 'Sexual Harassment', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162');
+('13a20c8b-f6ff-4470-82d4-290f6acc4ba2', 'HARASSMENT', 'Sexual Harassment', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
+('5dfe381b-b79e-483d-9bab-05ba10234baf', 'THREAT', 'Threat', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
+('43b24cc9-8605-44d5-8945-735b3fa83ab7', 'BULLYING', 'Bullying', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162');
 
 --
 -- Dumping data for table mst_parameter_i18n
 --
 
-INSERT INTO master.mst_parameter_i18n (parameter_i18n_uuid, parameter_uuid, locale_uuid, parameter_value, "version", is_active, created_date, created_by, modified_date, modified_by) VALUES
-('4e1cf97d-da2b-4502-a8fb-8b7c56685061', 'eb8c8621-c79c-4f1b-bd77-757d5ed106e5', '061e3d94-bfef-4e5f-bb24-735ba18e435f', 'Pria', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
-('fc74760b-a4f3-48db-a3a8-3fe2e230d3bd', 'f6dd4b90-6c06-4066-84a3-0599d1a06003', '061e3d94-bfef-4e5f-bb24-735ba18e435f', 'Wanita', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
-('13a20c8b-f6ff-4470-82d4-290f6acc4ba2', '4fd59970-f3bd-484e-9098-6ff5ad17137b', '061e3d94-bfef-4e5f-bb24-735ba18e435f', 'Kebakaran', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
-('85288eb7-b9a5-4bfb-b44c-6242253dd5db', '3912c634-5e7d-455b-9d06-1c34285d8870', '061e3d94-bfef-4e5f-bb24-735ba18e435f', 'Penculikan', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
-('007279b3-d38b-4687-a400-8f9000f850ad', 'f2aa8a47-d509-4fa1-8c83-f7840f25d046', '061e3d94-bfef-4e5f-bb24-735ba18e435f', 'Pencurian', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
-('37d53ee8-e3ca-4d64-bfa6-e3353801070d', '8b288bbd-6aee-4170-b29e-4eeefe8fc574', '061e3d94-bfef-4e5f-bb24-735ba18e435f', 'UGD', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
-('21242b73-96e1-48eb-ac1a-5ee438e70b25', 'baa612fe-e587-444a-9dcb-14401dcdaf79', '061e3d94-bfef-4e5f-bb24-735ba18e435f', 'Kerusuhan', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
-('edbd4cff-3e68-4151-bfb2-d0503772f5dd', '13a20c8b-f6ff-4470-82d4-290f6acc4ba2', '061e3d94-bfef-4e5f-bb24-735ba18e435f', 'Pelecehan Seksual', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL);
+INSERT INTO master.mst_parameter_i18n (parameter_i18n_uuid, parameter_uuid, locale_code, parameter_value, "version", is_active, created_date, created_by, modified_date, modified_by) VALUES
+('1642d182-027c-4d5a-9ac4-4ca81ba8ab0b', 'eb8c8621-c79c-4f1b-bd77-757d5ed106e5', 'en-US', 'Male', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('c9bedf56-b338-4bce-83c7-145603a0a902', 'f6dd4b90-6c06-4066-84a3-0599d1a06003', 'en-US', 'Female', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('f590e9a7-1498-45cb-be3a-f610f36d26b9', '4fd59970-f3bd-484e-9098-6ff5ad17137b', 'en-US', 'Fire', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('18c6cd47-0e5a-4c12-b3d2-49856a2c81bb', '3912c634-5e7d-455b-9d06-1c34285d8870', 'en-US', 'Abduction', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('4e7741fb-2b01-424f-beb1-b4c9d2fa35fb', 'f2aa8a47-d509-4fa1-8c83-f7840f25d046', 'en-US', 'Theft', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('4da624e4-6877-492f-ac45-81513063c544', '8b288bbd-6aee-4170-b29e-4eeefe8fc574', 'en-US', 'Hospital Emergency Room', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('62c91a0e-f5a9-43ba-905f-8900a21deb39', 'baa612fe-e587-444a-9dcb-14401dcdaf79', 'en-US', 'Unrest', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('9c03153d-d2f1-4c91-bfc2-f739eaed7849', '13a20c8b-f6ff-4470-82d4-290f6acc4ba2', 'en-US', 'Sexual Harassment', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('26582678-ffd9-47d1-bd17-a46bbebcd124', '5dfe381b-b79e-483d-9bab-05ba10234baf', 'en-US', 'Threat', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('0cd450aa-b463-42c1-b733-50612c7e47fc', '43b24cc9-8605-44d5-8945-735b3fa83ab7', 'en-US', 'Bullying', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL);
+
+INSERT INTO master.mst_parameter_i18n (parameter_i18n_uuid, parameter_uuid, locale_code, parameter_value, "version", is_active, created_date, created_by, modified_date, modified_by) VALUES
+('4e1cf97d-da2b-4502-a8fb-8b7c56685061', 'eb8c8621-c79c-4f1b-bd77-757d5ed106e5', 'id-ID', 'Pria', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('fc74760b-a4f3-48db-a3a8-3fe2e230d3bd', 'f6dd4b90-6c06-4066-84a3-0599d1a06003', 'id-ID', 'Wanita', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('3d74524c-bd9e-4312-8380-d53c2149dbe1', '4fd59970-f3bd-484e-9098-6ff5ad17137b', 'id-ID', 'Kebakaran', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('85288eb7-b9a5-4bfb-b44c-6242253dd5db', '3912c634-5e7d-455b-9d06-1c34285d8870', 'id-ID', 'Penculikan', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('007279b3-d38b-4687-a400-8f9000f850ad', 'f2aa8a47-d509-4fa1-8c83-f7840f25d046', 'id-ID', 'Pencurian', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('37d53ee8-e3ca-4d64-bfa6-e3353801070d', '8b288bbd-6aee-4170-b29e-4eeefe8fc574', 'id-ID', 'UGD', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('21242b73-96e1-48eb-ac1a-5ee438e70b25', 'baa612fe-e587-444a-9dcb-14401dcdaf79', 'id-ID', 'Kerusuhan', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('edbd4cff-3e68-4151-bfb2-d0503772f5dd', '13a20c8b-f6ff-4470-82d4-290f6acc4ba2', 'id-ID', 'Pelecehan Seksual', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('ff269687-1756-42dc-8a6e-6db124657ab6', '5dfe381b-b79e-483d-9bab-05ba10234baf', 'id-ID', 'Ancaman', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('3b48e4d7-e24b-4cf0-9bdc-852d13ee16da', '43b24cc9-8605-44d5-8945-735b3fa83ab7', 'id-ID', 'Intimidasi', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL);

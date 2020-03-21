@@ -48,6 +48,9 @@ public class ParameterGroupEntity extends BaseAuditEntity {
 
 	@Column(name = "parameter_group_name", nullable = false)
 	private String parameterGroupName;
+
+	@Column(name = "is_i18n", nullable = false)
+	private boolean i18n = false;
 	
 	@OneToMany(mappedBy = "parameterGroup", targetEntity = ParameterEntity.class, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SELECT)

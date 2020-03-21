@@ -105,7 +105,6 @@ CREATE TABLE security.sec_function (
 CREATE TABLE security.sec_menu (
 	menu_uuid varchar(36) NOT NULL,
 	code varchar(200),
-	title varchar(100) NOT NULL,
 	url text,
 	"level" int NOT NULL,
 	"ordering" int NOT NULL,
@@ -127,7 +126,7 @@ CREATE TABLE security.sec_menu (
 CREATE TABLE security.sec_menu_i18n (
 	menu_i18n_uuid varchar(36) NOT NULL,
 	menu_uuid varchar(36) NOT NULL,
-	locale_code varchar(10) NOT NULL,
+	locale_code varchar(10),
 	title varchar(100) NOT NULL,
 	"version" int DEFAULT 0 NOT NULL,
 	is_active boolean DEFAULT true NOT NULL,

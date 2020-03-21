@@ -53,9 +53,6 @@ public class MenuEntity extends BaseAuditEntity {
 	@Column(name = "code", nullable = false)
 	private String code;
 
-	@Column(name = "title", nullable = false)
-	private String title;
-
 	@Column(name = "url", nullable = false)
 	private String url;
 
@@ -103,17 +100,6 @@ public class MenuEntity extends BaseAuditEntity {
 	@OneToMany(mappedBy = "menu", targetEntity = FunctionEntity.class, fetch = FetchType.LAZY)
 	@Fetch(FetchMode.SELECT)
 	private Set<FunctionEntity> function = new HashSet<FunctionEntity>();
-
-	@Transient
-	public List<MenuDto> getChildren() {
-		if(childsMenu.size() <= 0 || this.leaf)
-			return null;
-		List<MenuDto> menuDtos = new ArrayList<MenuDto>();
-		childsMenu.forEach(data->{
-			menuDtos.add(data.toObject());
-		});
-		return menuDtos;
-	}
 	
 	@Transient
 	public List<MenuDto> getChildrenI18n() {
@@ -127,35 +113,17 @@ public class MenuEntity extends BaseAuditEntity {
 	}
 	
 	@Transient
-	public MenuDto toObject() {
-		MenuDto menuDto = new MenuDto();
-		function.forEach(funct->{
-			menuDto.setCode(this.code);
-			menuDto.setTitle(this.title);
-			menuDto.setIcon(this.icon);
-			menuDto.setLink(this.url);
-			menuDto.setAccess(funct.getAccess());
-			menuDto.setType(this.type);
-			menuDto.setHome(this.home);
-			menuDto.setGroup(this.group);
-			menuDto.setChildren(this.getChildren());		
-		});
-		return menuDto;
-	}
-	
-	@Transient
 	public MenuDto toObjectI18n() {
 		MenuDto menuDto = new MenuDto();
 		function.forEach(funct->{
 			menuDto.setCode(this.code);
-			menuDto.setTitle(this.title);
 			menuDto.setIcon(this.icon);
 			menuDto.setLink(this.url);
 			menuDto.setAccess(funct.getAccess());
 			menuDto.setType(this.type);
 			menuDto.setHome(this.home);
 			menuDto.setGroup(this.group);
-			menuDto.setChildren(this.getChildrenI18n());		
+			menuDto.setChildren(this.getChildrenI18n());
 		});
 		this.menuI18n.forEach(i18n->{
 			menuDto.setTitle(i18n.getTitle());

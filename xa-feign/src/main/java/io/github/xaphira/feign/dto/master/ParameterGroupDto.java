@@ -12,14 +12,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString
-public class ParameterDto extends BaseAuditDto {
+public class ParameterGroupDto extends BaseAuditDto {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8125190677227153892L;
-	private String parameterCode;
-	private String parameterValue;
 	private String parameterGroupCode;
 	private String parameterGroupName;
 	private boolean i18n;

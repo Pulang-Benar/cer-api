@@ -55,7 +55,7 @@ public class ParameterEntity extends BaseAuditEntity {
 	@Fetch(FetchMode.SELECT)
 	private Set<ParameterI18nEntity> parameterI18n = new HashSet<ParameterI18nEntity>();
 
-	@ManyToOne(targetEntity = ParameterGroupEntity.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = ParameterGroupEntity.class, fetch = FetchType.LAZY)
 	@JoinColumn(name = "parameter_group_uuid", nullable = false, insertable = false, updatable = false)
 	private ParameterGroupEntity parameterGroup;
 

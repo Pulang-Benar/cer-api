@@ -119,6 +119,19 @@ CREATE TABLE master.mst_locale (
 	modified_by varchar(25),
 	PRIMARY KEY (locale_uuid)
 );
+CREATE TABLE master.mst_parameter_group (
+	parameter_group_uuid varchar(36) NOT NULL,
+	parameter_group_code varchar(50) NOT NULL,
+	parameter_group_name varchar(100) NOT NULL,
+	is_i18n boolean DEFAULT false NOT NULL,
+	"version" int DEFAULT 0 NOT NULL,
+	is_active boolean DEFAULT true NOT NULL,
+	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
+	created_by varchar(25),
+	modified_date timestamp,
+	modified_by varchar(25),
+	PRIMARY KEY (parameter_group_uuid)
+);
 CREATE TABLE master.mst_parameter (
 	parameter_uuid varchar(36) NOT NULL,
 	parameter_code varchar(50) NOT NULL,
@@ -132,22 +145,10 @@ CREATE TABLE master.mst_parameter (
 	parameter_group_uuid varchar(36) NOT NULL,
 	PRIMARY KEY (parameter_uuid)
 );
-CREATE TABLE master.mst_parameter_group (
-	parameter_group_uuid varchar(36) NOT NULL,
-	parameter_group_code varchar(50) NOT NULL,
-	parameter_group_name varchar(100) NOT NULL,
-	"version" int DEFAULT 0 NOT NULL,
-	is_active boolean DEFAULT true NOT NULL,
-	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
-	created_by varchar(25),
-	modified_date timestamp,
-	modified_by varchar(25),
-	PRIMARY KEY (parameter_group_uuid)
-);
 CREATE TABLE master.mst_parameter_i18n (
 	parameter_i18n_uuid varchar(36) NOT NULL,
 	parameter_uuid varchar(36) NOT NULL,
-	locale_uuid varchar(36) NOT NULL,
+	locale_code varchar(10),
 	parameter_value text NOT NULL,
 	"version" int DEFAULT 0 NOT NULL,
 	is_active boolean DEFAULT true NOT NULL,
@@ -208,7 +209,3 @@ ALTER TABLE master.mst_parameter
 ALTER TABLE master.mst_parameter_i18n
 	ADD FOREIGN KEY (parameter_uuid) 
 	REFERENCES master.mst_parameter (parameter_uuid);
-
-ALTER TABLE master.mst_parameter_i18n
-	ADD FOREIGN KEY (locale_uuid) 
-	REFERENCES master.mst_locale (locale_uuid);

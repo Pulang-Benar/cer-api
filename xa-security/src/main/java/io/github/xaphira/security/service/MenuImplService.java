@@ -29,32 +29,20 @@ public class MenuImplService {
 	@Value("${xa.locale}")
 	private String locale;
 	
-	public Map<String, List<MenuDto>> loadAllMenuByRole(String role) throws Exception {
-		List<MenuDto> allMenus = constructMenu(this.menuRepo.loadAllMenuByRole(role), false);
-		return filterMenu(allMenus);
-	}
-	
 	public Map<String, List<MenuDto>> loadAllMenuByRole(String role, Locale locale) throws Exception {
-		List<MenuDto> allMenus = loadMenuByRole(role, locale.toLanguageTag());
-		return filterMenu(allMenus);
+		return loadAllMenuByRole(role, locale.toLanguageTag());
 	}
 	
 	public Map<String, List<MenuDto>> loadAllMenuByRole(String role, String locale) throws Exception {
 		if(locale == null)
-			return loadAllMenuByRole(role);
+			locale = this.locale;
 		try {
 			locale = locale.split(",")[0];	
 		} catch (Exception e) {
-			return loadAllMenuByRole(role);
+			locale = this.locale;
 		}
-		if(locale.equals(this.locale))
-			return loadAllMenuByRole(role);
-		List<MenuDto> allMenus = constructMenu(this.menuRepo.loadAllMenuByRoleI18n(role, locale), true);
+		List<MenuDto> allMenus = constructMenu(this.menuRepo.loadAllMenuByRoleI18n(role, locale));
 		return filterMenu(allMenus);
-	}
-	
-	public List<MenuDto> loadMenuByRole(String role, String type) throws Exception {
-		return constructMenu(this.menuRepo.loadTypeMenuByRole(role, type), false);
 	}
 	
 	public List<MenuDto> loadMenuByRole(String role, Locale locale, String type) throws Exception {
@@ -63,15 +51,13 @@ public class MenuImplService {
 	
 	public List<MenuDto> loadMenuByRole(String role, String locale, String type) throws Exception {
 		if(locale == null)
-			return loadMenuByRole(role, type);
+			locale = this.locale;
 		try {
 			locale = locale.split(",")[0];	
 		} catch (Exception e) {
-			return loadMenuByRole(role, type);
+			locale = this.locale;
 		}
-		if(locale.equals(this.locale))
-			return loadMenuByRole(role, type);
-		return constructMenu(this.menuRepo.loadTypeMenuByRoleI18n(role, locale, type), true);
+		return constructMenu(this.menuRepo.loadTypeMenuByRoleI18n(role, locale, type));
 	}
 	
 	private Map<String, List<MenuDto>> filterMenu(List<MenuDto> menus) {
@@ -92,14 +78,11 @@ public class MenuImplService {
 		return result;
 	}
 	
-	private List<MenuDto> constructMenu(List<MenuEntity> menus, boolean i18n) {
+	private List<MenuDto> constructMenu(List<MenuEntity> menus) {
 		List<MenuDto> menuDtos = new ArrayList<MenuDto>();
 		menus.forEach(menu->{
 			if(menu.getLevel() == 0) {
-				if(i18n)
-					menuDtos.add(menu.toObjectI18n());
-				else
-					menuDtos.add(menu.toObject());
+				menuDtos.add(menu.toObjectI18n());
 			}			
 		});
 		return menuDtos;
