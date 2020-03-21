@@ -42,10 +42,8 @@ public class ParameterGroupSpecification {
 									predicate.getExpressions().add(builder.equal(root.get(key), value));
 									break;
 								case "_all" :
-									predicate = builder.disjunction();
 									predicate.getExpressions().add(builder.like(builder.upper(root.<String>get("parameterGroupCode")), String.format("%%%s%%", value.toString().toUpperCase())));
 									predicate.getExpressions().add(builder.like(builder.upper(root.<String>get("parameterGroupName")), String.format("%%%s%%", value.toString().toUpperCase())));
-									predicate.getExpressions().add(builder.equal(root.get("i18n"), value));
 									break;
 								default :
 									break;
