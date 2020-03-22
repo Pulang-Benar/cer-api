@@ -3,6 +3,7 @@ package io.github.xaphira.master.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -47,11 +48,8 @@ public class ParameterEntity extends BaseAuditEntity {
 
 	@Column(name = "parameter_code", unique = true)
 	private String parameterCode;
-
-	@Column(name = "parameter_value", nullable = false)
-	private String parameterValue;
 	
-	@OneToMany(mappedBy = "parameter", targetEntity = ParameterI18nEntity.class, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "parameter", targetEntity = ParameterI18nEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@Fetch(FetchMode.SELECT)
 	private Set<ParameterI18nEntity> parameterI18n = new HashSet<ParameterI18nEntity>();
 

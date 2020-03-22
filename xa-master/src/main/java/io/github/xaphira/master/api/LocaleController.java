@@ -1,5 +1,7 @@
 package io.github.xaphira.master.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.xaphira.common.exceptions.BaseControllerException;
 import io.github.xaphira.feign.dto.common.FilterDto;
+import io.github.xaphira.feign.dto.master.LocaleDto;
 import io.github.xaphira.feign.dto.select.SelectResponseDto;
 import io.github.xaphira.master.service.LocaleImplService;
 
@@ -31,6 +34,11 @@ public class LocaleController extends BaseControllerException {
 	@RequestMapping(value = "/vw/get/select/all/locale/v.1", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SelectResponseDto> getSelectAllLocale(Authentication authentication) throws Exception {
 		return new ResponseEntity<SelectResponseDto>(localeService.getSelectAllLocale(), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/vw/get/all/locale/v.1", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<LocaleDto>> getAllLocale(Authentication authentication) throws Exception {
+		return new ResponseEntity<List<LocaleDto>>(localeService.getAllLocale(), HttpStatus.OK);
 	}
 	
 }

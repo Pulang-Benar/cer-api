@@ -16,6 +16,7 @@ import io.github.xaphira.file.configuration.ResourceServerFileAdapter;
 import io.github.xaphira.general.configuration.ResourceServerGeneralAdapter;
 import io.github.xaphira.master.configuration.ResourceServerMasterAdapter;
 import io.github.xaphira.notification.configuration.ResourceServerNotificationAdapter;
+import io.github.xaphira.panic.configuration.ResourceServerPanicAdapter;
 import io.github.xaphira.security.configuration.ResourceServerProfileAdapter;
 import io.github.xaphira.security.configuration.ResourceServerSecurityAdapter;
 
@@ -68,6 +69,18 @@ public class ResourceServerListConfiguration {
 	}
 
 	@Bean
+	protected ResourceServerConfiguration panicResources() {
+		ResourceServerConfiguration resource = new ResourceServerConfiguration() {
+			public void setConfigurers(List<ResourceServerConfigurer> configurers) {
+				super.setConfigurers(configurers);
+			}
+		};
+		resource.setConfigurers(Arrays.<ResourceServerConfigurer> asList(new ResourceServerPanicAdapter(tokenStore, accessDeniedHandler, authenticationEntryPoint)));
+		resource.setOrder(-16);
+		return resource;
+	}
+
+	@Bean
 	protected ResourceServerConfiguration notificationResources() {
 		ResourceServerConfiguration resource = new ResourceServerConfiguration() {
 			public void setConfigurers(List<ResourceServerConfigurer> configurers) {
@@ -75,7 +88,7 @@ public class ResourceServerListConfiguration {
 			}
 		};
 		resource.setConfigurers(Arrays.<ResourceServerConfigurer> asList(new ResourceServerNotificationAdapter(tokenStore, accessDeniedHandler, authenticationEntryPoint)));
-		resource.setOrder(-16);
+		resource.setOrder(-17);
 		return resource;
 	}
 
@@ -87,7 +100,7 @@ public class ResourceServerListConfiguration {
 			}
 		};
 		resource.setConfigurers(Arrays.<ResourceServerConfigurer> asList(new ResourceServerGeneralAdapter(tokenStore, accessDeniedHandler, authenticationEntryPoint)));
-		resource.setOrder(-17);
+		resource.setOrder(-18);
 		return resource;
 	}
 
@@ -99,7 +112,7 @@ public class ResourceServerListConfiguration {
 			}
 		};
 		resource.setConfigurers(Arrays.<ResourceServerConfigurer> asList(new ResourceServerFileAdapter(tokenStore, accessDeniedHandler, authenticationEntryPoint)));
-		resource.setOrder(-18);
+		resource.setOrder(-19);
 		return resource;
 	}
 	

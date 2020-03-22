@@ -7,8 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import io.github.xaphira.common.service.CommonService;
+import io.github.xaphira.feign.dto.common.CommonResponseDto;
 import io.github.xaphira.feign.dto.common.FilterDto;
-import io.github.xaphira.feign.dto.master.CityDatatableResponseDto;
 import io.github.xaphira.feign.dto.master.CityDto;
 import io.github.xaphira.feign.dto.select.SelectDto;
 import io.github.xaphira.feign.dto.select.SelectResponseDto;
@@ -35,9 +35,9 @@ public class CityImplService extends CommonService {
 		return response;
 	}
 
-	public CityDatatableResponseDto getDatatableCity(FilterDto filter) throws Exception {
+	public CommonResponseDto<CityDto> getDatatableCity(FilterDto filter) throws Exception {
 		Page<CityEntity> city = cityRepo.findAll(CitySpecification.getDatatable(filter.getKeyword()), page(filter.getOrder(), filter.getOffset(), filter.getLimit()));
-		CityDatatableResponseDto response = new CityDatatableResponseDto();
+		CommonResponseDto<CityDto> response = new CommonResponseDto<CityDto>();
 		response.setTotalFiltered(new Long(city.getContent().size()));
 		response.setTotalRecord(cityRepo.count(CitySpecification.getDatatable(filter.getKeyword())));
 		city.getContent().forEach(value -> {

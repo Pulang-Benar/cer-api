@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.xaphira.common.exceptions.BaseControllerException;
+import io.github.xaphira.feign.dto.common.CommonResponseDto;
 import io.github.xaphira.feign.dto.common.FilterDto;
-import io.github.xaphira.feign.dto.master.ParameterDatatableResponseDto;
+import io.github.xaphira.feign.dto.master.ParameterDto;
 import io.github.xaphira.feign.dto.select.SelectResponseDto;
 import io.github.xaphira.master.service.ParameterImplService;
 
@@ -30,9 +31,9 @@ public class ParameterController extends BaseControllerException {
 	}
 
 	@RequestMapping(value = "/vw/post/datatable/parameter/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ParameterDatatableResponseDto> getDatatableParameter(Authentication authentication,
+	public ResponseEntity<CommonResponseDto<ParameterDto>> getDatatableParameter(Authentication authentication,
 			@RequestBody(required = true) FilterDto filter) throws Exception {
-		return new ResponseEntity<ParameterDatatableResponseDto>(this.parameterService.getDatatableParameter(filter), HttpStatus.OK);
+		return new ResponseEntity<CommonResponseDto<ParameterDto>>(this.parameterService.getDatatableParameter(filter), HttpStatus.OK);
 	}
 	
 }

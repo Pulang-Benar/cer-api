@@ -38,9 +38,6 @@ public class ParameterGroupSpecification {
 									// builder.upper for PostgreSQL
 									predicate.getExpressions().add(builder.like(builder.upper(root.<String>get(key)), String.format("%%%s%%", value.toString().toUpperCase())));
 									break;
-								case "i18n" :
-									predicate.getExpressions().add(builder.equal(root.get(key), value));
-									break;
 								case "_all" :
 									predicate.getExpressions().add(builder.like(builder.upper(root.<String>get("parameterGroupCode")), String.format("%%%s%%", value.toString().toUpperCase())));
 									predicate.getExpressions().add(builder.like(builder.upper(root.<String>get("parameterGroupName")), String.format("%%%s%%", value.toString().toUpperCase())));

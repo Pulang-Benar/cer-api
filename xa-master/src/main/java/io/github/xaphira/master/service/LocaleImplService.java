@@ -1,5 +1,6 @@
 package io.github.xaphira.master.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import io.github.xaphira.common.service.CommonService;
 import io.github.xaphira.feign.dto.common.FilterDto;
+import io.github.xaphira.feign.dto.master.LocaleDto;
 import io.github.xaphira.feign.dto.select.SelectDto;
 import io.github.xaphira.feign.dto.select.SelectResponseDto;
 import io.github.xaphira.master.dao.LocaleRepo;
@@ -42,6 +44,27 @@ public class LocaleImplService extends CommonService {
 		response.setTotalRecord(new Long(locale.size()));
 		locale.forEach(value -> {
 			response.getData().add(new SelectDto(value.getIdentifier(), value.getLocaleCode(), !value.isActive(), value.getIcon()));
+		});
+		return response;
+	}
+
+	public List<LocaleDto> getAllLocale() throws Exception {
+		List<LocaleEntity> locale = localeRepo.findAll();
+		List<LocaleDto> response = new ArrayList<LocaleDto>();
+		locale.forEach(value -> {
+			LocaleDto temp = new LocaleDto();
+			temp.setLocaleCode(value.getLocaleCode());
+			temp.setIdentifier(value.getIdentifier());
+			temp.setIcon(value.getIcon());
+			temp.setLocaleDefault(value.isLocaleDefault());
+			temp.setLocaleEnabled(value.isLocaleEnabled());
+			temp.setActive(value.isActive());
+			temp.setVersion(value.getVersion());
+			temp.setCreatedBy(value.getCreatedBy());
+			temp.setCreatedDate(value.getCreatedDate());
+			temp.setModifiedBy(value.getModifiedBy());
+			temp.setModifiedDate(value.getModifiedDate());
+			response.add(temp);
 		});
 		return response;
 	}

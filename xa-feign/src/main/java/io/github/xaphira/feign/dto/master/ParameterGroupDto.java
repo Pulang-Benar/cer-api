@@ -20,6 +20,5 @@ public class ParameterGroupDto extends BaseAuditDto {
 	private static final long serialVersionUID = -8125190677227153892L;
 	private String parameterGroupCode;
 	private String parameterGroupName;
-	private boolean i18n;
 
 }

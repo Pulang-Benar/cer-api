@@ -1,5 +1,7 @@
 package io.github.xaphira.feign.dto.master;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,14 +11,16 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @ToString
-public class ParameterDto extends ParameterGroupDto {
+public class ParameterGroupRequestDto implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8125190677227153892L;
-	private String parameterCode;
+	private String parameterGroupCode;
+	private String parameterGroupName;
+	
 
 }

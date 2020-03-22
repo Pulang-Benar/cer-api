@@ -45,9 +45,6 @@ public class ParameterI18nEntity extends BaseAuditEntity {
 	@Column(name = "locale_code")
 	private String localeCode;
 
-	@Column(name = "is_default", nullable = false)
-	private boolean parameterDefault = false;
-
 	@ManyToOne(targetEntity = ParameterEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "parameter_uuid", nullable = false, insertable = false, updatable = false)
 	private ParameterEntity parameter;

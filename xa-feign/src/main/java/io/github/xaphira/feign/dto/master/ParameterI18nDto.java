@@ -11,12 +11,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString
-public class ParameterDto extends ParameterGroupDto {
+public class ParameterI18nDto extends ParameterDto {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8125190677227153892L;
-	private String parameterCode;
+	private String parameterValue;
+	private String locale;
 
 }

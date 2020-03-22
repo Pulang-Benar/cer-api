@@ -37,13 +37,11 @@ public class ParameterSpecification {
 									predicate = builder.and(predicate, builder.equal(root.join("parameterGroup").<String>get(key), value.toString()));
 									break;
 								case "parameterCode" :
-								case "parameterValue" :
 									// builder.upper for PostgreSQL
 									predicate.getExpressions().add(builder.like(builder.upper(root.<String>get(key)), String.format("%%%s%%", value.toString().toUpperCase())));
 									break;
 								case "_all" :
 									predicate.getExpressions().add(builder.like(builder.upper(root.<String>get("parameterCode")), String.format("%%%s%%", value.toString().toUpperCase())));
-									predicate.getExpressions().add(builder.like(builder.upper(root.<String>get("parameterValue")), String.format("%%%s%%", value.toString().toUpperCase())));
 									break;
 								default :
 									break;

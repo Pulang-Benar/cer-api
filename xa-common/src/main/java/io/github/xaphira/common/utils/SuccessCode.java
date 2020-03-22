@@ -12,7 +12,8 @@ public enum SuccessCode {
 	OK_SCR005(HttpStatus.OK),
 	OK_SCR006(HttpStatus.OK),
 	OK_SCR007(HttpStatus.CREATED),
-	OK_SCR008(HttpStatus.OK);
+	OK_SCR008(HttpStatus.OK),
+	OK_SCR009(HttpStatus.OK);
 
 	private final HttpStatus status;
 

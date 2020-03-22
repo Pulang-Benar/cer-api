@@ -10,10 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.github.xaphira.common.aspect.ResponseSuccess;
 import io.github.xaphira.common.exceptions.BaseControllerException;
+import io.github.xaphira.common.http.ApiBaseResponse;
+import io.github.xaphira.common.utils.SuccessCode;
+import io.github.xaphira.feign.dto.common.CommonResponseDto;
 import io.github.xaphira.feign.dto.common.FilterDto;
-import io.github.xaphira.feign.dto.master.ParameterGroupDatatableResponseDto;
-import io.github.xaphira.feign.dto.select.SelectResponseDto;
+import io.github.xaphira.feign.dto.master.ParameterGroupDto;
+import io.github.xaphira.feign.dto.master.ParameterGroupRequestDto;
 import io.github.xaphira.master.service.ParameterGroupImplService;
 
 @RestController
@@ -23,16 +27,19 @@ public class ParameterGroupController extends BaseControllerException {
 	@Autowired
 	private ParameterGroupImplService parameterGroupService;
 
-	@RequestMapping(value = "/vw/post/select/parameter-group/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<SelectResponseDto> getSelectParameterGroup(Authentication authentication,
-			@RequestBody(required = true) FilterDto filter) throws Exception {
-		return new ResponseEntity<SelectResponseDto>(new SelectResponseDto(), HttpStatus.OK);
-	}
-
 	@RequestMapping(value = "/vw/post/datatable/parameter-group/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ParameterGroupDatatableResponseDto> getDatatableParameter(Authentication authentication,
+	public ResponseEntity<CommonResponseDto<ParameterGroupDto>> getDatatableParameter(Authentication authentication,
 			@RequestBody(required = true) FilterDto filter) throws Exception {
-		return new ResponseEntity<ParameterGroupDatatableResponseDto>(this.parameterGroupService.getDatatableParameterGroup(filter), HttpStatus.OK);
+		return new ResponseEntity<CommonResponseDto<ParameterGroupDto>>(this.parameterGroupService.getDatatableParameterGroup(filter), HttpStatus.OK);
+	}
+	
+	@ResponseSuccess(SuccessCode.OK_SCR009)
+	@RequestMapping(value = "/trx/post/parameter-group/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ApiBaseResponse> postParameterCode(Authentication authentication,
+			@RequestBody(required = true) ParameterGroupRequestDto data) throws Exception {
+		String username = authentication.getName();
+		this.parameterGroupService.postParameterGroup(data, username);
+		return new ResponseEntity<ApiBaseResponse>(new ApiBaseResponse(), HttpStatus.OK);
 	}
 	
 }

@@ -7,4 +7,6 @@ import io.github.xaphira.master.entity.ParameterGroupEntity;
 
 public interface ParameterGroupRepo extends JpaRepository<ParameterGroupEntity, String>, JpaSpecificationExecutor<ParameterGroupEntity> {
 	
+	ParameterGroupEntity findByParameterGroupCode(String parameterGroupCode);
+	
 }

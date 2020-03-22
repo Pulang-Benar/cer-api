@@ -7,4 +7,6 @@ import io.github.xaphira.master.entity.ParameterEntity;
 
 public interface ParameterRepo extends JpaRepository<ParameterEntity, String>, JpaSpecificationExecutor<ParameterEntity> {
 	
+	ParameterEntity findByParameterCode(String parameterCode);
+	
 }
