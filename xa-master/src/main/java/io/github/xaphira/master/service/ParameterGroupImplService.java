@@ -1,12 +1,15 @@
 package io.github.xaphira.master.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +69,17 @@ public class ParameterGroupImplService extends CommonService {
 			parameterGroupRepo.saveAndFlush(paramGroup);
 		} else {
 			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+		}
+	}
+	
+	public void deleteParameterGroup(List<String> parameterGroupCodes) throws Exception {
+		List<ParameterGroupEntity> parameterGroups = parameterGroupRepo.findByParameterGroupCodeIn(parameterGroupCodes);
+		try {
+			parameterGroupRepo.deleteInBatch(parameterGroups);			
+		} catch (DataIntegrityViolationException e) {
+			throw new SystemErrorException(ErrorCode.ERR_SCR0009);
+		} catch (ConstraintViolationException e) {
+			throw new SystemErrorException(ErrorCode.ERR_SCR0009);
 		}
 	}
 

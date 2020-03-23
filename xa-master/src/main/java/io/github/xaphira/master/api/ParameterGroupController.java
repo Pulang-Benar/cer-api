@@ -1,5 +1,7 @@
 package io.github.xaphira.master.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,6 +41,14 @@ public class ParameterGroupController extends BaseControllerException {
 			@RequestBody(required = true) ParameterGroupRequestDto data) throws Exception {
 		String username = authentication.getName();
 		this.parameterGroupService.postParameterGroup(data, username);
+		return new ResponseEntity<ApiBaseResponse>(new ApiBaseResponse(), HttpStatus.OK);
+	}
+	
+	@ResponseSuccess(SuccessCode.OK_SCR009)
+	@RequestMapping(value = "/trx/delete/parameter-group/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ApiBaseResponse> deleteParameterCode(Authentication authentication,
+			@RequestBody(required = true) List<String> datas) throws Exception {
+		this.parameterGroupService.deleteParameterGroup(datas);
 		return new ResponseEntity<ApiBaseResponse>(new ApiBaseResponse(), HttpStatus.OK);
 	}
 	

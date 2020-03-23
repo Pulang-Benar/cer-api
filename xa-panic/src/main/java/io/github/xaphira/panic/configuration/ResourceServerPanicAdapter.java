@@ -59,6 +59,8 @@ public class ResourceServerPanicAdapter extends ResourceServerConfigurerAdapter 
         	.access("#oauth2.hasScope('write')")
         .antMatchers(HttpMethod.POST,"/api/"	+resourceId+ "/trx/post/**")
         	.access("#oauth2.hasScope('write')")
+        .antMatchers(HttpMethod.POST,"/api/"	+resourceId+ "/trx/delete/**")
+        	.access("#oauth2.hasScope('write')")
         .antMatchers(HttpMethod.PUT,"/api/"		+resourceId+ "/trx/put/**")
         	.access("#oauth2.hasScope('write')")
         .antMatchers(HttpMethod.GET,"/api/" 	+resourceId+ "/vw/auth/**")
