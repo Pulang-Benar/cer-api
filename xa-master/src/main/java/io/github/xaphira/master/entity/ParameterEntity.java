@@ -29,8 +29,8 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
-@ToString()
+@EqualsAndHashCode(callSuper=false, exclude = { "parameterI18n" })
+@ToString(exclude = { "parameterI18n" })
 @Entity
 @Table(name = "mst_parameter", schema = SchemaDatabase.MASTER)
 public class ParameterEntity extends BaseAuditEntity {
@@ -54,7 +54,7 @@ public class ParameterEntity extends BaseAuditEntity {
 	private Set<ParameterI18nEntity> parameterI18n = new HashSet<ParameterI18nEntity>();
 
 	@ManyToOne(targetEntity = ParameterGroupEntity.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "parameter_group_uuid", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "parameter_group_uuid", nullable = false, updatable = false)
 	private ParameterGroupEntity parameterGroup;
 
 }

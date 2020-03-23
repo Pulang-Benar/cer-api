@@ -22,8 +22,8 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false)
-@ToString()
+@EqualsAndHashCode(callSuper=false, exclude = { "parameter" })
+@ToString(exclude = { "parameter" })
 @Entity
 @Table(name = "mst_parameter_i18n", schema = SchemaDatabase.MASTER)
 public class ParameterI18nEntity extends BaseAuditEntity {
@@ -45,8 +45,8 @@ public class ParameterI18nEntity extends BaseAuditEntity {
 	@Column(name = "locale_code")
 	private String localeCode;
 
-	@ManyToOne(targetEntity = ParameterEntity.class, fetch = FetchType.EAGER)
-	@JoinColumn(name = "parameter_uuid", nullable = false, insertable = false, updatable = false)
+	@ManyToOne(targetEntity = ParameterEntity.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "parameter_uuid", nullable = false, updatable = false)
 	private ParameterEntity parameter;
 
 }
