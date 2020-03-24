@@ -19,7 +19,6 @@ import io.github.xaphira.common.utils.ErrorCode;
 import io.github.xaphira.feign.dto.common.CommonResponseDto;
 import io.github.xaphira.feign.dto.common.FilterDto;
 import io.github.xaphira.feign.dto.master.ParameterGroupDto;
-import io.github.xaphira.feign.dto.master.ParameterGroupRequestDto;
 import io.github.xaphira.master.dao.ParameterGroupRepo;
 import io.github.xaphira.master.dao.specification.ParameterGroupSpecification;
 import io.github.xaphira.master.entity.ParameterGroupEntity;
@@ -53,7 +52,7 @@ public class ParameterGroupImplService extends CommonService {
 	}
 	
 	@Transactional
-	public void postParameterGroup(ParameterGroupRequestDto request, String username) throws Exception {
+	public void postParameterGroup(ParameterGroupDto request, String username) throws Exception {
 		if (request.getParameterGroupName() != null && request.getParameterGroupCode() != null) {
 			ParameterGroupEntity paramGroup = parameterGroupRepo.findByParameterGroupCode(request.getParameterGroupCode());
 			if (paramGroup == null) {

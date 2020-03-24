@@ -1,7 +1,10 @@
 package io.github.xaphira.master.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import io.github.xaphira.common.exceptions.SystemErrorException;
 import io.github.xaphira.common.service.CommonService;
+import io.github.xaphira.common.utils.ErrorCode;
 import io.github.xaphira.feign.dto.common.CommonResponseDto;
 import io.github.xaphira.feign.dto.common.FilterDto;
 import io.github.xaphira.feign.dto.master.LocaleDto;
@@ -91,6 +96,36 @@ public class LocaleImplService extends CommonService {
 			response.getData().add(temp);
 		});
 		return response;
+	}
+	
+	@Transactional
+	public void postLocale(LocaleDto request, String username) throws Exception {
+		if (request.getLocaleCode() != null && request.getIdentifier() != null) {
+			if (request.isLocaleDefault()) {
+				localeRepo.changeLocaleDefault();
+				localeRepo.flush();
+			}
+			LocaleEntity locale = localeRepo.findByLocaleCode(request.getLocaleCode());
+			if (locale == null) {
+				locale = new LocaleEntity();
+				locale.setLocaleCode(request.getLocaleCode());
+				locale.setLocaleDefault(request.isLocaleDefault());
+				locale.setCreatedBy(username);
+				locale.setCreatedDate(new Date());
+			} else {
+				if (request.isLocaleDefault()) {
+					locale.setLocaleCode(request.getLocaleCode());
+				}
+				locale.setModifiedBy(username);
+				locale.setModifiedDate(new Date());				
+			}
+			locale.setLocaleEnabled(request.isLocaleEnabled());
+			locale.setIdentifier(request.getIdentifier());
+			locale.setIcon(request.getIcon());
+			locale = localeRepo.saveAndFlush(locale);
+		} else {
+			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+		}
 	}
 
 }

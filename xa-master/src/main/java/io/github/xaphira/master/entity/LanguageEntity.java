@@ -33,22 +33,13 @@ public class LanguageEntity extends BaseAuditEntity {
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")
-	@Column(name = "locale_uuid", nullable = false, unique = true)
+	@Column(name = "language_uuid", nullable = false, unique = true)
 	private String id;
 
-	@Column(name = "locale_code", unique = true)
-	private String localeCode;
+	@Column(name = "language_code", unique = true)
+	private String languageCode;
 
-	@Column(name = "locale_identifier", nullable = false)
+	@Column(name = "language_identifier", nullable = false)
 	private String identifier;
-
-	@Column(name = "locale_icon")
-	private String icon;
-
-	@Column(name = "locale_default")
-	private boolean localeDefault;
-
-	@Column(name = "locale_enabled")
-	private boolean localeEnabled;
 
 }

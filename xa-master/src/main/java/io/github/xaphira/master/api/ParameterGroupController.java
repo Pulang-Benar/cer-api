@@ -19,7 +19,6 @@ import io.github.xaphira.common.utils.SuccessCode;
 import io.github.xaphira.feign.dto.common.CommonResponseDto;
 import io.github.xaphira.feign.dto.common.FilterDto;
 import io.github.xaphira.feign.dto.master.ParameterGroupDto;
-import io.github.xaphira.feign.dto.master.ParameterGroupRequestDto;
 import io.github.xaphira.master.service.ParameterGroupImplService;
 
 @RestController
@@ -37,8 +36,8 @@ public class ParameterGroupController extends BaseControllerException {
 	
 	@ResponseSuccess(SuccessCode.OK_SCR009)
 	@RequestMapping(value = "/trx/post/parameter-group/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ApiBaseResponse> postParameterCode(Authentication authentication,
-			@RequestBody(required = true) ParameterGroupRequestDto data) throws Exception {
+	public ResponseEntity<ApiBaseResponse> postParameterGroup(Authentication authentication,
+			@RequestBody(required = true) ParameterGroupDto data) throws Exception {
 		String username = authentication.getName();
 		this.parameterGroupService.postParameterGroup(data, username);
 		return new ResponseEntity<ApiBaseResponse>(new ApiBaseResponse(), HttpStatus.OK);
@@ -46,7 +45,7 @@ public class ParameterGroupController extends BaseControllerException {
 	
 	@ResponseSuccess(SuccessCode.OK_SCR009)
 	@RequestMapping(value = "/trx/delete/parameter-group/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ApiBaseResponse> deleteParameterCode(Authentication authentication,
+	public ResponseEntity<ApiBaseResponse> deleteParameterGroup(Authentication authentication,
 			@RequestBody(required = true) List<String> datas) throws Exception {
 		this.parameterGroupService.deleteParameterGroup(datas);
 		return new ResponseEntity<ApiBaseResponse>(new ApiBaseResponse(), HttpStatus.OK);

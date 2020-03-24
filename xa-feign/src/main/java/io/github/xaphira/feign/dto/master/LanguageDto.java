@@ -1,7 +1,6 @@
 package io.github.xaphira.feign.dto.master;
 
-import java.io.Serializable;
-
+import io.github.xaphira.feign.dto.common.BaseAuditDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,16 +10,15 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
-public class ParameterGroupRequestDto implements Serializable {
+public class LanguageDto extends BaseAuditDto {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8125190677227153892L;
-	private String parameterGroupCode;
-	private String parameterGroupName;
-	
+	private String languageCode;
+	private String identifier;
 
 }

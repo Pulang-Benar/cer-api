@@ -1,16 +1,3 @@
-CREATE TABLE master.mst_city (
-	"id" int NOT NULL,
-	code varchar(100),
-	"name" varchar(200),
-	"version" int DEFAULT 0 NOT NULL,
-	is_active boolean DEFAULT true NOT NULL,
-	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
-	created_by varchar(25),
-	modified_date timestamp,
-	modified_by varchar(25),
-	province_id int NOT NULL,
-	PRIMARY KEY ("id")
-);
 CREATE TABLE master.mst_country (
 	country_uuid varchar(36) NOT NULL,
 	country_code varchar(3) NOT NULL,
@@ -26,44 +13,6 @@ CREATE TABLE master.mst_country (
 	modified_by varchar(25),
 	PRIMARY KEY (country_uuid)
 );
-CREATE TABLE master.mst_currency (
-	currency_uuid varchar(36) NOT NULL,
-	currency_code varchar(3) NOT NULL,
-	currency_name varchar(150) NOT NULL,
-	currency_sign varchar(10),
-	"version" int DEFAULT 0 NOT NULL,
-	is_active boolean DEFAULT true NOT NULL,
-	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
-	created_by varchar(25),
-	modified_date timestamp,
-	modified_by varchar(25),
-	PRIMARY KEY (currency_uuid)
-);
-CREATE TABLE master.mst_district (
-	"id" int NOT NULL,
-	code varchar(100),
-	"name" varchar(200),
-	"version" int DEFAULT 0 NOT NULL,
-	is_active boolean DEFAULT true NOT NULL,
-	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
-	created_by varchar(25),
-	modified_date timestamp,
-	modified_by varchar(25),
-	city_id int NOT NULL,
-	PRIMARY KEY ("id")
-);
-CREATE TABLE master.mst_language (
-	language_uuid varchar(36) NOT NULL,
-	language_code varchar(10) NOT NULL,
-	language_identifier varchar(100) NOT NULL,
-	"version" int DEFAULT 0 NOT NULL,
-	is_active boolean DEFAULT true NOT NULL,
-	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
-	created_by varchar(25),
-	modified_date timestamp,
-	modified_by varchar(25),
-	PRIMARY KEY (language_uuid)
-);
 CREATE TABLE master.mst_province (
 	"id" int NOT NULL,
 	code varchar(100),
@@ -77,9 +26,31 @@ CREATE TABLE master.mst_province (
 	country_uuid varchar(36) NOT NULL,
 	PRIMARY KEY ("id")
 );
-CREATE TABLE master.mst_r_country_currency (
-	country_uuid varchar(36) NOT NULL,
-	currency_uuid varchar(36) NOT NULL
+CREATE TABLE master.mst_city (
+	"id" int NOT NULL,
+	code varchar(100),
+	"name" varchar(200),
+	"version" int DEFAULT 0 NOT NULL,
+	is_active boolean DEFAULT true NOT NULL,
+	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
+	created_by varchar(25),
+	modified_date timestamp,
+	modified_by varchar(25),
+	province_id int NOT NULL,
+	PRIMARY KEY ("id")
+);
+CREATE TABLE master.mst_district (
+	"id" int NOT NULL,
+	code varchar(100),
+	"name" varchar(200),
+	"version" int DEFAULT 0 NOT NULL,
+	is_active boolean DEFAULT true NOT NULL,
+	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
+	created_by varchar(25),
+	modified_date timestamp,
+	modified_by varchar(25),
+	city_id int NOT NULL,
+	PRIMARY KEY ("id")
 );
 CREATE TABLE master.mst_subdistrict (
 	"id" int NOT NULL,
@@ -103,6 +74,35 @@ CREATE TABLE master.mst_zipcode (
 	province_id int,
 	country_uuid varchar(36),
 	PRIMARY KEY ("id")
+);
+CREATE TABLE master.mst_currency (
+	currency_uuid varchar(36) NOT NULL,
+	currency_code varchar(3) NOT NULL,
+	currency_name varchar(150) NOT NULL,
+	currency_sign varchar(10),
+	"version" int DEFAULT 0 NOT NULL,
+	is_active boolean DEFAULT true NOT NULL,
+	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
+	created_by varchar(25),
+	modified_date timestamp,
+	modified_by varchar(25),
+	PRIMARY KEY (currency_uuid)
+);
+CREATE TABLE master.mst_r_country_currency (
+	country_uuid varchar(36) NOT NULL,
+	currency_uuid varchar(36) NOT NULL
+);
+CREATE TABLE master.mst_language (
+	language_uuid varchar(36) NOT NULL,
+	language_code varchar(10) NOT NULL,
+	language_identifier varchar(100) NOT NULL,
+	"version" int DEFAULT 0 NOT NULL,
+	is_active boolean DEFAULT true NOT NULL,
+	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
+	created_by varchar(25),
+	modified_date timestamp,
+	modified_by varchar(25),
+	PRIMARY KEY (language_uuid)
 );
 CREATE TABLE master.mst_locale (
 	locale_uuid varchar(36) NOT NULL,
