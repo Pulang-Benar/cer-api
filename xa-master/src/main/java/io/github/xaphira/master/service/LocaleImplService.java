@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import io.github.xaphira.common.service.CommonService;
+import io.github.xaphira.feign.dto.common.CommonResponseDto;
 import io.github.xaphira.feign.dto.common.FilterDto;
 import io.github.xaphira.feign.dto.master.LocaleDto;
 import io.github.xaphira.feign.dto.select.SelectDto;
@@ -65,6 +66,29 @@ public class LocaleImplService extends CommonService {
 			temp.setModifiedBy(value.getModifiedBy());
 			temp.setModifiedDate(value.getModifiedDate());
 			response.add(temp);
+		});
+		return response;
+	}
+
+	public CommonResponseDto<LocaleDto> getDatatableLocale(FilterDto filter) throws Exception {
+		Page<LocaleEntity> locale = localeRepo.findAll(LocaleSpecification.getDatatable(filter.getKeyword()), page(filter.getOrder(), filter.getOffset(), filter.getLimit()));
+		CommonResponseDto<LocaleDto> response = new CommonResponseDto<LocaleDto>();
+		response.setTotalFiltered(new Long(locale.getContent().size()));
+		response.setTotalRecord(localeRepo.count(LocaleSpecification.getDatatable(filter.getKeyword())));
+		locale.getContent().forEach(value -> {
+			LocaleDto temp = new LocaleDto();
+			temp.setLocaleCode(value.getLocaleCode());
+			temp.setIdentifier(value.getIdentifier());
+			temp.setIcon(value.getIcon());
+			temp.setLocaleDefault(value.isLocaleDefault());
+			temp.setLocaleEnabled(value.isLocaleEnabled());
+			temp.setActive(value.isActive());
+			temp.setVersion(value.getVersion());
+			temp.setCreatedDate(value.getCreatedDate());
+			temp.setCreatedBy(value.getCreatedBy());
+			temp.setModifiedDate(value.getModifiedDate());
+			temp.setModifiedBy(value.getModifiedBy());
+			response.getData().add(temp);
 		});
 		return response;
 	}

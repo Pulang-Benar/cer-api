@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.xaphira.common.exceptions.BaseControllerException;
+import io.github.xaphira.feign.dto.common.CommonResponseDto;
 import io.github.xaphira.feign.dto.common.FilterDto;
 import io.github.xaphira.feign.dto.master.LocaleDto;
 import io.github.xaphira.feign.dto.select.SelectResponseDto;
@@ -39,6 +40,12 @@ public class LocaleController extends BaseControllerException {
 	@RequestMapping(value = "/vw/get/all/locale/v.1", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<LocaleDto>> getAllLocale(Authentication authentication) throws Exception {
 		return new ResponseEntity<List<LocaleDto>>(localeService.getAllLocale(), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/vw/post/datatable/locale/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<CommonResponseDto<LocaleDto>> getDatatableLocale(Authentication authentication,
+			@RequestBody(required = true) FilterDto filter) throws Exception {
+		return new ResponseEntity<CommonResponseDto<LocaleDto>>(this.localeService.getDatatableLocale(filter), HttpStatus.OK);
 	}
 	
 }

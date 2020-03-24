@@ -51,4 +51,41 @@ public class LocaleSpecification {
 		};
 	}
 
+	public static Specification<LocaleEntity> getDatatable(Map<String, Object> keyword) {
+		return new Specification<LocaleEntity>() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -637621292944403277L;
+
+			@Override
+			public Predicate toPredicate(Root<LocaleEntity> root, CriteriaQuery<?> criteria, CriteriaBuilder builder) {
+				Predicate predicate = builder.conjunction();
+				if (!keyword.isEmpty()) {
+					for(Map.Entry<String, Object> filter : keyword.entrySet()) {
+						String key = filter.getKey();
+						Object value = filter.getValue();
+						if (value != null) {
+							switch (key) {
+								case "localeCode" :
+								case "identifier" :
+									// builder.upper for PostgreSQL
+									predicate.getExpressions().add(builder.like(builder.upper(root.<String>get(key)), String.format("%%%s%%", value.toString().toUpperCase())));
+									break;
+								case "_all" :
+									predicate.getExpressions().add(builder.like(builder.upper(root.<String>get("localeCode")), String.format("%%%s%%", value.toString().toUpperCase())));
+									predicate.getExpressions().add(builder.like(builder.upper(root.<String>get("identifier")), String.format("%%%s%%", value.toString().toUpperCase())));
+									break;
+								default :
+									break;
+							}	
+						}
+					}
+				}
+				return predicate;
+			}
+		};
+	}
+
 }
