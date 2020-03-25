@@ -3,8 +3,8 @@
 --
 
 INSERT INTO master.mst_locale (locale_uuid, locale_code, locale_identifier, locale_icon, locale_default, locale_enabled, "version", is_active, created_date, created_by, modified_date, modified_by) VALUES
-('6a6ae290-7c33-46bd-a05a-f6f3964e4cb4', 'en-US', 'English (United States)', '<span class="flag-icon flag-icon-us"></span>', true, true, 0, true, '2018-12-04 08:59:55', NULL, NULL, NULL),
-('061e3d94-bfef-4e5f-bb24-735ba18e435f', 'id-ID', 'Indonesian (Indonesia)', '<span class="flag-icon flag-icon-id"></span>', false, true, 0, true, '2018-12-04 08:59:55', NULL, NULL, NULL);
+('6a6ae290-7c33-46bd-a05a-f6f3964e4cb4', 'en-US', 'English (United States)', 'flag-icon flag-icon-us', true, true, 0, true, '2018-12-04 08:59:55', NULL, NULL, NULL),
+('061e3d94-bfef-4e5f-bb24-735ba18e435f', 'id-ID', 'Indonesian (Indonesia)', 'flag-icon flag-icon-id', false, true, 0, true, '2018-12-04 08:59:55', NULL, NULL, NULL);
 
 --
 -- Dumping data for table mst_parameter_group
