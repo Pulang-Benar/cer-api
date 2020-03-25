@@ -48,7 +48,7 @@ INSERT INTO security.sec_menu (menu_uuid, code, url, "level", ordering, ordering
 ('542a2e77-6722-4d09-b5e3-ddf692431213', '#REPORT-PERIODE-PAGE', '/app/report/periode', 1, 2, '002.002', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '5f4872f1-627e-4789-adf7-dc6db3884267'),
 ('0019a3e6-86ed-46d4-b6b2-e9525385c65f', '#REPORT-AGE-PAGE', '/app/report/age', 1, 3, '002.003', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '5f4872f1-627e-4789-adf7-dc6db3884267'),
 ('e76e6cfa-5ef2-4bc4-b5d4-dac5353d071c', '#FAKE-REPORTS-PAGE', '/app/fake-reports', 0, 3, '003', 'slash-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
-('f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8', '#USER-MANAGEMENT-PAGE', '/app/user-management', 0, 4, '004', 'people-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
+('f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8', '#MANAGEMENT-USER-PAGE', '/app/mgmt/user', 0, 4, '004', 'people-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
 ('3cf5bced-7def-426a-99f7-c8d44e1ce74c', NULL, '#', 0, 5, '005', 'settings-2-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
 ('8c66c75e-5931-40af-af28-7c60b366ffd4', '#SYSCONF-PARAMETER-PAGE', '/app/sysconf/parameter', 1, 0, '005.000', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '3cf5bced-7def-426a-99f7-c8d44e1ce74c'),
 ('b81076bf-dda0-4278-b639-ba6f750eb8c9', '#SYSCONF-LANGUAGE-PAGE', '/app/sysconf/language', 1, 1, '005.001', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '3cf5bced-7def-426a-99f7-c8d44e1ce74c');
