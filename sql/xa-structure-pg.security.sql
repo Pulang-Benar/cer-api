@@ -180,6 +180,7 @@ CREATE TABLE security.sec_user (
 CREATE TABLE security.sec_profile (
 	profile_uuid varchar(36) NOT NULL,
 	fullname varchar(200) NOT NULL,
+	id_number varchar(50),
 	gender varchar(20),
 	date_of_birth date,
 	address text,
@@ -189,7 +190,6 @@ CREATE TABLE security.sec_profile (
 	sub_district varchar(200),
 	zipcode varchar(200),
 	phone_number varchar(20),
-	mobile_number varchar(20),
 	image varchar(250),
 	description text,
 	"version" int DEFAULT 0 NOT NULL,
