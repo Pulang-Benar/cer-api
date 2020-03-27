@@ -2,10 +2,11 @@
 -- Table Shcema of Business
 --
 
-CREATE TABLE security.sec_reference_user (
-	reference_uuid varchar(36) NOT NULL,
+CREATE TABLE security.sec_personal_support (
+	personal_support_uuid varchar(36) NOT NULL,
+	id_number varchar(50) NOT NULL,
 	reference_name varchar(200) NOT NULL,
-	address text,
+	reference_address text,
 	reference_mobile_number varchar(20),
 	relationship varchar(250),
 	"version" int DEFAULT 0 NOT NULL,
@@ -15,7 +16,7 @@ CREATE TABLE security.sec_reference_user (
 	modified_date timestamp,
 	modified_by varchar(25),
 	user_uuid varchar(36) NOT NULL,
-	PRIMARY KEY (reference_uuid)
+	PRIMARY KEY (personal_support_uuid)
 );
 
 --
@@ -180,7 +181,6 @@ CREATE TABLE security.sec_user (
 CREATE TABLE security.sec_profile (
 	profile_uuid varchar(36) NOT NULL,
 	fullname varchar(200) NOT NULL,
-	id_number varchar(50),
 	gender varchar(20),
 	date_of_birth date,
 	address text,
@@ -205,7 +205,7 @@ CREATE TABLE security.sec_settings (
 	settings_uuid varchar(36) NOT NULL,
 	locale_code varchar(10) DEFAULT 'en-US' NOT NULL,
 	locale_identifier varchar(100) DEFAULT 'English (United States)' NOT NULL,
-	locale_icon varchar(100) DEFAULT '<span class="flag-icon flag-icon-us"></span>',
+	locale_icon varchar(100) DEFAULT 'flag-icon flag-icon-us',
 	theme varchar(10) DEFAULT 'default' NOT NULL,
 	"version" int DEFAULT 0 NOT NULL,
 	is_active boolean DEFAULT true NOT NULL,
@@ -221,7 +221,7 @@ ALTER TABLE security.sec_user ADD CONSTRAINT username UNIQUE (username);
 ALTER TABLE security.sec_user ADD CONSTRAINT email UNIQUE (email);
 ALTER TABLE security.sec_corporate ADD CONSTRAINT corporate_id UNIQUE (corporate_id);
 
-ALTER TABLE security.sec_reference_user
+ALTER TABLE security.sec_personal_support
 	ADD FOREIGN KEY (user_uuid) 
 	REFERENCES security.sec_user (user_uuid);
 
