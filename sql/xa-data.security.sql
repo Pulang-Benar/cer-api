@@ -83,8 +83,8 @@ INSERT INTO security.sec_menu (menu_uuid, code, url, "level", ordering, ordering
 ('0019a3e6-86ed-46d4-b6b2-e9525385c65f', '#REPORT-AGE-PAGE', '/app/report/age', 1, 3, '002.003', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '5f4872f1-627e-4789-adf7-dc6db3884267'),
 ('e76e6cfa-5ef2-4bc4-b5d4-dac5353d071c', '#FAKE-REPORTS-PAGE', '/app/fake-reports', 0, 3, '003', 'slash-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
 ('f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8', NULL, '#', 0, 4, '004', 'people-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
-('4dc5f8f6-29e6-4cb1-a137-d4cdd3e2f634', '#MANAGEMENT-CIVILIANS-PAGE', '/app/mgmt/civilians', 1, 0, '004.000', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, 'f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8'),
-('ab0c7ad2-5f53-4d42-9f49-e18a5d378c0f', '#MANAGEMENT-ADMIN-REGIONAL-PAGE', '/app/mgmt/admin-regional', 1, 1, '004.001', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, 'f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8'),
+('4dc5f8f6-29e6-4cb1-a137-d4cdd3e2f634', '#MANAGEMENT-CIVILIANS-PAGE', '/app/mgmt/user/civilians', 1, 0, '004.000', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, 'f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8'),
+('ab0c7ad2-5f53-4d42-9f49-e18a5d378c0f', '#MANAGEMENT-ADMIN-REGIONAL-PAGE', '/app/mgmt/user/admin-regional', 1, 1, '004.001', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, 'f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8'),
 ('3cf5bced-7def-426a-99f7-c8d44e1ce74c', NULL, '#', 0, 5, '005', 'settings-2-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
 ('8c66c75e-5931-40af-af28-7c60b366ffd4', '#SYSCONF-PARAMETER-PAGE', '/app/sysconf/parameter', 1, 0, '005.000', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '3cf5bced-7def-426a-99f7-c8d44e1ce74c'),
 ('b81076bf-dda0-4278-b639-ba6f750eb8c9', '#SYSCONF-LANGUAGE-PAGE', '/app/sysconf/language', 1, 1, '005.001', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '3cf5bced-7def-426a-99f7-c8d44e1ce74c');
@@ -301,42 +301,57 @@ INSERT INTO security.sec_settings (settings_uuid, user_uuid) VALUES
 ('5fa21a4f-6231-4d25-9cdf-d7b1e25ff119', '38527ac6-edb6-4a4f-8e60-eede49c4c2a6');
 
 --
--- Dumping data for table sec_profile
+-- Dumping data for table sec_contact_user
 --
 	
-INSERT INTO security.sec_profile (profile_uuid, user_uuid, fullname) VALUES 
-('1af2403b-a4f8-4492-94c1-5d6ab8b4a094', '1ac29215-75e8-4e19-b4f1-e076da7ca1ab'	, 'Polda Metro Jaya'),
-('d9c14d4e-890b-49c2-aa15-d70ab87e0c42', 'a695c3ec-71de-41d2-9623-fc96e55a6e35'	, 'Polda Aceh'),
-('bfad9391-0b0d-40c0-b823-321c9e5bd545', 'd59c50c6-4c88-40ab-ab32-127b8dcca3da'	, 'Polda Sumut'),
-('85a3ad95-82df-41e0-880c-b5a74d6879e0', '504d4dd4-e718-4e1a-b509-1fd3b270b698'	, 'Polda Sumbar'),
-('3ba19d4f-fc1e-41b0-9402-5ac3eb0cf02c', 'ced677ee-7d07-4bff-bc0b-8ec334177812'	, 'Polda Riau'),
-('813d39c2-3d53-449a-8ce3-44d55d5655b7', '63fb8263-e672-41e7-ad42-ca3d1d61463c'	, 'Polda Kepri'),
-('aedb367d-41c4-414f-aa92-9272de127662', 'dcb49994-1f47-4650-b869-8b318f93dde4'	, 'Polda Jambi'),
-('46d26e4c-2694-4a96-87f6-007d33cc3dda', '8076994f-f22b-4d9f-b093-a8ca7e1a5d11'	, 'Polda Bengkulu'),
-('b431fb03-bf5c-49dd-b0fa-23d9a7adadbb', '65b02457-088c-43fe-b219-4fb9cfeca97a'	, 'Polda Sumsel'),
-('215410ba-763a-4ba4-8b4f-1cd9ce8321d1', 'b9b4e0f0-0857-41b8-adb1-2a3fd235d13c'	, 'Polda Babel'),
-('a7063322-0898-4476-a3ab-641ba5291b79', 'fe1ebd88-8702-416d-ad91-6bebf12302d8'	, 'Polda Lampung'),
-('86a62574-88ff-43d6-8e73-ea1c8551bf97', '541ec496-62fe-4b01-93fb-363da7f3f6fc'	, 'Polda Banten'),
-('f4a8d89f-0c81-40ed-8119-bdafbbd8b8a2', 'becbf470-6949-4820-a338-f0d9983e2f48'	, 'Polda Jabar'),
-('1e01c884-6cf7-4a78-99a4-0f909df7e1e8', 'a881f8d4-0afb-4b11-953c-fab0141182e3'	, 'Polda Jateng'),
-('19ebb397-248a-419c-a869-994a728b41ff', '36b8f700-e4cf-45d2-aaf8-f1e3e7dbe836'	, 'Polda DIY'),
-('9256a44a-adbc-45dd-84fb-5519353c4519', '6aca21b4-0f35-40c7-9882-f472d78c8185'	, 'Polda Jatim'),
-('903ccd78-44de-4eab-bb4d-6f59366d9219', '22cf3dab-a318-45d5-92dc-0ed73f4331bd'	, 'Polda Kalbar'),
-('654fcbe9-8349-4354-a0aa-aaafb582bcc2', '44c745e1-9de2-44f9-bb80-101a114ecf0a'	, 'Polda Kalteng'),
-('5ba04456-688d-4c57-9833-4bb69791a1ad', '6bee06f2-ef33-450f-b1bc-dd93a49559ca'	, 'Polda Kalsel'),
-('3ebb1012-eca2-4417-b1f2-7df301a930b1', '502bc59b-c2cd-4920-bfdf-6931354f02d0'	, 'Polda Kaltim'),
-('e9f6ea0a-afdf-4ef8-bf77-b2b88bc79b08', 'f80ef54f-5f9d-47a7-b356-834b451ba45e'	, 'Polda Kaltara'),
-('e34bd0c3-3291-4c5e-abd9-1712788f9911', '8972da69-186c-47ec-b5c1-75fc13c6d10b'	, 'Polda Sulut'),
-('5816ca49-682e-41f2-8502-ef0237bb6410', '9ddb452e-1dab-438b-855e-f735fc0c66a2'	, 'Polda Gorontalo'),
-('b8908d8f-cedf-426c-960b-f9111fdcaed1', 'cbfac2f3-7fdb-4e95-85b5-522188c46940'	, 'Polda Sulteng'),
-('0ed39e70-9d22-4848-9916-92ccdc76a6e8', 'b424674e-f336-4bf5-8aa2-6dfbd2ad06a9'	, 'Polda Sulbar'),
-('94559706-2634-4674-a19b-cbb4858f08ca', '72be5b40-12b2-42e9-81e7-3ce4a6a6dc62'	, 'Polda Sulsel'),
-('5ca6737e-1e09-43f8-85c3-2399d488a82b', '2cf708c7-3096-411b-869d-35b3db2d055e'	, 'Polda Sultra'),
-('fa35f658-1e20-4509-ad3f-a8b532ea99c2', 'd2ae598e-5ae7-4d76-82c2-6a7634062d37'	, 'Polda Bali'),
-('f9cdb922-32bb-45f7-bb5a-5b853d4e1feb', '18585be5-e7ec-4933-87b3-92384bf33f5f'	, 'Polda NTB'),
-('5660a4b4-13a4-4d0c-9bdd-0afebd97f448', '0ec057fe-0640-440e-ac35-0ad9cb4acd13'	, 'Polda NTT'),
-('d667c6ba-9bef-40fd-9a8a-274bdf51a655', '7a7a006b-c40d-4917-af3a-cfa697a0b356'	, 'Polda Malut'),
-('ee97ec4a-fba2-4036-bb98-5aeb7e46192b', '47882cf5-d6c5-4899-a746-3ca81f848e95'	, 'Polda Maluku'),
-('46cb004a-9025-4685-b8fa-e082dd5d7a62', '40c1b405-a157-405b-bc9b-f6c9a3218902'	, 'Polda Pabar'),
-('25cc4e94-7c55-479c-be57-421f6538fd42', 'f93ecaa1-2dd4-4f34-abd1-37f2d3c395d2'	, 'Polda Papua'),
-('d4fd659f-7bd6-4b1c-9127-e2dcf04651b0', '38527ac6-edb6-4a4f-8e60-eede49c4c2a6'	, 'User 01');
+INSERT INTO security.sec_contact_user (contact_user_uuid, user_uuid, fullname, address, phone_number) VALUES 
+('fa35f658-1e20-4509-ad3f-a8b532ea99c2', 'd2ae598e-5ae7-4d76-82c2-6a7634062d37'	, 'Polda Bali', 'Jl. WR Supratman No 7 Denpasar', '0361227174'),
+('215410ba-763a-4ba4-8b4f-1cd9ce8321d1', 'b9b4e0f0-0857-41b8-adb1-2a3fd235d13c'	, 'Polda Bangka Belitung', 'Jl. Komplek Perkantoran Air Itam No 3 Pangkal Pinang', '0717437908'),
+('86a62574-88ff-43d6-8e73-ea1c8551bf97', '541ec496-62fe-4b01-93fb-363da7f3f6fc'	, 'Polda Banten', 'Jl. Syeh Nawawi Al Bantani No 76 Serang', '0254228454'),
+('46d26e4c-2694-4a96-87f6-007d33cc3dda', '8076994f-f22b-4d9f-b093-a8ca7e1a5d11'	, 'Polda Bengkulu', 'Jl. Adam Malik Km 9 Bengkulu', '073651041'),
+('19ebb397-248a-419c-a869-994a728b41ff', '36b8f700-e4cf-45d2-aaf8-f1e3e7dbe836'	, 'Polda Daerah Istimewa Yogyakarta', 'Jl. Lingkar Utama Condong Catur Yogyakarta', '0274885009'),
+('5816ca49-682e-41f2-8502-ef0237bb6410', '9ddb452e-1dab-438b-855e-f735fc0c66a2'	, 'Polda Gorontalo', 'Jl. Limboto Raya No 17 Gorontalo', '0435838536'),
+('aedb367d-41c4-414f-aa92-9272de127662', 'dcb49994-1f47-4650-b869-8b318f93dde4'	, 'Polda Jambi', 'Jl. Jend Sudirman No 45 Jambi', '074122025'),
+('f4a8d89f-0c81-40ed-8119-bdafbbd8b8a2', 'becbf470-6949-4820-a338-f0d9983e2f48'	, 'Polda Jawa Barat', 'Jl. Soekarno Hatta No 748 Bandung', '0227800005'),
+('1e01c884-6cf7-4a78-99a4-0f909df7e1e8', 'a881f8d4-0afb-4b11-953c-fab0141182e3'	, 'Polda Jawa Tengah', 'Jl. Pahlawan No 1 Semarang', '0248413044'),
+('9256a44a-adbc-45dd-84fb-5519353c4519', '6aca21b4-0f35-40c7-9882-f472d78c8185'	, 'Polda Jawa Timur', 'Jl. A. Yani No 116 Surabaya', '0318280333'),
+('903ccd78-44de-4eab-bb4d-6f59366d9219', '22cf3dab-a318-45d5-92dc-0ed73f4331bd'	, 'Polda Kalimantan Barat', 'Jl. A. Yani No 1 Pontianak', '0561734004'),
+('5ba04456-688d-4c57-9833-4bb69791a1ad', '6bee06f2-ef33-450f-b1bc-dd93a49559ca'	, 'Polda Kalimantan Selatan', 'Jl. S. Parman No 16 Banjarmasin', '05113354876'),
+('654fcbe9-8349-4354-a0aa-aaafb582bcc2', '44c745e1-9de2-44f9-bb80-101a114ecf0a'	, 'Polda Kalimantan Tengah', 'Jl. Tjilik Riwut Km 1 Palangkaraya', '05363221720'),
+('3ebb1012-eca2-4417-b1f2-7df301a930b1', '502bc59b-c2cd-4920-bfdf-6931354f02d0'	, 'Polda Kalimantan Timur', 'Jl. Syarifuddin Yoes No 99 Balikpapan', '0542421220'),
+('e9f6ea0a-afdf-4ef8-bf77-b2b88bc79b08', 'f80ef54f-5f9d-47a7-b356-834b451ba45e'	, 'Polda Kalimantan Utara', 'Kalimantan Utara', '110'),
+('813d39c2-3d53-449a-8ce3-44d55d5655b7', '63fb8263-e672-41e7-ad42-ca3d1d61463c'	, 'Polda Kepulauan Riau', 'Jl. Hang Jebat Batu Besar, Nongsa, Batam', '07787763541'),
+('a7063322-0898-4476-a3ab-641ba5291b79', 'fe1ebd88-8702-416d-ad91-6bebf12302d8'	, 'Polda Lampung', 'Jl. WR Supratman No 1 Bandar Lampung', '0721486832'),
+('ee97ec4a-fba2-4036-bb98-5aeb7e46192b', '47882cf5-d6c5-4899-a746-3ca81f848e95'	, 'Polda Maluku', 'Jl. Rijali No 1 Ambon', '0911352912'),
+('d667c6ba-9bef-40fd-9a8a-274bdf51a655', '7a7a006b-c40d-4917-af3a-cfa697a0b356'	, 'Polda Maluku Utara', 'Jl. Kapitan Pattimura, Kalumpang, Ternate', '0921327045'),
+('1af2403b-a4f8-4492-94c1-5d6ab8b4a094', '1ac29215-75e8-4e19-b4f1-e076da7ca1ab'	, 'Polda Metro Jakarta Raya', 'Jl. Jend Sudirman No 55 Jakarta Selatan', '0215234001'),
+('d9c14d4e-890b-49c2-aa15-d70ab87e0c42', 'a695c3ec-71de-41d2-9623-fc96e55a6e35'	, 'Polda Nanggroe Aceh Darussalam', 'Jl. Cut Meutia No 25 Banda Aceh', '065129556'),
+('f9cdb922-32bb-45f7-bb5a-5b853d4e1feb', '18585be5-e7ec-4933-87b3-92384bf33f5f'	, 'Polda Nusa Tenggara Barat', 'Jl. Langko No 77 Mataram', '0370633152'),
+('5660a4b4-13a4-4d0c-9bdd-0afebd97f448', '0ec057fe-0640-440e-ac35-0ad9cb4acd13'	, 'Polda Nusa Tenggara Timur', 'Jl. Soeharto No 3 Kupang', '0380833132'),
+('25cc4e94-7c55-479c-be57-421f6538fd42', 'f93ecaa1-2dd4-4f34-abd1-37f2d3c395d2'	, 'Polda Papua', 'Jl. Dr Samratulangi No 8 Jayapura', '0967531014'),
+('46cb004a-9025-4685-b8fa-e082dd5d7a62', '40c1b405-a157-405b-bc9b-f6c9a3218902'	, 'Polda Papua Barat', 'JL. Pahlawan Sanggeng', '0986211253'),
+('3ba19d4f-fc1e-41b0-9402-5ac3eb0cf02c', 'ced677ee-7d07-4bff-bc0b-8ec334177812'	, 'Polda Riau', 'Jl. Jend Sudirman No 235 Pekanbaru', '076131307'),
+('94559706-2634-4674-a19b-cbb4858f08ca', '72be5b40-12b2-42e9-81e7-3ce4a6a6dc62'	, 'Polda Sulawesi Selatan', 'Jl. Perintis Kemerdekaan Km 16 Makasar', '0411515101'),
+('b8908d8f-cedf-426c-960b-f9111fdcaed1', 'cbfac2f3-7fdb-4e95-85b5-522188c46940'	, 'Polda Sulawesi Tengah', 'Jl. Dr Samratulangi No 78 Palu', '0451421555'),
+('5ca6737e-1e09-43f8-85c3-2399d488a82b', '2cf708c7-3096-411b-869d-35b3db2d055e'	, 'Polda Sulawesi Tenggara', 'Jl. Haluleo No 1 Kendari', '0401391555'),
+('e34bd0c3-3291-4c5e-abd9-1712788f9911', '8972da69-186c-47ec-b5c1-75fc13c6d10b'	, 'Polda Sulawesi Utara', 'Jl. Bethesda No 62 Manado', '0431862019'),
+('0ed39e70-9d22-4848-9916-92ccdc76a6e8', 'b424674e-f336-4bf5-8aa2-6dfbd2ad06a9'	, 'Polda Sulawesi Barat', 'Jl. Aiptu Nurman No. 1, Kalubibing Mamuyu', '110'),
+('85a3ad95-82df-41e0-880c-b5a74d6879e0', '504d4dd4-e718-4e1a-b509-1fd3b270b698'	, 'Polda Sumatera Barat', 'Jl. Sudirman No 55 Padang', '075133416'),
+('b431fb03-bf5c-49dd-b0fa-23d9a7adadbb', '65b02457-088c-43fe-b219-4fb9cfeca97a'	, 'Polda Sumatera Selatan', 'Jl. Jend Sudirman Km 4,5 Palembang', '0711320550'),
+('bfad9391-0b0d-40c0-b823-321c9e5bd545', 'd59c50c6-4c88-40ab-ab32-127b8dcca3da'	, 'Polda Sumatera Utara', 'Jl. SM Raja XII Km 10,5 No 60 Medan', '0617879363'),
+('d4fd659f-7bd6-4b1c-9127-e2dcf04651b0', '38527ac6-edb6-4a4f-8e60-eede49c4c2a6'	, 'User 01', 'Tangerang', '02134567891');
+
+--
+-- Dumping data for table sec_personal_info
+--
+	
+INSERT INTO security.sec_personal_info (personal_info_uuid, contact_user_uuid, id_number, gender, place_of_birth, date_of_birth) VALUES 
+('2d341632-2fad-4394-a96f-6cfa54500dfc', 'd4fd659f-7bd6-4b1c-9127-e2dcf04651b0'	, '12345678901234567', 'GENDER.MALE', 'Tangerang', '01-01-1990');
+
+
+--
+-- Dumping data for table sec_personal_support
+--
+	
+INSERT INTO security.sec_personal_support (personal_support_uuid, personal_info_uuid, reference_name, reference_address, reference_phone_number, relationship) VALUES 
+('189913b7-ac93-458d-8d98-5e6212bc1c05', '2d341632-2fad-4394-a96f-6cfa54500dfc'	, 'User Reference', 'Jakarta', '02134567890', 'RELATIONSHIP.OTHERS');

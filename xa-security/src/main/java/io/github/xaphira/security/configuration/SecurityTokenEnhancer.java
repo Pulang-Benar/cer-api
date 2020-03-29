@@ -48,10 +48,10 @@ public class SecurityTokenEnhancer implements TokenEnhancer {
 					LOGGER.error(e.getMessage(), e);
 				}
 			}
-	        additionalInfo.put("image", (user.getProfile() == null)? null : user.getProfile().getImage());
+	        additionalInfo.put("image", (user.getContactUser() == null)? null : user.getContactUser().getImage());
 	        additionalInfo.put("authority", user.getAuthorityDefault());
 	        additionalInfo.put("email", user.getEmail());
-	        additionalInfo.put("name", (user.getProfile() == null)? null : user.getProfile().getName());
+	        additionalInfo.put("name", (user.getContactUser() == null)? null : user.getContactUser().getName());
 	        additionalInfo.put("locale", (user.getSettings() == null)? "en-US" : user.getSettings().getLocaleCode());
 	        additionalInfo.put("theme", (user.getSettings() == null)? "default" : user.getSettings().getTheme());
 	        additionalInfo.put("server_date", DateUtil.DATE.format(new Date()));

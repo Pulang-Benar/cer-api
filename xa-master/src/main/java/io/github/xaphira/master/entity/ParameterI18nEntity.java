@@ -45,7 +45,7 @@ public class ParameterI18nEntity extends BaseAuditEntity {
 	@Column(name = "locale_code")
 	private String localeCode;
 
-	@ManyToOne(targetEntity = ParameterEntity.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = ParameterEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "parameter_uuid", nullable = false, updatable = false)
 	private ParameterEntity parameter;
 

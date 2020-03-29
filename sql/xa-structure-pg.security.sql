@@ -1,28 +1,3 @@
---
--- Table Shcema of Business
---
-
-CREATE TABLE security.sec_personal_support (
-	personal_support_uuid varchar(36) NOT NULL,
-	id_number varchar(50) NOT NULL,
-	reference_name varchar(200) NOT NULL,
-	reference_address text,
-	reference_mobile_number varchar(20),
-	relationship varchar(250),
-	"version" int DEFAULT 0 NOT NULL,
-	is_active boolean DEFAULT true NOT NULL,
-	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
-	created_by varchar(25),
-	modified_date timestamp,
-	modified_by varchar(25),
-	user_uuid varchar(36) NOT NULL,
-	PRIMARY KEY (personal_support_uuid)
-);
-
---
--- Table Shcema of Default
---
-
 CREATE TABLE security.oauth_access_token (
 	token_id varchar(255),
 	"token" bytea,
@@ -178,14 +153,13 @@ CREATE TABLE security.sec_user (
 	modified_by varchar(25),
 	PRIMARY KEY (user_uuid)
 );
-CREATE TABLE security.sec_profile (
-	profile_uuid varchar(36) NOT NULL,
-	fullname varchar(200) NOT NULL,
-	gender varchar(20),
-	date_of_birth date,
+CREATE TABLE security.sec_contact_user (
+	contact_user_uuid varchar(36) NOT NULL,
+	fullname varchar(75) NOT NULL,
 	address text,
-	city varchar(200),
+	country varchar(200),
 	province varchar(200),
+	city varchar(200),
 	district varchar(200),
 	sub_district varchar(200),
 	zipcode varchar(200),
@@ -199,7 +173,37 @@ CREATE TABLE security.sec_profile (
 	modified_date timestamp,
 	modified_by varchar(25),
 	user_uuid varchar(36) NOT NULL,
-	PRIMARY KEY (profile_uuid)
+	PRIMARY KEY (contact_user_uuid)
+);
+CREATE TABLE security.sec_personal_info (
+	personal_info_uuid varchar(36) NOT NULL,
+	id_number varchar(50) NOT NULL,
+	gender varchar(20) NOT NULL,
+	place_of_birth varchar(50) NOT NULL,
+	date_of_birth date NOT NULL,
+	"version" int DEFAULT 0 NOT NULL,
+	is_active boolean DEFAULT true NOT NULL,
+	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
+	created_by varchar(25),
+	modified_date timestamp,
+	modified_by varchar(25),
+	contact_user_uuid varchar(36) NOT NULL,
+	PRIMARY KEY (personal_info_uuid)
+);
+CREATE TABLE security.sec_personal_support (
+	personal_support_uuid varchar(36) NOT NULL,
+	reference_name varchar(200) NOT NULL,
+	reference_address text,
+	reference_phone_number varchar(20),
+	relationship varchar(50),
+	"version" int DEFAULT 0 NOT NULL,
+	is_active boolean DEFAULT true NOT NULL,
+	created_date timestamp DEFAULT CURRENT_TIMESTAMP,
+	created_by varchar(25),
+	modified_date timestamp,
+	modified_by varchar(25),
+	personal_info_uuid varchar(36) NOT NULL,
+	PRIMARY KEY (personal_support_uuid)
 );
 CREATE TABLE security.sec_settings (
 	settings_uuid varchar(36) NOT NULL,
@@ -221,9 +225,13 @@ ALTER TABLE security.sec_user ADD CONSTRAINT username UNIQUE (username);
 ALTER TABLE security.sec_user ADD CONSTRAINT email UNIQUE (email);
 ALTER TABLE security.sec_corporate ADD CONSTRAINT corporate_id UNIQUE (corporate_id);
 
+ALTER TABLE security.sec_personal_info
+	ADD FOREIGN KEY (contact_user_uuid) 
+	REFERENCES security.sec_contact_user (contact_user_uuid);
+
 ALTER TABLE security.sec_personal_support
-	ADD FOREIGN KEY (user_uuid) 
-	REFERENCES security.sec_user (user_uuid);
+	ADD FOREIGN KEY (personal_info_uuid) 
+	REFERENCES security.sec_personal_info (personal_info_uuid);
 
 ALTER TABLE security.sec_function
 	ADD FOREIGN KEY (role_uuid) 
@@ -257,7 +265,7 @@ ALTER TABLE security.sec_r_user_role
 	ADD FOREIGN KEY (user_uuid) 
 	REFERENCES security.sec_user (user_uuid);
 
-ALTER TABLE security.sec_profile
+ALTER TABLE security.sec_contact_user
 	ADD FOREIGN KEY (user_uuid) 
 	REFERENCES security.sec_user (user_uuid);
 

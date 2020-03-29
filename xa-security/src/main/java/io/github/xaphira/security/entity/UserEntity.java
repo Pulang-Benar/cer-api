@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,8 +32,8 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false, exclude={"roles", "profile", "settings"})
-@ToString(exclude={"roles", "profile", "settings"})
+@EqualsAndHashCode(callSuper=false, exclude={"roles", "contactUser", "settings"})
+@ToString(exclude={"roles", "contactUser", "settings"})
 @Entity
 @Table(name = "sec_user", schema = SchemaDatabase.SECURITY)
 public class UserEntity extends BaseAuditEntity implements UserDetails {
@@ -95,10 +96,10 @@ public class UserEntity extends BaseAuditEntity implements UserDetails {
 		return authorities;
 	}
 	
-	@OneToOne(mappedBy = "user", targetEntity = ProfileEntity.class, fetch = FetchType.LAZY)
-	private ProfileEntity profile;
+	@OneToOne(mappedBy = "user", targetEntity = ContactUserEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	private ContactUserEntity contactUser;
 	
-	@OneToOne(mappedBy = "user", targetEntity = SettingsEntity.class, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "user", targetEntity = SettingsEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private SettingsEntity settings;
 
 }

@@ -19,6 +19,7 @@ import io.github.xaphira.common.service.CommonService;
 import io.github.xaphira.common.utils.ErrorCode;
 import io.github.xaphira.feign.dto.master.ParameterI18nDto;
 import io.github.xaphira.feign.dto.master.ParameterRequestDto;
+import io.github.xaphira.feign.service.ParameterI18nService;
 import io.github.xaphira.master.dao.ParameterGroupRepo;
 import io.github.xaphira.master.dao.ParameterI18nRepo;
 import io.github.xaphira.master.dao.ParameterRepo;
@@ -27,7 +28,7 @@ import io.github.xaphira.master.entity.ParameterGroupEntity;
 import io.github.xaphira.master.entity.ParameterI18nEntity;
 
 @Service("parameterI18nService")
-public class ParameterI18nImplService extends CommonService {
+public class ParameterI18nImplService extends CommonService implements ParameterI18nService {
 
 	protected Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
@@ -87,7 +88,7 @@ public class ParameterI18nImplService extends CommonService {
 					param = parameterRepo.saveAndFlush(param);
 				} else {
 					for(String localeCode: request.getParameterValues().keySet()) {
-						ParameterI18nEntity paramI18n = parameterI18nRepo.findByLocaleCodeAndParameter_ParameterCode(localeCode, request.getParameterCode());
+						ParameterI18nEntity paramI18n = parameterI18nRepo.findByParameter_ParameterCodeAndLocaleCode(request.getParameterCode(), localeCode);
 						if (param == null) {
 							paramI18n = new ParameterI18nEntity();
 							paramI18n.setCreatedBy(username);
@@ -107,6 +108,27 @@ public class ParameterI18nImplService extends CommonService {
 			}
 		} else {
 			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+		}
+	}
+	
+	public ParameterI18nDto getParameter(Map<String, Object> param, String locale) throws Exception {
+		ParameterI18nEntity parameterI18n = parameterI18nRepo.findByParameter_ParameterCodeAndLocaleCode(param.get("parameterCode").toString(), locale);
+		if(parameterI18n != null) {
+			ParameterI18nDto temp = new ParameterI18nDto();
+			temp.setParameterCode(parameterI18n.getParameter().getParameterCode());
+			temp.setParameterGroupCode(parameterI18n.getParameter().getParameterGroup().getParameterGroupCode());
+			temp.setParameterGroupName(parameterI18n.getParameter().getParameterGroup().getParameterGroupName());
+			temp.setParameterValue(parameterI18n.getParameterValue());
+			temp.setLocale(parameterI18n.getLocaleCode());
+			temp.setActive(parameterI18n.isActive());
+			temp.setVersion(parameterI18n.getVersion());
+			temp.setCreatedDate(parameterI18n.getCreatedDate());
+			temp.setCreatedBy(parameterI18n.getCreatedBy());
+			temp.setModifiedDate(parameterI18n.getModifiedDate());
+			temp.setModifiedBy(parameterI18n.getModifiedBy());
+			return temp;
+		} else {
+			return null;
 		}
 	}
 

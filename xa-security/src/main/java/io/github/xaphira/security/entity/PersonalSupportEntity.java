@@ -22,11 +22,11 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false, exclude={"user"})
-@ToString(exclude={"user"})
+@EqualsAndHashCode(callSuper=false, exclude={"personalInfo"})
+@ToString(exclude={"personalInfo"})
 @Entity
-@Table(name = "sec_settings", schema = SchemaDatabase.SECURITY)
-public class SettingsEntity extends BaseAuditEntity {
+@Table(name = "sec_personal_support", schema = SchemaDatabase.SECURITY)
+public class PersonalSupportEntity extends BaseAuditEntity {
 
 	/**
 	 * 
@@ -36,23 +36,23 @@ public class SettingsEntity extends BaseAuditEntity {
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")
-    @Column(name = "settings_uuid", nullable = false, unique=true)
+    @Column(name = "personal_support_uuid", nullable = false, unique=true)
 	private String id;
 
-	@Column(name = "locale_code", nullable = false)
-	private String localeCode = "en-US";
+	@Column(name = "reference_name", nullable = false)
+	private String referenceName;
+	
+	@Column(name = "reference_address", nullable = false)
+	private String referenceAddress;
+	
+	@Column(name = "reference_phone_number", nullable = false)
+	private String referencePhoneNumber;
+	
+	@Column(name = "relationship", nullable = false)
+	private String relationship;
 
-	@Column(name = "locale_identifier", nullable = false)
-	private String localeIdentifier = "English (United States)";
-
-	@Column(name = "locale_icon")
-	private String localeIcon = "flag-icon flag-icon-us";
-
-	@Column(name = "theme", nullable = false)
-	private String theme = "default";
-
-	@OneToOne(targetEntity = UserEntity.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_uuid", nullable = false, updatable = false)
-	private UserEntity user;
+	@OneToOne(targetEntity = PersonalInfoEntity.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "personal_info_uuid", nullable = false, updatable = false)
+	private PersonalInfoEntity personalInfo;
 
 }

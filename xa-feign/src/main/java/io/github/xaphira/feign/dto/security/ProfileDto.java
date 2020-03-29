@@ -21,13 +21,14 @@ public class ProfileDto extends BaseAuditDto {
 	private String username;
 	private String name;
 	private String email;
+	private String phoneNumber;
 	private String address;
-	private String city;
+	private String country;
 	private String province;
+	private String city;
 	private String district;
 	private String subDistrict;
-	private String phoneNumber;
-	private String mobileNumber;
+	private String zipcode;
 	private String image;
 	private String description;
 

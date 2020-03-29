@@ -1,5 +1,6 @@
 package io.github.xaphira.security.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,8 +26,8 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper=false, exclude={"user"})
 @ToString(exclude={"user"})
 @Entity
-@Table(name = "sec_profile", schema = SchemaDatabase.SECURITY)
-public class ProfileEntity extends BaseAuditEntity {
+@Table(name = "sec_contact_user", schema = SchemaDatabase.SECURITY)
+public class ContactUserEntity extends BaseAuditEntity {
 
 	/**
 	 * 
@@ -36,20 +37,23 @@ public class ProfileEntity extends BaseAuditEntity {
 	@Id
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@GeneratedValue(generator = "uuid")
-    @Column(name = "profile_uuid", nullable = false, unique=true)
+    @Column(name = "contact_user_uuid", nullable = false, unique=true)
 	private String id;
 
-	@Column(name = "fullname", nullable = false)
+	@Column(name = "fullname", nullable = false, length = 75)
 	private String name;
 	
 	@Column(name = "address", nullable = false)
 	private String address;
 
-	@Column(name = "city", nullable = true)
-	private String city;
+	@Column(name = "country", nullable = true)
+	private String country;
 
 	@Column(name = "province", nullable = true)
 	private String province;
+
+	@Column(name = "city", nullable = true)
+	private String city;
 
 	@Column(name = "district", nullable = true)
 	private String district;
@@ -57,11 +61,11 @@ public class ProfileEntity extends BaseAuditEntity {
 	@Column(name = "sub_district", nullable = true)
 	private String subDistrict;
 
+	@Column(name = "zipcode", nullable = true)
+	private String zipcode;
+
 	@Column(name = "phone_number", nullable = true)
 	private String phoneNumber;
-
-	@Column(name = "mobile_number", nullable = true)
-	private String mobileNumber;
 
 	@Column(name = "image", nullable = true)
 	private String image;
@@ -70,7 +74,10 @@ public class ProfileEntity extends BaseAuditEntity {
 	private String description;
 
 	@OneToOne(targetEntity = UserEntity.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_uuid", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "user_uuid", nullable = false, updatable = false)
 	private UserEntity user;
+	
+	@OneToOne(mappedBy = "contactUser", targetEntity = PersonalInfoEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private PersonalInfoEntity personalInfo;
 
 }
