@@ -25,11 +25,11 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false, exclude={"panicDetails"})
-@ToString(exclude={"panicDetails"})
+@EqualsAndHashCode(callSuper=false, exclude={"fakeDetails"})
+@ToString(exclude={"fakeDetails"})
 @Entity
-@Table(name = "panic_report", schema = SchemaDatabase.PANIC)
-public class PanicReportEntity extends BaseAuditEntity {
+@Table(name = "fake_report", schema = SchemaDatabase.PANIC)
+public class FakeReportEntity extends BaseAuditEntity {
 
 	/**
 	 * 
@@ -37,8 +37,8 @@ public class PanicReportEntity extends BaseAuditEntity {
 	private static final long serialVersionUID = -2442773369159964802L;
 	
 	@Id
-	@Column(name = "panic_code", nullable = false, unique = true, length = 50)
-	private String panicCode;
+	@Column(name = "fake_code", nullable = false, unique = true, length = 50)
+	private String fakeCode;
 
 	@Column(name = "username", nullable = false)
 	private String username;
@@ -85,8 +85,8 @@ public class PanicReportEntity extends BaseAuditEntity {
 	@Column(name = "status", nullable = true)
 	private String status;
 	
-	@OneToMany(mappedBy = "panicReport", targetEntity = PanicDetailEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "fakeReport", targetEntity = FakeDetailEntity.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
-	private Set<PanicDetailEntity> panicDetails = new HashSet<PanicDetailEntity>();
+	private Set<FakeDetailEntity> fakeDetails = new HashSet<FakeDetailEntity>();
 
 }

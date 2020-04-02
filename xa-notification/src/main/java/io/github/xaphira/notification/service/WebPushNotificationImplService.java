@@ -22,13 +22,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.xaphira.feign.dto.notification.NotificationPayloadDto;
 import io.github.xaphira.feign.dto.notification.PushNotificationDto;
 import io.github.xaphira.feign.dto.notification.SubscriptionDto;
+import io.github.xaphira.feign.service.WebPushNotificationService;
 import io.github.xaphira.notification.dao.SubscriptionRepo;
 import io.github.xaphira.notification.entity.SubscriptionEntity;
 import nl.martijndwars.webpush.Notification;
 import nl.martijndwars.webpush.PushService;
 
-@Service
-public class WebPushNotificationService {
+@Service("webPushNotificationService")
+public class WebPushNotificationImplService implements WebPushNotificationService {
 	
 	@Value("${xa.vapid.private-key}")
 	private String privateKey;
@@ -74,13 +75,15 @@ public class WebPushNotificationService {
 			NotificationPayloadDto payload = new NotificationPayloadDto();
 			payload.getNotification().setTitle(message.getTitle());
 			payload.getNotification().setBody(message.getBody());
+			payload.getNotification().setTag(message.getTag());
 			payload.getNotification().setIcon(message.getIcon());
+			payload.getNotification().setData(objectMapper.writeValueAsString(message.getData()));
 			Notification notification = new Notification(
 					subscription.getEndpoint(),
 					subscription.getP256dh(),
 					subscription.getAuth(),
 					objectMapper.writeValueAsBytes(payload));
-			pushService.send(notification);
+			pushService.sendAsync(notification);
 		};
 	}
 

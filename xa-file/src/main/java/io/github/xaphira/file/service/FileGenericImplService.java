@@ -20,12 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 import io.github.xaphira.common.exceptions.SystemErrorException;
 import io.github.xaphira.common.utils.ErrorCode;
 import io.github.xaphira.feign.dto.file.FileMetadataDto;
+import io.github.xaphira.feign.service.FileGenericService;
 import io.github.xaphira.file.dao.FileMetadataRepo;
 import io.github.xaphira.file.entity.FileMetadataEntity;
 import io.github.xaphira.file.utils.FileUtils;
 
 @Service("fileGenericService")
-public class FileGenericImplService {
+public class FileGenericImplService implements FileGenericService {
 
 	protected Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
@@ -36,7 +37,7 @@ public class FileGenericImplService {
 	@Autowired
 	private FileUtils fileUtils;
 	
-    @Value("${xa.file.path.tmp:D:\\Temps\\}")
+    @Value("${xa.file.path.tmp}")
     protected String filePath;
 
 	@Transactional(noRollbackFor = { ConstraintViolationException.class }, propagation = Propagation.REQUIRES_NEW)

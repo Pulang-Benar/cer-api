@@ -50,7 +50,7 @@ public class PhotoProfileController extends BaseControllerException {
 	}
 	
 	@RequestMapping(value = "/vw/get/photo-profile/v.1/{checksum}", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)	
-	public ResponseEntity<Resource> downlaodPhotoProfile(Authentication authentication,
+	public ResponseEntity<Resource> downloadPhotoProfile(Authentication authentication,
 			@PathVariable(required = true) String checksum,
 			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
 		String path = this.path.concat(authentication.getName());

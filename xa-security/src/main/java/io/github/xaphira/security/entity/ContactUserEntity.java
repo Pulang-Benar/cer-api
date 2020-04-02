@@ -23,8 +23,8 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false, exclude={"user"})
-@ToString(exclude={"user"})
+@EqualsAndHashCode(callSuper=false, exclude={"user", "personalInfo"})
+@ToString(exclude={"user", "personalInfo"})
 @Entity
 @Table(name = "sec_contact_user", schema = SchemaDatabase.SECURITY)
 public class ContactUserEntity extends BaseAuditEntity {

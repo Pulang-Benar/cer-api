@@ -17,21 +17,21 @@ import io.github.xaphira.common.http.ApiBaseResponse;
 import io.github.xaphira.common.utils.SuccessCode;
 import io.github.xaphira.feign.dto.notification.PushNotificationDto;
 import io.github.xaphira.feign.dto.notification.SubscriptionDto;
-import io.github.xaphira.notification.service.WebPushNotificationService;
+import io.github.xaphira.notification.service.WebPushNotificationImplService;
 
 @RequestMapping("/api/notification")
 @RestController
 public class WebPushNotificationCtrl extends BaseControllerException {
 
     @Autowired
-    private WebPushNotificationService service;
+    private WebPushNotificationImplService webPushNotificationService;
 
 	@ResponseSuccess(SuccessCode.OK_SCR007)
     @RequestMapping(value = "/push/subscribe/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> subscribe(Authentication authentication,
 			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale,
     		@RequestBody SubscriptionDto subscription) throws Exception {
-		service.subscribe(subscription, authentication.getName());
+		webPushNotificationService.subscribe(subscription, authentication.getName());
 		return new ResponseEntity<ApiBaseResponse>(new ApiBaseResponse(), SuccessCode.OK_SCR007.getStatus());
     }
 
@@ -40,7 +40,7 @@ public class WebPushNotificationCtrl extends BaseControllerException {
     public ResponseEntity<ApiBaseResponse> sendNotify(Authentication authentication,
 			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale,
 			@RequestBody PushNotificationDto message) throws Exception {
-		service.notify(message, authentication.getName());
+		webPushNotificationService.notify(message, authentication.getName());
 		return new ResponseEntity<ApiBaseResponse>(new ApiBaseResponse(), SuccessCode.OK_SCR008.getStatus());
     }
 

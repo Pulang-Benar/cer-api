@@ -1,5 +1,6 @@
 package io.github.xaphira.security.service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,7 @@ import io.github.xaphira.common.utils.DateUtil;
 import io.github.xaphira.common.utils.ErrorCode;
 import io.github.xaphira.feign.dto.security.PersonalDto;
 import io.github.xaphira.feign.service.ParameterI18nService;
+import io.github.xaphira.feign.service.ProfilePersonalService;
 import io.github.xaphira.security.dao.ContactUserRepo;
 import io.github.xaphira.security.entity.ContactUserEntity;
 import io.github.xaphira.security.entity.PersonalInfoEntity;
@@ -24,7 +27,7 @@ import io.github.xaphira.security.entity.PersonalSupportEntity;
 import io.github.xaphira.security.entity.UserEntity;
 
 @Service("profilePersonalService")
-public class ProfilePersonalImplService {
+public class ProfilePersonalImplService implements ProfilePersonalService {
 
 	protected Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
@@ -86,6 +89,11 @@ public class ProfilePersonalImplService {
 		} else
 			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
 	}
+
+	public PersonalDto getProfilePersonal(Authentication authentication, String p_locale) throws Exception {
+		UserEntity user = (UserEntity) authentication.getPrincipal();
+		return this.getProfilePersonal(user, p_locale);
+	}
 	
 	public PersonalDto getProfilePersonal(UserEntity p_user, String p_locale) throws Exception {
 		if (p_user.getUsername() != null) {
@@ -105,6 +113,11 @@ public class ProfilePersonalImplService {
 			dto.setPhoneNumber(profile.getPhoneNumber());
 			dto.setDescription(profile.getDescription());
 			if(profile.getPersonalInfo() != null) {
+			    Calendar calDateOfBirth = Calendar.getInstance();
+			    calDateOfBirth.setTime(profile.getPersonalInfo().getDateOfBirth());
+			    Calendar calDateOfNow = Calendar.getInstance();
+			    calDateOfNow.setTime(new Date());
+			    dto.setAge(calDateOfNow.get(Calendar.YEAR) - calDateOfBirth.get(Calendar.YEAR));
 				dto.setIdNumber(profile.getPersonalInfo().getIdNumber());
 				dto.setGender(profile.getPersonalInfo().getGender());
 				dto.setPlaceOfBirth(profile.getPersonalInfo().getPlaceOfBirth());	

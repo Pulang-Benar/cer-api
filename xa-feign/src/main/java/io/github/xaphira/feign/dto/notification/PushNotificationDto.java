@@ -19,6 +19,8 @@ public class PushNotificationDto implements Serializable {
     private String to;
     private String title;
     private String body;
+    private Object data;
+    private String tag;
     private String icon;
 
 }

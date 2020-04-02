@@ -44,7 +44,7 @@ public class NotificationOptionsDto implements Serializable {
     private Long timestamp = new Date().getTime();
     private String dir = "auto";
     private Integer[] vibrate = new Integer[] {100, 50, 100};
-
+    
     @JsonInclude(Include.NON_NULL)
     private Object data;
 
