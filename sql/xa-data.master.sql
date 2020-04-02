@@ -35,6 +35,7 @@ INSERT INTO master.mst_parameter (parameter_uuid, parameter_code, "version", is_
 ('13a20c8b-f6ff-4470-82d4-290f6acc4ba2', 'EMERGENCY.HARASSMENT', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
 ('5dfe381b-b79e-483d-9bab-05ba10234baf', 'EMERGENCY.THREAT', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
 ('43b24cc9-8605-44d5-8945-735b3fa83ab7', 'EMERGENCY.BULLYING', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
+('cb66c666-0ce6-458d-bb53-8000296f7af8', 'EMERGENCY.OTHERS', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
 ('4acfe901-8ec9-4e8c-8420-7f494cf2854b', 'RELATIONSHIP.PARENT', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, '7deaaf87-d64e-4b5b-9a91-ab8db58902cb'),
 ('36df4a74-66c4-4461-97fd-76b0d65af856', 'RELATIONSHIP.SIBLING', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, '7deaaf87-d64e-4b5b-9a91-ab8db58902cb'),
 ('6a899845-9cfd-4b48-9735-b31ee8b86a41', 'RELATIONSHIP.COUPLE', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, '7deaaf87-d64e-4b5b-9a91-ab8db58902cb'),
@@ -62,6 +63,7 @@ INSERT INTO master.mst_parameter_i18n (parameter_i18n_uuid, parameter_uuid, loca
 ('9c03153d-d2f1-4c91-bfc2-f739eaed7849', '13a20c8b-f6ff-4470-82d4-290f6acc4ba2', 'en-US', 'Sexual Harassment', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('26582678-ffd9-47d1-bd17-a46bbebcd124', '5dfe381b-b79e-483d-9bab-05ba10234baf', 'en-US', 'Threat', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('0cd450aa-b463-42c1-b733-50612c7e47fc', '43b24cc9-8605-44d5-8945-735b3fa83ab7', 'en-US', 'Bullying', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('4119a8d7-b3a4-4c38-ad64-1d4f86728261', 'cb66c666-0ce6-458d-bb53-8000296f7af8', 'en-US', 'Others', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 
 ('4716f585-fabd-4b8a-8af5-27cd44a99889', '4acfe901-8ec9-4e8c-8420-7f494cf2854b', 'en-US', 'Parents', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('d44c5ef7-5c62-4ece-bb87-b599065cd7c0', '36df4a74-66c4-4461-97fd-76b0d65af856', 'en-US', 'Sibling', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
@@ -86,6 +88,7 @@ INSERT INTO master.mst_parameter_i18n (parameter_i18n_uuid, parameter_uuid, loca
 ('edbd4cff-3e68-4151-bfb2-d0503772f5dd', '13a20c8b-f6ff-4470-82d4-290f6acc4ba2', 'id-ID', 'Pelecehan Seksual', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('ff269687-1756-42dc-8a6e-6db124657ab6', '5dfe381b-b79e-483d-9bab-05ba10234baf', 'id-ID', 'Ancaman', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('3b48e4d7-e24b-4cf0-9bdc-852d13ee16da', '43b24cc9-8605-44d5-8945-735b3fa83ab7', 'id-ID', 'Intimidasi', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('7f060226-f42b-4650-afb5-ebf2bb24a2ef', 'cb66c666-0ce6-458d-bb53-8000296f7af8', 'id-ID', 'Lainnya', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 
 ('ff174243-0b60-4308-9365-5bd3bc009812', '4acfe901-8ec9-4e8c-8420-7f494cf2854b', 'id-ID', 'Orang Tua', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('2f6642f6-3c5a-4bcc-8ff5-affac6038b04', '36df4a74-66c4-4461-97fd-76b0d65af856', 'id-ID', 'Saudara', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
