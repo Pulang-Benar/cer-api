@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,7 +78,12 @@ public class PanicReportImplService {
 	public ApiBaseResponse doPostPanicReport(BasePanicReportDto dto, MultipartFile evidence, Authentication authentication, String p_locale) throws Exception {
 		if (evidence != null && dto != null) {
 			String path = filePath + authentication.getName();
-			FileMetadataDto fileEvidence = fileGenericService.putFile(path, evidence.getOriginalFilename(), evidence.getBytes());
+			FileMetadataDto fileEvidence = new FileMetadataDto(); 
+			try {
+				fileEvidence = fileGenericService.putFile(path, evidence.getOriginalFilename(), evidence.getBytes());
+			} catch (DataIntegrityViolationException e) {
+				throw new SystemErrorException(ErrorCode.ERR_SCR0010);				
+			}
 			LocationEntity location = new LocationEntity();
 			location.setLatitude(dto.getLatestLatitude());
 			location.setLongitude(dto.getLatestLongitude());
