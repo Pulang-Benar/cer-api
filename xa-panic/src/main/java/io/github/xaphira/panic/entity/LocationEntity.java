@@ -1,6 +1,9 @@
 package io.github.xaphira.panic.entity;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,6 +20,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 
 @Data
 @NoArgsConstructor
@@ -38,11 +42,12 @@ public class LocationEntity extends BaseAuditEntity {
     @Column(name = "location_uuid", nullable = false, unique=true)
 	private String id;
 
-	@Column(name = "latitude", nullable = false)
-	private String latitude;
-	
-	@Column(name = "longitude", nullable = false)
-	private String longitude;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "x", column = @Column(name = "latitude", nullable = false)),
+            @AttributeOverride(name = "y", column = @Column(name = "longitude", nullable = false))
+    })
+	private Point coordinate;
 
 	@Column(name = "formatted_address", nullable = true)
 	private String formattedAddress;

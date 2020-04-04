@@ -28,8 +28,8 @@ public class FakeReportDto extends BaseAuditDto {
 	private String phoneNumber;
 	private Integer age;
 	private String idNumber;
-	private String latestLatitude;
-	private String latestLongitude;
+	private Double latestLatitude;
+	private Double latestLongitude;
 	private String latestFormattedAddress;
 	private String latestArea;
 	private String latestFileChecksum;

@@ -48,7 +48,7 @@ public class PanicDetailEntity extends BaseAuditEntity {
 	private PanicReportEntity panicReport;
 
 	@ManyToOne(targetEntity = DeviceEntity.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "device_uuid", nullable = false, updatable = false)
+	@JoinColumn(name = "device_id", nullable = false, updatable = false)
 	private DeviceEntity device;
 
 	@OneToOne(targetEntity = LocationEntity.class, fetch = FetchType.LAZY)

@@ -27,6 +27,7 @@ spring:
       test-while-idle: true
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    database-platform: org.hibernate.spatial.dialect.postgis.PostgisDialect
     database: POSTGRESQL
     properties:
       hibernate:

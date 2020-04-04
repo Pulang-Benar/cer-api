@@ -1,5 +1,7 @@
 package io.github.xaphira.panic.api;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,15 +49,20 @@ public class PanicReportController extends BaseControllerException {
     	objectMapper.configure(Feature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER, false);
     	data = data.replaceAll("\\\\", ""); 
     	BasePanicReportDto dto = objectMapper.readValue(data, BasePanicReportDto.class);
-		ApiBaseResponse res = this.panicReportService.doPostPanicReport(dto, evidence, authentication, locale);
-		return new ResponseEntity<ApiBaseResponse>(res, HttpStatus.OK);
+		return new ResponseEntity<ApiBaseResponse>(this.panicReportService.doPostPanicReport(dto, evidence, authentication, locale), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/vw/auth/panic/v.1/{code}", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)	
+	@RequestMapping(value = "/vw/auth/panic/v.1/{code}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)	
 	public ResponseEntity<PanicReportDto> getPanicReport(Authentication authentication,
 			@PathVariable(required = true) String code,
 			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
 		return new ResponseEntity<PanicReportDto>(this.panicReportService.getPanicReport(code, authentication, locale), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/vw/auth/panic/v.1", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)	
+	public ResponseEntity<List<PanicReportDto>> getAllPanicReport(Authentication authentication,
+			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
+		return new ResponseEntity<List<PanicReportDto>>(this.panicReportService.getAllPanicReport(authentication, locale), HttpStatus.OK);
 	}
 	
 }

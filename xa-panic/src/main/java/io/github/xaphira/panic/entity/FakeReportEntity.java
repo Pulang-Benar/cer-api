@@ -3,8 +3,11 @@ package io.github.xaphira.panic.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -58,11 +61,12 @@ public class FakeReportEntity extends BaseAuditEntity {
 	@Column(name = "id_number", nullable = false)
 	private String idNumber;
 
-	@Column(name = "latest_latitude", nullable = false)
-	private String latestLatitude;
-
-	@Column(name = "latest_longitude", nullable = false)
-	private String latestLongitude;
+	@Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "x", column = @Column(name = "latest_latitude", nullable = false)),
+            @AttributeOverride(name = "y", column = @Column(name = "latest_longitude", nullable = false))
+    })
+	private Point latestCoordinate;
 
 	@Column(name = "latest_formatted_address", nullable = true)
 	private String latestFormattedAddress;

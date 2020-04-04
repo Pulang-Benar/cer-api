@@ -9,10 +9,11 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,6 +39,7 @@ import io.github.xaphira.panic.entity.DeviceEntity;
 import io.github.xaphira.panic.entity.LocationEntity;
 import io.github.xaphira.panic.entity.PanicDetailEntity;
 import io.github.xaphira.panic.entity.PanicReportEntity;
+import io.github.xaphira.panic.entity.Point;
 
 @Service("panicReportService")
 public class PanicReportImplService {
@@ -57,13 +59,11 @@ public class PanicReportImplService {
 	private ProfilePersonalService profilePersonalService;
 
 	@Autowired
-	private FileGenericService fileGenericService;
+	@Qualifier("fileEvidenceService")
+	private FileGenericService fileEvidenceService;
 	
     @Autowired
     private WebPushNotificationService webPushNotificationService;
-	
-    @Value("${xa.file.path.evidence}")
-    protected String filePath;
 	
     @Value("${xa.notif.user}")
     protected String userNotify;
@@ -74,22 +74,24 @@ public class PanicReportImplService {
     @Value("${xa.notif.tag}")
     protected String tagNotify;
 
-	@Transactional
+	@Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = SystemErrorException.class)
 	public ApiBaseResponse doPostPanicReport(BasePanicReportDto dto, MultipartFile evidence, Authentication authentication, String p_locale) throws Exception {
 		if (evidence != null && dto != null) {
-			String path = filePath + authentication.getName();
 			FileMetadataDto fileEvidence = new FileMetadataDto(); 
 			try {
-				fileEvidence = fileGenericService.putFile(path, evidence.getOriginalFilename(), evidence.getBytes());
-			} catch (DataIntegrityViolationException e) {
+				fileEvidence = fileEvidenceService.putFile(authentication.getName(), evidence.getOriginalFilename(), evidence.getBytes());
+			} catch (Exception e) {
 				throw new SystemErrorException(ErrorCode.ERR_SCR0010);				
 			}
-			LocationEntity location = new LocationEntity();
-			location.setLatitude(dto.getLatestLatitude());
-			location.setLongitude(dto.getLatestLongitude());
-			location.setFormattedAddress(dto.getLatestFormattedAddress());
-			location.setArea(dto.getLatestArea());
-			location = locationRepo.saveAndFlush(location);
+			Point coordinate = new Point(dto.getLatestLatitude(), dto.getLatestLongitude());
+			LocationEntity location = locationRepo.findByCoordinate(coordinate);
+			if(location == null) {
+				location = new LocationEntity();
+				location.setCoordinate(coordinate);
+				location.setFormattedAddress(dto.getLatestFormattedAddress());
+				location.setArea(dto.getLatestArea());
+				location = locationRepo.saveAndFlush(location);
+			}
 			DeviceEntity device = new DeviceEntity();
 			device.setDeviceID(dto.getLatestDeviceID());
 			device.setDeviceName(dto.getLatestDeviceName());
@@ -103,8 +105,7 @@ public class PanicReportImplService {
 			panic.setAge(personal.getAge());
 			panic.setPhoneNumber(personal.getPhoneNumber());
 			panic.setIdNumber(personal.getIdNumber());
-			panic.setLatestLatitude(dto.getLatestLatitude());
-			panic.setLatestLongitude(dto.getLatestLongitude());
+			panic.setLatestCoordinate(coordinate);
 			panic.setLatestFormattedAddress(dto.getLatestFormattedAddress());
 			panic.setLatestArea(dto.getLatestArea());		
 			panic.setLatestFileChecksum(fileEvidence.getChecksum());
@@ -127,7 +128,7 @@ public class PanicReportImplService {
 			message.setFrom(personal.getUsername());
 			message.setTo(userNotify);
 			webPushNotificationService.notify(message, personal.getUsername());
-			return new ApiBaseResponse();
+			return null;
 		} else
 			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
 	}
@@ -140,6 +141,17 @@ public class PanicReportImplService {
 			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
 	}
 	
+	public List<PanicReportDto> getAllPanicReport(Authentication authentication, String p_locale) throws Exception {
+		List<PanicReportEntity> panics = panicReportRepo.findAll();
+		if(panics == null)
+			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+		List<PanicReportDto> response = new ArrayList<PanicReportDto>();
+		panics.forEach(panic -> {
+			response.add(toObject(panic));
+		});
+		return response;
+	}
+	
 	private PanicReportDto toObject(PanicReportEntity panic) {
 		PanicReportDto response = new PanicReportDto();
 		response.setPanicCode(panic.getPanicCode());
@@ -149,8 +161,8 @@ public class PanicReportImplService {
 		response.setAge(panic.getAge());
 		response.setPhoneNumber(panic.getPhoneNumber());
 		response.setIdNumber(panic.getIdNumber());
-		response.setLatestLatitude(panic.getLatestLatitude());
-		response.setLatestLongitude(panic.getLatestLongitude());
+		response.setLatestLatitude(panic.getLatestCoordinate().getX());
+		response.setLatestLongitude(panic.getLatestCoordinate().getY());
 		response.setLatestFormattedAddress(panic.getLatestFormattedAddress());
 		response.setLatestArea(panic.getLatestArea());
 		response.setLatestFileChecksum(panic.getLatestFileChecksum());
@@ -165,8 +177,8 @@ public class PanicReportImplService {
 				responsePanicDetail.setFileChecksum(panicDetail.getFileChecksum());
 				if(panicDetail.getLocation() != null) {
 					LocationDto responseLocation = new LocationDto();
-					responseLocation.setLatitude(panicDetail.getLocation().getLatitude());
-					responseLocation.setLongitude(panicDetail.getLocation().getLongitude());
+					responseLocation.setLatitude(panicDetail.getLocation().getCoordinate().getX());
+					responseLocation.setLongitude(panicDetail.getLocation().getCoordinate().getY());
 					responseLocation.setFormattedAddress(panicDetail.getLocation().getFormattedAddress());
 					responseLocation.setArea(panicDetail.getLocation().getArea());
 					responsePanicDetail.setLocation(responseLocation);

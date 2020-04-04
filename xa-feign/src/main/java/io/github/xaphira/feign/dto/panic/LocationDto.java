@@ -18,8 +18,8 @@ public class LocationDto extends BaseAuditDto {
 	 * 
 	 */
 	private static final long serialVersionUID = -8090724528887093110L;
-	private String latitude;
-	private String longitude;
+	private Double latitude;
+	private Double longitude;
 	private String formattedAddress;
 	private String area;
 

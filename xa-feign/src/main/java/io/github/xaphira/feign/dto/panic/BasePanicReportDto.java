@@ -18,8 +18,8 @@ public class BasePanicReportDto extends BaseAuditDto {
 	 * 
 	 */
 	private static final long serialVersionUID = -1580501181371364781L;
-	private String latestLatitude;
-	private String latestLongitude;
+	private Double latestLatitude;
+	private Double latestLongitude;
 	private String latestFormattedAddress;
 	private String latestArea;
 	private String latestFileChecksum;
