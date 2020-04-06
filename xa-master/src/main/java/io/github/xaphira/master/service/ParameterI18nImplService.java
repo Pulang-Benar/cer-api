@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.github.xaphira.common.exceptions.SystemErrorException;
@@ -40,6 +42,9 @@ public class ParameterI18nImplService extends CommonService implements Parameter
 	
 	@Autowired
 	private ParameterRepo parameterRepo;
+
+	@Value("${xa.locale}")
+	private String locale;
 
 	public List<ParameterI18nDto> getParameterCode(Map<String, Object> filter) throws Exception {
 		List<ParameterI18nEntity> param = parameterI18nRepo.findByParameter_ParameterCode(filter.get("parameterCode").toString());
@@ -112,6 +117,10 @@ public class ParameterI18nImplService extends CommonService implements Parameter
 	}
 	
 	public ParameterI18nDto getParameter(Map<String, Object> param, String locale) throws Exception {
+	    	Locale i18n = Locale.forLanguageTag(locale);
+	    	if(i18n.getDisplayLanguage().isEmpty()) {
+	    		locale = this.locale;
+	    	}
 		ParameterI18nEntity parameterI18n = parameterI18nRepo.findByParameter_ParameterCodeAndLocaleCode(param.get("parameterCode").toString(), locale);
 		if(parameterI18n != null) {
 			ParameterI18nDto temp = new ParameterI18nDto();

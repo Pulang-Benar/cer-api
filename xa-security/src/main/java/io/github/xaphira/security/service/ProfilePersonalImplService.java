@@ -119,14 +119,23 @@ public class ProfilePersonalImplService implements ProfilePersonalService {
 			    calDateOfNow.setTime(new Date());
 			    dto.setAge(calDateOfNow.get(Calendar.YEAR) - calDateOfBirth.get(Calendar.YEAR));
 				dto.setIdNumber(profile.getPersonalInfo().getIdNumber());
-				dto.setGender(profile.getPersonalInfo().getGender());
+				Map<String, Object> temp = new HashMap<String, Object>();
+				temp.put("parameterCode", profile.getPersonalInfo().getGender());
+				dto.setGenderCode(profile.getPersonalInfo().getGender());
+				try {
+					dto.setGender(parameterI18nService.getParameter(temp, p_locale).getParameterValue());
+				} catch (Exception e) {}
 				dto.setPlaceOfBirth(profile.getPersonalInfo().getPlaceOfBirth());	
 				dto.setDateOfBirth(DateUtil.DATE.format(profile.getPersonalInfo().getDateOfBirth()));
 				if(profile.getPersonalInfo().getPersonalSupport() != null) {
 					dto.setReferenceName(profile.getPersonalInfo().getPersonalSupport().getReferenceName());
 					dto.setReferenceAddress(profile.getPersonalInfo().getPersonalSupport().getReferenceAddress());
 					dto.setReferencePhoneNumber(profile.getPersonalInfo().getPersonalSupport().getReferencePhoneNumber());
+					temp.put("parameterCode", profile.getPersonalInfo().getPersonalSupport().getRelationship());
 					dto.setRelationship(profile.getPersonalInfo().getPersonalSupport().getRelationship());
+					try {
+						dto.setRelationship(parameterI18nService.getParameter(temp, p_locale).getParameterValue());
+					} catch (Exception e) {}
 				}
 			}
 			return dto;
@@ -155,7 +164,10 @@ public class ProfilePersonalImplService implements ProfilePersonalService {
 				dto.setIdNumber(profile.getPersonalInfo().getIdNumber());
 				Map<String, Object> temp = new HashMap<String, Object>();
 				temp.put("parameterCode", profile.getPersonalInfo().getGender());
-				dto.setGender(parameterI18nService.getParameter(temp, p_locale).getParameterValue());
+				dto.setGenderCode(profile.getPersonalInfo().getGender());
+				try {
+					dto.setGender(parameterI18nService.getParameter(temp, p_locale).getParameterValue());
+				} catch (Exception e) {}
 				dto.setPlaceOfBirth(profile.getPersonalInfo().getPlaceOfBirth());	
 				dto.setDateOfBirth(DateUtil.DATE.format(profile.getPersonalInfo().getDateOfBirth()));
 				if(profile.getPersonalInfo().getPersonalSupport() != null) {
@@ -163,7 +175,10 @@ public class ProfilePersonalImplService implements ProfilePersonalService {
 					dto.setReferenceAddress(profile.getPersonalInfo().getPersonalSupport().getReferenceAddress());
 					dto.setReferencePhoneNumber(profile.getPersonalInfo().getPersonalSupport().getReferencePhoneNumber());
 					temp.put("parameterCode", profile.getPersonalInfo().getPersonalSupport().getRelationship());
-					dto.setRelationship(parameterI18nService.getParameter(temp, p_locale).getParameterValue());
+					dto.setRelationship(profile.getPersonalInfo().getPersonalSupport().getRelationship());
+					try {
+						dto.setRelationship(parameterI18nService.getParameter(temp, p_locale).getParameterValue());
+					} catch (Exception e) {}
 				}
 			}
 			return dto;

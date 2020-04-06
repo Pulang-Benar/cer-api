@@ -2,8 +2,10 @@ package io.github.xaphira.panic.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -30,6 +32,7 @@ import io.github.xaphira.feign.dto.panic.PanicDetailDto;
 import io.github.xaphira.feign.dto.panic.PanicReportDto;
 import io.github.xaphira.feign.dto.security.PersonalDto;
 import io.github.xaphira.feign.service.FileGenericService;
+import io.github.xaphira.feign.service.ParameterI18nService;
 import io.github.xaphira.feign.service.ProfilePersonalService;
 import io.github.xaphira.feign.service.WebPushNotificationService;
 import io.github.xaphira.panic.dao.DeviceRepo;
@@ -65,6 +68,9 @@ public class PanicReportImplService {
     @Autowired
     private WebPushNotificationService webPushNotificationService;
 	
+	@Autowired
+	private ParameterI18nService parameterI18nService;
+	
     @Value("${xa.notif.user}")
     protected String userNotify;
 	
@@ -77,6 +83,7 @@ public class PanicReportImplService {
 	@Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = SystemErrorException.class)
 	public ApiBaseResponse doPostPanicReport(BasePanicReportDto dto, MultipartFile evidence, Authentication authentication, String p_locale) throws Exception {
 		if (evidence != null && dto != null) {
+			System.err.println(p_locale);
 			FileMetadataDto fileEvidence = new FileMetadataDto(); 
 			try {
 				fileEvidence = fileEvidenceService.putFile(authentication.getName(), evidence.getOriginalFilename(), evidence.getBytes());
@@ -101,7 +108,7 @@ public class PanicReportImplService {
 			panic.setPanicCode(personal.getUsername() + DateUtil.DATE.format(new Date()));
 			panic.setUsername(personal.getUsername());
 			panic.setName(personal.getName());
-			panic.setGender(personal.getGender());
+			panic.setGender(personal.getGenderCode());
 			panic.setAge(personal.getAge());
 			panic.setPhoneNumber(personal.getPhoneNumber());
 			panic.setIdNumber(personal.getIdNumber());
@@ -122,7 +129,7 @@ public class PanicReportImplService {
 			PushNotificationDto message = new PushNotificationDto();
 			message.setTitle(personal.getName());
 			message.setBody(panic.getLatestFormattedAddress());
-			message.setData(toObject(panic));
+			message.setData(toObject(panic, p_locale));
 			message.setTag(tagNotify);
 			message.setIcon(iconNotify);
 			message.setFrom(personal.getUsername());
@@ -136,7 +143,7 @@ public class PanicReportImplService {
 	public PanicReportDto getPanicReport(String code, Authentication authentication, String p_locale) throws Exception {
 		if(code != null) {
 			PanicReportEntity panic = panicReportRepo.loadPersonalDataByUsername(code, authentication.getName());
-			return toObject(panic);
+			return toObject(panic, p_locale);
 		} else
 			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
 	}
@@ -147,16 +154,23 @@ public class PanicReportImplService {
 			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
 		List<PanicReportDto> response = new ArrayList<PanicReportDto>();
 		panics.forEach(panic -> {
-			response.add(toObject(panic));
+			try {
+				response.add(toObject(panic, p_locale));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		});
 		return response;
 	}
 	
-	private PanicReportDto toObject(PanicReportEntity panic) {
+	private PanicReportDto toObject(PanicReportEntity panic, String p_locale) throws Exception {
 		PanicReportDto response = new PanicReportDto();
 		response.setPanicCode(panic.getPanicCode());
 		response.setUsername(panic.getUsername());
 		response.setName(panic.getName());
+		Map<String, Object> temp = new HashMap<String, Object>();
+		temp.put("parameterCode", panic.getGender());
+		response.setGender(parameterI18nService.getParameter(temp, p_locale).getParameterValue());
 		response.setGender(panic.getGender());
 		response.setAge(panic.getAge());
 		response.setPhoneNumber(panic.getPhoneNumber());
