@@ -47,11 +47,11 @@ public class PanicDetailEntity extends BaseAuditEntity {
 	@JoinColumn(name = "panic_code", nullable = false, updatable = false)
 	private PanicReportEntity panicReport;
 
-	@ManyToOne(targetEntity = DeviceEntity.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = DeviceEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "device_id", nullable = false, updatable = false)
 	private DeviceEntity device;
 
-	@OneToOne(targetEntity = LocationEntity.class, fetch = FetchType.LAZY)
+	@OneToOne(targetEntity = LocationEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "location_uuid", nullable = false, updatable = false)
 	private LocationEntity location;
 

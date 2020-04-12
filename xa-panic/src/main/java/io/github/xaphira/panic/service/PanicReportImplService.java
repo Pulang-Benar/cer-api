@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import io.github.xaphira.common.exceptions.SystemErrorException;
 import io.github.xaphira.common.http.ApiBaseResponse;
+import io.github.xaphira.common.service.CommonService;
 import io.github.xaphira.common.utils.DateUtil;
 import io.github.xaphira.common.utils.ErrorCode;
 import io.github.xaphira.feign.dto.file.FileMetadataDto;
@@ -45,7 +46,7 @@ import io.github.xaphira.panic.entity.PanicReportEntity;
 import io.github.xaphira.panic.entity.Point;
 
 @Service("panicReportService")
-public class PanicReportImplService {
+public class PanicReportImplService extends CommonService {
 
 	protected Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
@@ -121,6 +122,7 @@ public class PanicReportImplService {
 			Set<PanicDetailEntity> panicDetails = new HashSet<PanicDetailEntity>();
 			PanicDetailEntity panicDetail = new PanicDetailEntity();
 			panicDetail.setFileChecksum(fileEvidence.getChecksum());
+			panicDetail.setPanicReport(panic);
 			panicDetail.setLocation(location);
 			panicDetail.setDevice(device);
 			panicDetails.add(panicDetail);
@@ -171,7 +173,6 @@ public class PanicReportImplService {
 		Map<String, Object> temp = new HashMap<String, Object>();
 		temp.put("parameterCode", panic.getGender());
 		response.setGender(parameterI18nService.getParameter(temp, p_locale).getParameterValue());
-		response.setGender(panic.getGender());
 		response.setAge(panic.getAge());
 		response.setPhoneNumber(panic.getPhoneNumber());
 		response.setIdNumber(panic.getIdNumber());
@@ -187,25 +188,43 @@ public class PanicReportImplService {
 		if(panic.getPanicDetails() != null) {
 			List<PanicDetailDto> panicDetails = new ArrayList<PanicDetailDto>();
 			panic.getPanicDetails().forEach(panicDetail -> {
-				PanicDetailDto responsePanicDetail = new PanicDetailDto();
-				responsePanicDetail.setFileChecksum(panicDetail.getFileChecksum());
-				if(panicDetail.getLocation() != null) {
-					LocationDto responseLocation = new LocationDto();
-					responseLocation.setLatitude(panicDetail.getLocation().getCoordinate().getX());
-					responseLocation.setLongitude(panicDetail.getLocation().getCoordinate().getY());
-					responseLocation.setFormattedAddress(panicDetail.getLocation().getFormattedAddress());
-					responseLocation.setArea(panicDetail.getLocation().getArea());
-					responsePanicDetail.setLocation(responseLocation);
-					DeviceDto responseDevice = new DeviceDto();
-					responseDevice.setDeviceID(panicDetail.getDevice().getDeviceID());
-					responseDevice.setDeviceName(panicDetail.getDevice().getDeviceName());
-					responsePanicDetail.setDevice(responseDevice);
-				}
-				panicDetails.add(responsePanicDetail);
+				panicDetails.add(toObjectDetail(panicDetail));
 			});
 			response.setPanicDetails(panicDetails);
 		}
+		response.setActive(panic.isActive());
+		response.setVersion(panic.getVersion());
+		response.setCreatedDate(panic.getCreatedDate());
+		response.setCreatedBy(panic.getCreatedBy());
+		response.setModifiedDate(panic.getModifiedDate());
+		response.setModifiedBy(panic.getModifiedBy());
 		return response;
+	}
+	
+	private PanicDetailDto toObjectDetail(PanicDetailEntity panicDetail) {
+		PanicDetailDto objPanicDetail = new PanicDetailDto();
+		objPanicDetail.setFileChecksum(panicDetail.getFileChecksum());
+		if(panicDetail.getLocation() != null) {
+			LocationDto responseLocation = new LocationDto();
+			responseLocation.setLatitude(panicDetail.getLocation().getCoordinate().getX());
+			responseLocation.setLongitude(panicDetail.getLocation().getCoordinate().getY());
+			responseLocation.setFormattedAddress(panicDetail.getLocation().getFormattedAddress());
+			responseLocation.setArea(panicDetail.getLocation().getArea());
+			objPanicDetail.setLocation(responseLocation);
+		}
+		if(panicDetail.getDevice() != null) {
+			DeviceDto responseDevice = new DeviceDto();
+			responseDevice.setDeviceID(panicDetail.getDevice().getDeviceID());
+			responseDevice.setDeviceName(panicDetail.getDevice().getDeviceName());
+			objPanicDetail.setDevice(responseDevice);
+		}
+		objPanicDetail.setActive(panicDetail.isActive());
+		objPanicDetail.setVersion(panicDetail.getVersion());
+		objPanicDetail.setCreatedDate(panicDetail.getCreatedDate());
+		objPanicDetail.setCreatedBy(panicDetail.getCreatedBy());
+		objPanicDetail.setModifiedDate(panicDetail.getModifiedDate());
+		objPanicDetail.setModifiedBy(panicDetail.getModifiedBy());
+		return objPanicDetail;
 	}
 
 }
