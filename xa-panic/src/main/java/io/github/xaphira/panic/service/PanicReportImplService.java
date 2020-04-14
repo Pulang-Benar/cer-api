@@ -3,10 +3,8 @@ package io.github.xaphira.panic.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,9 +102,9 @@ public class PanicReportImplService extends CommonService {
 			device.setDeviceID(dto.getLatestDeviceID());
 			device.setDeviceName(dto.getLatestDeviceName());
 			device = deviceRepo.saveAndFlush(device);
-			PersonalDto personal = profilePersonalService.getProfilePersonal(authentication, p_locale);
-			PanicReportEntity panic = panicReportRepo.getOne(personal.getUsername() + DateUtil.DATE.format(new Date()));
+			PanicReportEntity panic = panicReportRepo.findById(authentication.getName() + DateUtil.DATE.format(new Date())).orElse(null);
 			if(panic == null) {
+				PersonalDto personal = profilePersonalService.getProfilePersonal(authentication, p_locale);
 				panic =  new PanicReportEntity();
 				panic.setPanicCode(personal.getUsername() + DateUtil.DATE.format(new Date()));
 				panic.setUsername(personal.getUsername());
@@ -115,38 +113,29 @@ public class PanicReportImplService extends CommonService {
 				panic.setAge(personal.getAge());
 				panic.setPhoneNumber(personal.getPhoneNumber());
 				panic.setIdNumber(personal.getIdNumber());
-				panic.setLatestCoordinate(coordinate);
-				panic.setLatestFormattedAddress(dto.getLatestFormattedAddress());
-				panic.setLatestArea(dto.getLatestArea());		
-				panic.setLatestFileChecksum(fileEvidence.getChecksum());
-				panic.setLatestDeviceID(dto.getLatestDeviceID());
-				panic.setLatestDeviceName(dto.getLatestDeviceName());
-				Set<PanicDetailEntity> panicDetails = new HashSet<PanicDetailEntity>();
-				PanicDetailEntity panicDetail = new PanicDetailEntity();
-				panicDetail.setFileChecksum(fileEvidence.getChecksum());
-				panicDetail.setPanicReport(panic);
-				panicDetail.setLocation(location);
-				panicDetail.setDevice(device);
-				panicDetails.add(panicDetail);
-				panic.setPanicDetails(panicDetails);
-				panic = panicReportRepo.saveAndFlush(panic);
-			} else {
-				PanicDetailEntity panicDetail = new PanicDetailEntity();
-				panicDetail.setFileChecksum(fileEvidence.getChecksum());
-				panicDetail.setPanicReport(panic);
-				panicDetail.setLocation(location);
-				panicDetail.setDevice(device);
-				panicDetailRepo.saveAndFlush(panicDetail);
 			}
+			panic.setLatestCoordinate(coordinate);
+			panic.setLatestFormattedAddress(dto.getLatestFormattedAddress());
+			panic.setLatestArea(dto.getLatestArea());		
+			panic.setLatestFileChecksum(fileEvidence.getChecksum());
+			panic.setLatestDeviceID(dto.getLatestDeviceID());
+			panic.setLatestDeviceName(dto.getLatestDeviceName());
+			panic = panicReportRepo.saveAndFlush(panic);
+			PanicDetailEntity panicDetail = new PanicDetailEntity();
+			panicDetail.setFileChecksum(fileEvidence.getChecksum());
+			panicDetail.setPanicReport(panic);
+			panicDetail.setLocation(location);
+			panicDetail.setDevice(device);
+			panicDetailRepo.saveAndFlush(panicDetail);
 			PushNotificationDto message = new PushNotificationDto();
-			message.setTitle(personal.getName());
+			message.setTitle(authentication.getName());
 			message.setBody(panic.getLatestFormattedAddress());
 			message.setData(toObject(panic, p_locale));
 			message.setTag(tagNotify);
 			message.setIcon(iconNotify);
-			message.setFrom(personal.getUsername());
+			message.setFrom(authentication.getName());
 			message.setTo(userNotify);
-			webPushNotificationService.notify(message, personal.getUsername());
+			webPushNotificationService.notify(message, authentication.getName());
 			return null;
 		} else
 			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
