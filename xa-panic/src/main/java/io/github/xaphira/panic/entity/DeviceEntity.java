@@ -1,10 +1,13 @@
 package io.github.xaphira.panic.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import io.github.xaphira.common.entity.BaseAuditEntity;
@@ -18,8 +21,8 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=false, exclude={"panicDetail", "fakeDetail"})
-@ToString(exclude={"panicDetail", "fakeDetail"})
+@EqualsAndHashCode(callSuper=false, exclude={"panicDetails", "fakeDetails"})
+@ToString(exclude={"panicDetails", "fakeDetails"})
 @Entity
 @Table(name = "panic_device", schema = SchemaDatabase.PANIC)
 public class DeviceEntity extends BaseAuditEntity {
@@ -36,10 +39,10 @@ public class DeviceEntity extends BaseAuditEntity {
 	@Column(name = "device_name", nullable = false)
 	private String deviceName;
 	
-	@OneToOne(mappedBy = "device", targetEntity = PanicDetailEntity.class, fetch = FetchType.LAZY)
-	private PanicDetailEntity panicDetail;
+	@OneToMany(mappedBy = "device", targetEntity = PanicDetailEntity.class, fetch = FetchType.LAZY)
+	private Set<PanicDetailEntity> panicDetails = new HashSet<PanicDetailEntity>();
 	
-	@OneToOne(mappedBy = "device", targetEntity = FakeDetailEntity.class, fetch = FetchType.LAZY)
-	private FakeDetailEntity fakeDetail;
+	@OneToMany(mappedBy = "device", targetEntity = FakeDetailEntity.class, fetch = FetchType.LAZY)
+	private Set<FakeDetailEntity> fakeDetails = new HashSet<FakeDetailEntity>();
 
 }

@@ -3,6 +3,7 @@ package io.github.xaphira.feign.dto.panic;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.xaphira.feign.dto.file.FileMetadataDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,6 +30,7 @@ public class PanicReportDto extends BasePanicReportDto {
 	private String idNumber;
 	private String urgencyCategory;
 	private String status;
+	private FileMetadataDto fileMetadata;
 	private List<PanicDetailDto> panicDetails = new ArrayList<PanicDetailDto>();
 
 }

@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -51,7 +50,7 @@ public class PanicDetailEntity extends BaseAuditEntity {
 	@JoinColumn(name = "device_id", nullable = false, updatable = false)
 	private DeviceEntity device;
 
-	@OneToOne(targetEntity = LocationEntity.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = LocationEntity.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "location_uuid", nullable = false, updatable = false)
 	private LocationEntity location;
 

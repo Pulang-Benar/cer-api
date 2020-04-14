@@ -27,9 +27,6 @@ import io.github.xaphira.common.utils.ErrorCode;
 import io.github.xaphira.feign.dto.file.FileMetadataDto;
 import io.github.xaphira.feign.dto.notification.PushNotificationDto;
 import io.github.xaphira.feign.dto.panic.BasePanicReportDto;
-import io.github.xaphira.feign.dto.panic.DeviceDto;
-import io.github.xaphira.feign.dto.panic.LocationDto;
-import io.github.xaphira.feign.dto.panic.PanicDetailDto;
 import io.github.xaphira.feign.dto.panic.PanicReportDto;
 import io.github.xaphira.feign.dto.security.PersonalDto;
 import io.github.xaphira.feign.service.FileGenericService;
@@ -38,6 +35,7 @@ import io.github.xaphira.feign.service.ProfilePersonalService;
 import io.github.xaphira.feign.service.WebPushNotificationService;
 import io.github.xaphira.panic.dao.DeviceRepo;
 import io.github.xaphira.panic.dao.LocationRepo;
+import io.github.xaphira.panic.dao.PanicDetailRepo;
 import io.github.xaphira.panic.dao.PanicReportRepo;
 import io.github.xaphira.panic.entity.DeviceEntity;
 import io.github.xaphira.panic.entity.LocationEntity;
@@ -52,6 +50,9 @@ public class PanicReportImplService extends CommonService {
 
 	@Autowired
 	private PanicReportRepo panicReportRepo;
+
+	@Autowired
+	private PanicDetailRepo panicDetailRepo;
 
 	@Autowired
 	private LocationRepo locationRepo;
@@ -84,7 +85,6 @@ public class PanicReportImplService extends CommonService {
 	@Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = SystemErrorException.class)
 	public ApiBaseResponse doPostPanicReport(BasePanicReportDto dto, MultipartFile evidence, Authentication authentication, String p_locale) throws Exception {
 		if (evidence != null && dto != null) {
-			System.err.println(p_locale);
 			FileMetadataDto fileEvidence = new FileMetadataDto(); 
 			try {
 				fileEvidence = fileEvidenceService.putFile(authentication.getName(), evidence.getOriginalFilename(), evidence.getBytes());
@@ -105,29 +105,39 @@ public class PanicReportImplService extends CommonService {
 			device.setDeviceName(dto.getLatestDeviceName());
 			device = deviceRepo.saveAndFlush(device);
 			PersonalDto personal = profilePersonalService.getProfilePersonal(authentication, p_locale);
-			PanicReportEntity panic = new PanicReportEntity();
-			panic.setPanicCode(personal.getUsername() + DateUtil.DATE.format(new Date()));
-			panic.setUsername(personal.getUsername());
-			panic.setName(personal.getName());
-			panic.setGender(personal.getGenderCode());
-			panic.setAge(personal.getAge());
-			panic.setPhoneNumber(personal.getPhoneNumber());
-			panic.setIdNumber(personal.getIdNumber());
-			panic.setLatestCoordinate(coordinate);
-			panic.setLatestFormattedAddress(dto.getLatestFormattedAddress());
-			panic.setLatestArea(dto.getLatestArea());		
-			panic.setLatestFileChecksum(fileEvidence.getChecksum());
-			panic.setLatestDeviceID(dto.getLatestDeviceID());
-			panic.setLatestDeviceName(dto.getLatestDeviceName());
-			Set<PanicDetailEntity> panicDetails = new HashSet<PanicDetailEntity>();
-			PanicDetailEntity panicDetail = new PanicDetailEntity();
-			panicDetail.setFileChecksum(fileEvidence.getChecksum());
-			panicDetail.setPanicReport(panic);
-			panicDetail.setLocation(location);
-			panicDetail.setDevice(device);
-			panicDetails.add(panicDetail);
-			panic.setPanicDetails(panicDetails);
-			panic = panicReportRepo.saveAndFlush(panic);
+			PanicReportEntity panic = panicReportRepo.getOne(personal.getUsername() + DateUtil.DATE.format(new Date()));
+			if(panic == null) {
+				panic =  new PanicReportEntity();
+				panic.setPanicCode(personal.getUsername() + DateUtil.DATE.format(new Date()));
+				panic.setUsername(personal.getUsername());
+				panic.setName(personal.getName());
+				panic.setGender(personal.getGenderCode());
+				panic.setAge(personal.getAge());
+				panic.setPhoneNumber(personal.getPhoneNumber());
+				panic.setIdNumber(personal.getIdNumber());
+				panic.setLatestCoordinate(coordinate);
+				panic.setLatestFormattedAddress(dto.getLatestFormattedAddress());
+				panic.setLatestArea(dto.getLatestArea());		
+				panic.setLatestFileChecksum(fileEvidence.getChecksum());
+				panic.setLatestDeviceID(dto.getLatestDeviceID());
+				panic.setLatestDeviceName(dto.getLatestDeviceName());
+				Set<PanicDetailEntity> panicDetails = new HashSet<PanicDetailEntity>();
+				PanicDetailEntity panicDetail = new PanicDetailEntity();
+				panicDetail.setFileChecksum(fileEvidence.getChecksum());
+				panicDetail.setPanicReport(panic);
+				panicDetail.setLocation(location);
+				panicDetail.setDevice(device);
+				panicDetails.add(panicDetail);
+				panic.setPanicDetails(panicDetails);
+				panic = panicReportRepo.saveAndFlush(panic);
+			} else {
+				PanicDetailEntity panicDetail = new PanicDetailEntity();
+				panicDetail.setFileChecksum(fileEvidence.getChecksum());
+				panicDetail.setPanicReport(panic);
+				panicDetail.setLocation(location);
+				panicDetail.setDevice(device);
+				panicDetailRepo.saveAndFlush(panicDetail);
+			}
 			PushNotificationDto message = new PushNotificationDto();
 			message.setTitle(personal.getName());
 			message.setBody(panic.getLatestFormattedAddress());
@@ -185,46 +195,14 @@ public class PanicReportImplService extends CommonService {
 		response.setLatestDeviceName(panic.getLatestDeviceName());
 		response.setUrgencyCategory(panic.getUrgencyCategory());
 		response.setStatus(panic.getStatus());
-		if(panic.getPanicDetails() != null) {
-			List<PanicDetailDto> panicDetails = new ArrayList<PanicDetailDto>();
-			panic.getPanicDetails().forEach(panicDetail -> {
-				panicDetails.add(toObjectDetail(panicDetail));
-			});
-			response.setPanicDetails(panicDetails);
-		}
 		response.setActive(panic.isActive());
 		response.setVersion(panic.getVersion());
 		response.setCreatedDate(panic.getCreatedDate());
 		response.setCreatedBy(panic.getCreatedBy());
 		response.setModifiedDate(panic.getModifiedDate());
 		response.setModifiedBy(panic.getModifiedBy());
+		response.setFileMetadata(fileEvidenceService.getFileInfo(panic.getLatestFileChecksum()));
 		return response;
-	}
-	
-	private PanicDetailDto toObjectDetail(PanicDetailEntity panicDetail) {
-		PanicDetailDto objPanicDetail = new PanicDetailDto();
-		objPanicDetail.setFileChecksum(panicDetail.getFileChecksum());
-		if(panicDetail.getLocation() != null) {
-			LocationDto responseLocation = new LocationDto();
-			responseLocation.setLatitude(panicDetail.getLocation().getCoordinate().getX());
-			responseLocation.setLongitude(panicDetail.getLocation().getCoordinate().getY());
-			responseLocation.setFormattedAddress(panicDetail.getLocation().getFormattedAddress());
-			responseLocation.setArea(panicDetail.getLocation().getArea());
-			objPanicDetail.setLocation(responseLocation);
-		}
-		if(panicDetail.getDevice() != null) {
-			DeviceDto responseDevice = new DeviceDto();
-			responseDevice.setDeviceID(panicDetail.getDevice().getDeviceID());
-			responseDevice.setDeviceName(panicDetail.getDevice().getDeviceName());
-			objPanicDetail.setDevice(responseDevice);
-		}
-		objPanicDetail.setActive(panicDetail.isActive());
-		objPanicDetail.setVersion(panicDetail.getVersion());
-		objPanicDetail.setCreatedDate(panicDetail.getCreatedDate());
-		objPanicDetail.setCreatedBy(panicDetail.getCreatedBy());
-		objPanicDetail.setModifiedDate(panicDetail.getModifiedDate());
-		objPanicDetail.setModifiedBy(panicDetail.getModifiedBy());
-		return objPanicDetail;
 	}
 
 }

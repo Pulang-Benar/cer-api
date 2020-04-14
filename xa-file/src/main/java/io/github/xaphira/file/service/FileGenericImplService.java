@@ -58,6 +58,25 @@ public class FileGenericImplService implements FileGenericService {
 		return fileMetadataDto;
 	}
 	
+	public FileMetadataDto getFileInfo(String checksum) throws Exception {
+		FileMetadataEntity fileMetadata = fileMetadataRepo.findByChecksum(checksum);
+		if(fileMetadata != null) {
+			FileMetadataDto fileMetadataDto = new FileMetadataDto();
+			fileMetadataDto.setChecksum(fileMetadata.getChecksum());
+			fileMetadataDto.setExtension(fileMetadata.getExtension());
+			fileMetadataDto.setFileDate(fileMetadata.getFileDate());
+			fileMetadataDto.setFileType(fileMetadata.getFileType());
+			fileMetadataDto.setFullname(fileMetadata.getFullname());
+			fileMetadataDto.setFullPath(fileMetadata.getFullPath());
+			fileMetadataDto.setLocation(fileMetadata.getLocation());
+			fileMetadataDto.setShortname(fileMetadata.getShortname());
+			fileMetadataDto.setSize(fileMetadata.getSize());
+			return fileMetadataDto;			
+		} else {
+			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+		}
+	}
+	
 	public Resource getFile(String checksum, String path) throws Exception {
 		try {
 			Path file = Paths.get(path).resolve(checksum);

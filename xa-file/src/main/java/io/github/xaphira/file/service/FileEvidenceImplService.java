@@ -72,6 +72,25 @@ public class FileEvidenceImplService implements FileGenericService {
 		}
 	}
 	
+	public FileMetadataDto getFileInfo(String checksum) throws Exception {
+		FileMetadataEntity fileMetadata = fileMetadataRepo.findByChecksum(checksum);
+		if(fileMetadata != null) {
+			FileMetadataDto fileMetadataDto = new FileMetadataDto();
+			fileMetadataDto.setChecksum(fileMetadata.getChecksum());
+			fileMetadataDto.setExtension(fileMetadata.getExtension());
+			fileMetadataDto.setFileDate(fileMetadata.getFileDate());
+			fileMetadataDto.setFileType(fileMetadata.getFileType());
+			fileMetadataDto.setFullname(fileMetadata.getFullname());
+			fileMetadataDto.setFullPath(fileMetadata.getFullPath());
+			fileMetadataDto.setLocation(fileMetadata.getLocation());
+			fileMetadataDto.setShortname(fileMetadata.getShortname());
+			fileMetadataDto.setSize(fileMetadata.getSize());
+			return fileMetadataDto;			
+		} else {
+			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+		}
+	}
+	
 	public void removeAllFiles(String path) throws Exception {
 		try {
 			String[] files = new File(path).list();
