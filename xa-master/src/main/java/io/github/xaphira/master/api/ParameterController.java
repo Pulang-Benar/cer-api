@@ -1,11 +1,13 @@
 package io.github.xaphira.master.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,8 +28,9 @@ public class ParameterController extends BaseControllerException {
 
 	@RequestMapping(value = "/vw/post/select/parameter/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<SelectResponseDto> getSelectCity(Authentication authentication,
-			@RequestBody(required = true) FilterDto filter) throws Exception {
-		return new ResponseEntity<SelectResponseDto>(new SelectResponseDto(), HttpStatus.OK);
+			@RequestBody(required = true) FilterDto filter,
+			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
+		return new ResponseEntity<SelectResponseDto>(this.parameterService.getSelect(filter, locale), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/vw/post/datatable/parameter/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
