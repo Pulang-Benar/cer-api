@@ -13,7 +13,8 @@ INSERT INTO master.mst_locale (locale_uuid, locale_code, locale_identifier, loca
 INSERT INTO master.mst_parameter_group (parameter_group_uuid, parameter_group_code, parameter_group_name, "version", is_active, created_date, created_by, modified_date, modified_by) VALUES
 ('a34ce03b-35e5-40d7-9e95-47cb77cf623a', 'GENDER', 'Gender', 0, true, '2018-12-05 11:45:42', NULL, NULL, NULL),
 ('799bcdcb-b922-4fee-8266-6cd1e2142492', 'FILE_EXCLUSION', 'File Exclusion', 0, true, '2018-12-05 11:45:42', NULL, NULL, NULL),
-('c1e38b92-ab8c-4925-bc42-3a5acfd3b162', 'EMERGENCY', 'Category Emergency', 0, true, '2018-12-05 11:45:42', NULL, NULL, NULL),
+('c1e38b92-ab8c-4925-bc42-3a5acfd3b162', 'CATEGORY_EMERGENCY', 'Category of Emergency', 0, true, '2018-12-05 11:45:42', NULL, NULL, NULL),
+('fe30e61d-f702-41f6-8323-449719cd2553', 'STATUS_EMERGENCY', 'Status of Emergency', 0, true, '2018-12-05 11:45:42', NULL, NULL, NULL),
 ('7deaaf87-d64e-4b5b-9a91-ab8db58902cb', 'RELATIONSHIP', 'Relationship', 0, true, '2018-12-05 11:45:42', NULL, NULL, NULL);
 
 --
@@ -27,15 +28,19 @@ INSERT INTO master.mst_parameter (parameter_uuid, parameter_code, "version", is_
 ('112cf342-b9c9-4139-9a58-3cdfb5c68e07', 'FILE_EXCLUSION.BASH', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, '799bcdcb-b922-4fee-8266-6cd1e2142492'),
 ('56bee47f-7304-439d-9295-67d2b323a1ef', 'FILE_EXCLUSION.SH', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, '799bcdcb-b922-4fee-8266-6cd1e2142492'),
 ('453c7792-244e-41a7-b064-a2ab362fbbf1', 'FILE_EXCLUSION.BAT', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, '799bcdcb-b922-4fee-8266-6cd1e2142492'),
-('4fd59970-f3bd-484e-9098-6ff5ad17137b', 'EMERGENCY.FIRE', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
-('3912c634-5e7d-455b-9d06-1c34285d8870', 'EMERGENCY.ABDUCTION', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
-('f2aa8a47-d509-4fa1-8c83-f7840f25d046', 'EMERGENCY.THEFT', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
-('8b288bbd-6aee-4170-b29e-4eeefe8fc574', 'EMERGENCY.HER', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
-('baa612fe-e587-444a-9dcb-14401dcdaf79', 'EMERGENCY.UNREST', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
-('13a20c8b-f6ff-4470-82d4-290f6acc4ba2', 'EMERGENCY.HARASSMENT', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
-('5dfe381b-b79e-483d-9bab-05ba10234baf', 'EMERGENCY.THREAT', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
-('43b24cc9-8605-44d5-8945-735b3fa83ab7', 'EMERGENCY.BULLYING', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
-('cb66c666-0ce6-458d-bb53-8000296f7af8', 'EMERGENCY.OTHERS', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
+('4fd59970-f3bd-484e-9098-6ff5ad17137b', 'CATEGORY_EMERGENCY.FIRE', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
+('3912c634-5e7d-455b-9d06-1c34285d8870', 'CATEGORY_EMERGENCY.ABDUCTION', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
+('f2aa8a47-d509-4fa1-8c83-f7840f25d046', 'CATEGORY_EMERGENCY.THEFT', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
+('8b288bbd-6aee-4170-b29e-4eeefe8fc574', 'CATEGORY_EMERGENCY.HER', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
+('baa612fe-e587-444a-9dcb-14401dcdaf79', 'CATEGORY_EMERGENCY.UNREST', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
+('13a20c8b-f6ff-4470-82d4-290f6acc4ba2', 'CATEGORY_EMERGENCY.HARASSMENT', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
+('5dfe381b-b79e-483d-9bab-05ba10234baf', 'CATEGORY_EMERGENCY.THREAT', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
+('43b24cc9-8605-44d5-8945-735b3fa83ab7', 'CATEGORY_EMERGENCY.BULLYING', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
+('cb66c666-0ce6-458d-bb53-8000296f7af8', 'CATEGORY_EMERGENCY.OTHERS', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'c1e38b92-ab8c-4925-bc42-3a5acfd3b162'),
+('95610b66-a76f-45f3-b464-4b8f27860903', 'STATUS_EMERGENCY.INVESTIGATE', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'fe30e61d-f702-41f6-8323-449719cd2553'),
+('a4f492a8-0a03-4325-b1e5-5c7e257a4e8d', 'STATUS_EMERGENCY.TO_THE_SCENE', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'fe30e61d-f702-41f6-8323-449719cd2553'),
+('d8aad181-30b5-4093-9cc6-072047fd505b', 'STATUS_EMERGENCY.CASE_CLOSED', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'fe30e61d-f702-41f6-8323-449719cd2553'),
+('469b48ee-a7e6-4f57-b91f-034fe89382c8', 'STATUS_EMERGENCY.CASE_POSTPONED', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, 'fe30e61d-f702-41f6-8323-449719cd2553'),
 ('4acfe901-8ec9-4e8c-8420-7f494cf2854b', 'RELATIONSHIP.PARENT', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, '7deaaf87-d64e-4b5b-9a91-ab8db58902cb'),
 ('36df4a74-66c4-4461-97fd-76b0d65af856', 'RELATIONSHIP.SIBLING', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, '7deaaf87-d64e-4b5b-9a91-ab8db58902cb'),
 ('6a899845-9cfd-4b48-9735-b31ee8b86a41', 'RELATIONSHIP.COUPLE', 0, true, '2018-12-05 11:46:40', NULL, NULL, NULL, '7deaaf87-d64e-4b5b-9a91-ab8db58902cb'),
@@ -65,6 +70,11 @@ INSERT INTO master.mst_parameter_i18n (parameter_i18n_uuid, parameter_uuid, loca
 ('0cd450aa-b463-42c1-b733-50612c7e47fc', '43b24cc9-8605-44d5-8945-735b3fa83ab7', 'en-US', 'Bullying', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('4119a8d7-b3a4-4c38-ad64-1d4f86728261', 'cb66c666-0ce6-458d-bb53-8000296f7af8', 'en-US', 'Others', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 
+('05f6a168-d8a2-4b11-aef7-06fd42fca210', '95610b66-a76f-45f3-b464-4b8f27860903', 'en-US', 'Investigate', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('ab4c2da5-3eb6-453f-9d7a-7cbb193d0c82', 'a4f492a8-0a03-4325-b1e5-5c7e257a4e8d', 'en-US', 'To The Scene', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('79b59955-849d-4cf6-b4e9-2e85604e4401', 'd8aad181-30b5-4093-9cc6-072047fd505b', 'en-US', 'Case Closed', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('6a3c1bea-eece-4eb8-9716-d9656cefc097', '469b48ee-a7e6-4f57-b91f-034fe89382c8', 'en-US', 'Case Postponed', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+
 ('4716f585-fabd-4b8a-8af5-27cd44a99889', '4acfe901-8ec9-4e8c-8420-7f494cf2854b', 'en-US', 'Parents', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('d44c5ef7-5c62-4ece-bb87-b599065cd7c0', '36df4a74-66c4-4461-97fd-76b0d65af856', 'en-US', 'Sibling', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('8d749dd4-c800-4bb9-9a72-1e4cfc2c3e74', '6a899845-9cfd-4b48-9735-b31ee8b86a41', 'en-US', 'Couple', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
@@ -89,6 +99,11 @@ INSERT INTO master.mst_parameter_i18n (parameter_i18n_uuid, parameter_uuid, loca
 ('ff269687-1756-42dc-8a6e-6db124657ab6', '5dfe381b-b79e-483d-9bab-05ba10234baf', 'id-ID', 'Ancaman', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('3b48e4d7-e24b-4cf0-9bdc-852d13ee16da', '43b24cc9-8605-44d5-8945-735b3fa83ab7', 'id-ID', 'Intimidasi', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('7f060226-f42b-4650-afb5-ebf2bb24a2ef', 'cb66c666-0ce6-458d-bb53-8000296f7af8', 'id-ID', 'Lainnya', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+
+('851bfe40-a43b-43a9-9065-ebd31a014c90', '95610b66-a76f-45f3-b464-4b8f27860903', 'id-ID', 'Investigasi', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('329201e5-51da-40d8-8b92-62ab8b9cafa5', 'a4f492a8-0a03-4325-b1e5-5c7e257a4e8d', 'id-ID', 'Ke TKP', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('1382ff23-d5c0-42b7-ad3e-2dafcee748e2', 'd8aad181-30b5-4093-9cc6-072047fd505b', 'id-ID', 'Kasus Ditutup', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('fdaff2fa-7164-465d-bff9-ec5cecefa467', '469b48ee-a7e6-4f57-b91f-034fe89382c8', 'id-ID', 'Kasus Ditunda', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 
 ('ff174243-0b60-4308-9365-5bd3bc009812', '4acfe901-8ec9-4e8c-8420-7f494cf2854b', 'id-ID', 'Orang Tua', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('2f6642f6-3c5a-4bcc-8ff5-affac6038b04', '36df4a74-66c4-4461-97fd-76b0d65af856', 'id-ID', 'Saudara', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),

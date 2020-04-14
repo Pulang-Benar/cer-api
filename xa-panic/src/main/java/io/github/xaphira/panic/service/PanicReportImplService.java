@@ -182,7 +182,7 @@ public class PanicReportImplService extends CommonService {
 		response.setLatestFileChecksum(panic.getLatestFileChecksum());
 		response.setLatestDeviceID(panic.getLatestDeviceID());
 		response.setLatestDeviceName(panic.getLatestDeviceName());
-		response.setUrgencyCategory(panic.getUrgencyCategory());
+		response.setEmergencyCategory(panic.getEmergencyCategory());
 		response.setStatus(panic.getStatus());
 		response.setActive(panic.isActive());
 		response.setVersion(panic.getVersion());

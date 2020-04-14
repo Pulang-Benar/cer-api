@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +19,10 @@ import io.github.xaphira.common.aspect.ResponseSuccess;
 import io.github.xaphira.common.exceptions.BaseControllerException;
 import io.github.xaphira.common.http.ApiBaseResponse;
 import io.github.xaphira.common.utils.SuccessCode;
+import io.github.xaphira.feign.dto.common.FilterDto;
 import io.github.xaphira.feign.dto.master.ParameterI18nDto;
 import io.github.xaphira.feign.dto.master.ParameterRequestDto;
+import io.github.xaphira.feign.dto.select.SelectResponseDto;
 import io.github.xaphira.master.service.ParameterI18nImplService;
 
 @RestController
@@ -27,6 +31,13 @@ public class ParameterI18nController extends BaseControllerException {
 
 	@Autowired
 	private ParameterI18nImplService parameterI18nService;
+
+	@RequestMapping(value = "/vw/post/select/parameter-i18n/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<SelectResponseDto> getSelectCity(Authentication authentication,
+			@RequestBody(required = true) FilterDto filter,
+			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
+		return new ResponseEntity<SelectResponseDto>(this.parameterI18nService.getSelect(filter, locale), HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/vw/post/parameter-i18n/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ParameterI18nDto>> getParameterCode(Authentication authentication,

@@ -83,8 +83,8 @@ public class FakeReportEntity extends BaseAuditEntity {
 	@Column(name = "latest_device_name", nullable = true)
 	private String latestDeviceName;
 
-	@Column(name = "urgency_category", nullable = true)
-	private String urgencyCategory;
+	@Column(name = "emergency_category", nullable = true)
+	private String emergencyCategory;
 
 	@Column(name = "status", nullable = true)
 	private String status;

@@ -28,7 +28,7 @@ public class PanicReportDto extends BasePanicReportDto {
 	private String phoneNumber;
 	private Integer age;
 	private String idNumber;
-	private String urgencyCategory;
+	private String emergencyCategory;
 	private String status;
 	private FileMetadataDto fileMetadata;
 	private List<PanicDetailDto> panicDetails = new ArrayList<PanicDetailDto>();

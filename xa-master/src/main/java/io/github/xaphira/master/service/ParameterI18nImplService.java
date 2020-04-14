@@ -14,17 +14,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import io.github.xaphira.common.exceptions.SystemErrorException;
 import io.github.xaphira.common.service.CommonService;
 import io.github.xaphira.common.utils.ErrorCode;
+import io.github.xaphira.feign.dto.common.FilterDto;
 import io.github.xaphira.feign.dto.master.ParameterI18nDto;
 import io.github.xaphira.feign.dto.master.ParameterRequestDto;
+import io.github.xaphira.feign.dto.select.SelectDto;
+import io.github.xaphira.feign.dto.select.SelectResponseDto;
 import io.github.xaphira.feign.service.ParameterI18nService;
 import io.github.xaphira.master.dao.ParameterGroupRepo;
 import io.github.xaphira.master.dao.ParameterI18nRepo;
 import io.github.xaphira.master.dao.ParameterRepo;
+import io.github.xaphira.master.dao.specification.ParameterI18nSpecification;
 import io.github.xaphira.master.entity.ParameterEntity;
 import io.github.xaphira.master.entity.ParameterGroupEntity;
 import io.github.xaphira.master.entity.ParameterI18nEntity;
@@ -139,6 +144,22 @@ public class ParameterI18nImplService extends CommonService implements Parameter
 		} else {
 			return null;
 		}
+	}
+
+	public SelectResponseDto getSelect(FilterDto filter, String locale) throws Exception {
+	    	Locale i18n = Locale.forLanguageTag(locale);
+	    	if(i18n.getDisplayLanguage().isEmpty()) {
+	    		locale = this.locale;
+	    	}
+	    	filter.getKeyword().put("localeCode", locale);
+		Page<ParameterI18nEntity> parameter = parameterI18nRepo.findAll(ParameterI18nSpecification.getSelect(filter.getKeyword()), page(filter.getOrder(), filter.getOffset(), filter.getLimit()));
+		SelectResponseDto response = new SelectResponseDto();
+		response.setTotalFiltered(new Long(parameter.getContent().size()));
+		response.setTotalRecord(parameterI18nRepo.count(ParameterI18nSpecification.getSelect(filter.getKeyword())));
+		parameter.getContent().forEach(value -> {
+			response.getData().add(new SelectDto(value.getParameterValue(), value.getParameter().getParameterCode(), !value.getParameter().isActive(), null));
+		});
+		return response;
 	}
 
 }
