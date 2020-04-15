@@ -143,14 +143,14 @@ public class PanicReportImplService extends CommonService {
 	
 	public PanicReportDto getPanicReport(String code, Authentication authentication, String p_locale) throws Exception {
 		if(code != null) {
-			PanicReportEntity panic = panicReportRepo.loadPersonalDataByUsername(code, authentication.getName());
+			PanicReportEntity panic = panicReportRepo.loadPanicReportByCodeUsername(code, authentication.getName());
 			return toObject(panic, p_locale);
 		} else
 			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
 	}
 	
 	public List<PanicReportDto> getAllPanicReport(Authentication authentication, String p_locale) throws Exception {
-		List<PanicReportEntity> panics = panicReportRepo.findAll();
+		List<PanicReportEntity> panics = panicReportRepo.findByActiveAndStatusNull(true);
 		if(panics == null)
 			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
 		List<PanicReportDto> response = new ArrayList<PanicReportDto>();
@@ -162,6 +162,20 @@ public class PanicReportImplService extends CommonService {
 			}
 		});
 		return response;
+	}
+	@Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = SystemErrorException.class)
+	public ApiBaseResponse doProcessPanicReport(Map<String, Object> dto, Authentication authentication, String p_locale) throws Exception {
+		if (dto != null) {
+			PanicReportEntity panic = panicReportRepo.findById(dto.get("panicCode").toString()).orElse(null);
+			if(panic != null) {
+				panic.setEmergencyCategory(dto.get("emergencyCategory").toString());
+				panic.setStatus(dto.get("status").toString());
+				panic = panicReportRepo.saveAndFlush(panic);
+				return null;
+			} else
+				throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+		} else
+			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
 	}
 	
 	private PanicReportDto toObject(PanicReportEntity panic, String p_locale) throws Exception {

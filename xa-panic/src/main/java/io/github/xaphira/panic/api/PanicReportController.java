@@ -1,6 +1,7 @@
 package io.github.xaphira.panic.api;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,5 +66,13 @@ public class PanicReportController extends BaseControllerException {
 			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
 		return new ResponseEntity<List<PanicReportDto>>(this.panicReportService.getAllPanicReport(authentication, locale), HttpStatus.OK);
 	}
-	
+
+    @ResponseSuccess(SuccessCode.OK_UPDATED)
+	@RequestMapping(value = "/trx/auth/process-panic/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)	
+	public ResponseEntity<ApiBaseResponse> doProcessPanicReport(Authentication authentication,
+			@RequestBody(required = true) Map<String, Object> dto,
+			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
+		return new ResponseEntity<ApiBaseResponse>(this.panicReportService.doProcessPanicReport(dto, authentication, locale), HttpStatus.OK);
+	}
+
 }
