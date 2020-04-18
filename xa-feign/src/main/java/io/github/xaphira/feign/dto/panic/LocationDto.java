@@ -21,6 +21,8 @@ public class LocationDto extends BaseAuditDto {
 	private Double latitude;
 	private Double longitude;
 	private String formattedAddress;
-	private String area;
+	private String province;
+	private String city;
+	private String district;
 
 }

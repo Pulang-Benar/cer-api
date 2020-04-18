@@ -55,8 +55,14 @@ public class LocationEntity extends BaseAuditEntity {
 	@Column(name = "formatted_address", nullable = true)
 	private String formattedAddress;
 
-	@Column(name = "area", nullable = true)
-	private String area;
+	@Column(name = "province", nullable = true)
+	private String province;
+
+	@Column(name = "city", nullable = true)
+	private String city;
+
+	@Column(name = "district", nullable = true)
+	private String district;
 	
 	@OneToMany(mappedBy = "location", targetEntity = PanicDetailEntity.class, fetch = FetchType.LAZY)
 	private Set<PanicDetailEntity> panicDetails = new HashSet<PanicDetailEntity>();

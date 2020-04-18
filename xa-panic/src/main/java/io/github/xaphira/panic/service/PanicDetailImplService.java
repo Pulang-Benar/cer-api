@@ -54,7 +54,9 @@ public class PanicDetailImplService extends CommonService {
 			responseLocation.setLatitude(panicDetail.getLocation().getCoordinate().getX());
 			responseLocation.setLongitude(panicDetail.getLocation().getCoordinate().getY());
 			responseLocation.setFormattedAddress(panicDetail.getLocation().getFormattedAddress());
-			responseLocation.setArea(panicDetail.getLocation().getArea());
+			responseLocation.setProvince(panicDetail.getLocation().getProvince());
+			responseLocation.setCity(panicDetail.getLocation().getCity());
+			responseLocation.setDistrict(panicDetail.getLocation().getDistrict());
 			objPanicDetail.setLocation(responseLocation);
 		}
 		if(panicDetail.getDevice() != null) {

@@ -46,7 +46,9 @@ INSERT INTO security.sec_user (user_uuid, username, password, account_enabled, a
 ('47882cf5-d6c5-4899-a746-3ca81f848e95', 'maluku', '$2a$13$iJoBglX2Rx/AkTc30eCDx.rHUfVyI3nkd3rCpyiCHXdnmqZmKm1Hm', true, true, true, true, 'maluku.cer@mailinator.com', NULL, NULL, 'ROLE_ADMIN_REGIONAL', 0, true, '2018-12-02 20:50:29', NULL, NULL, NULL),
 ('40c1b405-a157-405b-bc9b-f6c9a3218902', 'pabar', '$2a$13$iJoBglX2Rx/AkTc30eCDx.rHUfVyI3nkd3rCpyiCHXdnmqZmKm1Hm', true, true, true, true, 'pabar.cer@mailinator.com', NULL, NULL, 'ROLE_ADMIN_REGIONAL', 0, true, '2018-12-02 20:50:29', NULL, NULL, NULL),
 ('f93ecaa1-2dd4-4f34-abd1-37f2d3c395d2', 'papua', '$2a$13$iJoBglX2Rx/AkTc30eCDx.rHUfVyI3nkd3rCpyiCHXdnmqZmKm1Hm', true, true, true, true, 'papua.cer@mailinator.com', NULL, NULL, 'ROLE_ADMIN_REGIONAL', 0, true, '2018-12-02 20:50:29', NULL, NULL, NULL),
-('38527ac6-edb6-4a4f-8e60-eede49c4c2a6', 'user', '$2a$13$SFGnAPHD/fP9BlNQU7drpeAKxFFgk9pDBIR5D4mb17RbNzKcU6K8S', true, true, true, true, 'user.cer@mailinator.com', NULL, NULL, 'ROLE_END', 0, true, '2018-12-05 14:50:55', NULL, NULL, NULL);
+('38527ac6-edb6-4a4f-8e60-eede49c4c2a6', 'user', '$2a$13$SFGnAPHD/fP9BlNQU7drpeAKxFFgk9pDBIR5D4mb17RbNzKcU6K8S', true, true, true, true, 'user.cer@mailinator.com', NULL, NULL, 'ROLE_END', 0, true, '2018-12-05 14:50:55', NULL, NULL, NULL),
+('e24b76e6-dee2-4262-80a1-f00f554d0440', 'male', '$2a$13$SFGnAPHD/fP9BlNQU7drpeAKxFFgk9pDBIR5D4mb17RbNzKcU6K8S', true, true, true, true, 'male.cer@mailinator.com', NULL, NULL, 'ROLE_END', 0, true, '2018-12-05 14:50:55', NULL, NULL, NULL),
+('f2cc13e4-f865-4850-bf7c-8fc814e88915', 'female', '$2a$13$SFGnAPHD/fP9BlNQU7drpeAKxFFgk9pDBIR5D4mb17RbNzKcU6K8S', true, true, true, true, 'female.cer@mailinator.com', NULL, NULL, 'ROLE_END', 0, true, '2018-12-05 14:50:55', NULL, NULL, NULL);
 
 --
 -- Dumping data for table oauth_client_details
@@ -75,12 +77,7 @@ INSERT INTO security.sec_menu (menu_uuid, code, url, "level", ordering, ordering
 ('079f7d96-8ef9-40d5-ab1a-0f6641e3e8cf', '#STATISTICS-AREA-PAGE', '/app/statistics/area', 1, 0, '001.000', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '77687148-0cda-4a4a-96f1-900cd986c326'),
 ('b2a03772-10d7-4ec5-bb68-99f2d6080cea', '#STATISTICS-GENDER-PAGE', '/app/statistics/gender', 1, 1, '001.001', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '77687148-0cda-4a4a-96f1-900cd986c326'),
 ('98a1bd05-2c42-47c4-afb7-9540f04e16b4', '#STATISTICS-PERIODE-PAGE', '/app/statistics/periode', 1, 2, '001.002', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '77687148-0cda-4a4a-96f1-900cd986c326'),
-('b03f9702-44a4-44b1-86f2-7f03d070b35b', '#STATISTICS-AGE-PAGE', '/app/statistics/age', 1, 3, '001.003', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '77687148-0cda-4a4a-96f1-900cd986c326'),
-('5f4872f1-627e-4789-adf7-dc6db3884267', NULL, '#', 0, 2, '002', 'file-text-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
-('645d5b77-1c4e-402d-b095-185412def6f5', '#REPORT-AREA-PAGE', '/app/report/area', 1, 0, '002.000', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '5f4872f1-627e-4789-adf7-dc6db3884267'),
-('6fd757ea-b0cf-4d12-a25a-f446aae78057', '#REPORT-GENDER-PAGE', '/app/report/gender', 1, 1, '002.001', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '5f4872f1-627e-4789-adf7-dc6db3884267'),
-('542a2e77-6722-4d09-b5e3-ddf692431213', '#REPORT-PERIODE-PAGE', '/app/report/periode', 1, 2, '002.002', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '5f4872f1-627e-4789-adf7-dc6db3884267'),
-('0019a3e6-86ed-46d4-b6b2-e9525385c65f', '#REPORT-AGE-PAGE', '/app/report/age', 1, 3, '002.003', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, '5f4872f1-627e-4789-adf7-dc6db3884267'),
+('5f4872f1-627e-4789-adf7-dc6db3884267', '#EMERGENCY-REPORTS-PAGE', '#', 0, 2, '002', 'alert-triangle-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
 ('e76e6cfa-5ef2-4bc4-b5d4-dac5353d071c', '#FAKE-REPORTS-PAGE', '/app/fake-reports', 0, 3, '003', 'slash-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
 ('f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8', NULL, '#', 0, 4, '004', 'people-outline', false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, NULL),
 ('4dc5f8f6-29e6-4cb1-a137-d4cdd3e2f634', '#MANAGEMENT-CIVILIANS-PAGE', '/app/mgmt/user/civilians', 1, 0, '004.000', NULL, false, false, false, 0, true, '2018-12-04 13:35:36', NULL, NULL, NULL, 'f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8'),
@@ -104,12 +101,7 @@ INSERT INTO security.sec_menu_i18n (menu_i18n_uuid, menu_uuid, locale_code, titl
 ('27a55e31-1543-4db2-aea2-383bad1f637e', '079f7d96-8ef9-40d5-ab1a-0f6641e3e8cf', 'en-US', 'Area', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
 ('027efb44-9365-47e1-802c-98377029a5f5', 'b2a03772-10d7-4ec5-bb68-99f2d6080cea', 'en-US', 'Gender', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
 ('39ac18b5-3ae7-40f1-99f2-02b5feb65041', '98a1bd05-2c42-47c4-afb7-9540f04e16b4', 'en-US', 'Periode', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
-('414da98e-9d37-4821-9f37-c0d9c308cf6c', 'b03f9702-44a4-44b1-86f2-7f03d070b35b', 'en-US', 'Age', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
-('79ab6061-080d-4ed4-a5b2-dbf3c2aa2d28', '5f4872f1-627e-4789-adf7-dc6db3884267', 'en-US', 'Reports', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
-('c4dbb64e-3ad6-4675-8b9f-0764e7de0134', '645d5b77-1c4e-402d-b095-185412def6f5', 'en-US', 'Area', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
-('a1ebf59a-6e73-49b1-b460-904fd70c9a45', '6fd757ea-b0cf-4d12-a25a-f446aae78057', 'en-US', 'Gender', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
-('dafca136-c23b-47ba-bd97-b2c615445d8e', '542a2e77-6722-4d09-b5e3-ddf692431213', 'en-US', 'Periode', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
-('705c4d11-48be-4ad1-b65e-51a43e2f3d8b', '0019a3e6-86ed-46d4-b6b2-e9525385c65f', 'en-US', 'Age', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
+('79ab6061-080d-4ed4-a5b2-dbf3c2aa2d28', '5f4872f1-627e-4789-adf7-dc6db3884267', 'en-US', 'Emergency Reports', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
 ('92aefcd3-8556-4e6d-97a6-19005be74491', 'e76e6cfa-5ef2-4bc4-b5d4-dac5353d071c', 'en-US', 'Fake Reports', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
 ('de490bc6-c52e-4b9e-9157-e881b9203886', 'f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8', 'en-US', 'User Management', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
 ('c229f514-2e2b-46c1-9daf-978b34ff732c', '4dc5f8f6-29e6-4cb1-a137-d4cdd3e2f634', 'en-US', 'Civilians', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
@@ -129,12 +121,7 @@ INSERT INTO security.sec_menu_i18n (menu_i18n_uuid, menu_uuid, locale_code, titl
 ('a817dc35-1d8d-4d60-b52a-d823bd5f6b5b', '079f7d96-8ef9-40d5-ab1a-0f6641e3e8cf', 'id-ID', 'Area', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
 ('77bf369b-fcf1-4eff-9241-d82e0dfc96a7', 'b2a03772-10d7-4ec5-bb68-99f2d6080cea', 'id-ID', 'Jenis Kelamin', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
 ('fbd3e5f3-de06-46d8-80ae-5f2fb5a3cc8b', '98a1bd05-2c42-47c4-afb7-9540f04e16b4', 'id-ID', 'Periode', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
-('c42b1488-d829-4775-a700-1bd87657eae1', 'b03f9702-44a4-44b1-86f2-7f03d070b35b', 'id-ID', 'Usia', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
-('f143dd3b-ec59-401f-9796-c7c9d253db04', '5f4872f1-627e-4789-adf7-dc6db3884267', 'id-ID', 'Laporan', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
-('f64f819e-8ccd-4c13-bae5-4ec2bd641922', '645d5b77-1c4e-402d-b095-185412def6f5', 'id-ID', 'Area', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
-('1a2a530e-5fa7-4d16-8c30-4fccdada8dbe', '6fd757ea-b0cf-4d12-a25a-f446aae78057', 'id-ID', 'Jenis Kelamin', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
-('648bf4b9-400c-4e0a-acf3-f4103f30e46d', '542a2e77-6722-4d09-b5e3-ddf692431213', 'id-ID', 'Periode', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
-('e1366802-e57a-4a9c-9813-dddb133b072d', '0019a3e6-86ed-46d4-b6b2-e9525385c65f', 'id-ID', 'Usia', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
+('f143dd3b-ec59-401f-9796-c7c9d253db04', '5f4872f1-627e-4789-adf7-dc6db3884267', 'id-ID', 'Laporan Darurat', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
 ('f6ea0727-8911-4e34-b1f7-26d50570f959', 'e76e6cfa-5ef2-4bc4-b5d4-dac5353d071c', 'id-ID', 'Laporan Fiktif', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
 ('e4d513bf-bebf-4167-bd46-062277f1b7ae', 'f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8', 'id-ID', 'Manajemen Pengguna', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
 ('d17d8cc6-78d0-4034-b1ec-48a9c9e1d1ae', '4dc5f8f6-29e6-4cb1-a137-d4cdd3e2f634', 'id-ID', 'Warga Sipil', 0, true, '2018-12-04 13:37:15', NULL, NULL, NULL),
@@ -158,12 +145,7 @@ INSERT INTO security.sec_function(function_uuid, menu_uuid, role_uuid, access, v
 ('eee6d9d0-cc19-46e6-80ba-b9cb2360a76a', '079f7d96-8ef9-40d5-ab1a-0f6641e3e8cf', '06be80df-5c41-42a7-9050-b328312d2f3a', 'read,trust', 0, true, '2018-12-19 10:09:14.249008', 'admin', null, null),
 ('e731dcdf-89ba-465a-bfb4-f06a163f10ad', 'b2a03772-10d7-4ec5-bb68-99f2d6080cea', '06be80df-5c41-42a7-9050-b328312d2f3a', 'read,trust', 0, true, '2018-12-19 10:09:14.249008', 'admin', null, null),
 ('9f04d65e-8b90-484c-9e94-92f2256ffef1', '98a1bd05-2c42-47c4-afb7-9540f04e16b4', '06be80df-5c41-42a7-9050-b328312d2f3a', 'read,trust', 0, true, '2018-12-19 10:09:14.249008', 'admin', null, null),
-('9eb462f0-b2fd-4adf-96cb-42b2df4c2c27', 'b03f9702-44a4-44b1-86f2-7f03d070b35b', '06be80df-5c41-42a7-9050-b328312d2f3a', 'read,trust', 0, true, '2018-12-19 10:09:14.249008', 'admin', null, null),
 ('a723114c-ce92-41ac-bcbd-4b640c4dbc19', '5f4872f1-627e-4789-adf7-dc6db3884267', '06be80df-5c41-42a7-9050-b328312d2f3a', 'read,trust', 0, true, '2018-12-19 10:09:14.249008', 'admin', null, null),
-('39b59307-431e-41be-b98f-3bcfc8a408f0', '645d5b77-1c4e-402d-b095-185412def6f5', '06be80df-5c41-42a7-9050-b328312d2f3a', 'read,trust', 0, true, '2018-12-19 10:09:14.249008', 'admin', null, null),
-('c6ebc35e-3a93-486e-9ff2-fc6ff53d4a5b', '6fd757ea-b0cf-4d12-a25a-f446aae78057', '06be80df-5c41-42a7-9050-b328312d2f3a', 'read,trust', 0, true, '2018-12-19 10:09:14.249008', 'admin', null, null),
-('2405b5d5-9b89-45ac-ab68-cbfec8900ea0', '542a2e77-6722-4d09-b5e3-ddf692431213', '06be80df-5c41-42a7-9050-b328312d2f3a', 'read,trust', 0, true, '2018-12-19 10:09:14.249008', 'admin', null, null),
-('8dc7d67a-1d0c-4e6d-8ee0-ba2f41cc5e16', '0019a3e6-86ed-46d4-b6b2-e9525385c65f', '06be80df-5c41-42a7-9050-b328312d2f3a', 'read,trust', 0, true, '2018-12-19 10:09:14.249008', 'admin', null, null),
 ('b137af7c-5720-4ed2-9305-32590dfdd82b', 'e76e6cfa-5ef2-4bc4-b5d4-dac5353d071c', '06be80df-5c41-42a7-9050-b328312d2f3a', 'read,write,trust', 0, true, '2018-12-19 10:09:14.249008', 'admin', null, null),
 ('d26385a1-5378-40a9-b0aa-d67eccd8557b', 'f6c6570b-0a29-4f3a-baa5-6d273c0bc2a8', '06be80df-5c41-42a7-9050-b328312d2f3a', 'read,write,trust', 0, true, '2018-12-19 10:09:14.249008', 'admin', null, null),
 ('18cef61e-6af9-4913-8216-424c0595aae7', '4dc5f8f6-29e6-4cb1-a137-d4cdd3e2f634', '06be80df-5c41-42a7-9050-b328312d2f3a', 'read,write,trust', 0, true, '2018-12-19 10:09:14.249008', 'admin', null, null),
@@ -216,7 +198,9 @@ INSERT INTO security.sec_r_user_corporate (user_uuid, corporate_uuid) VALUES
 ('47882cf5-d6c5-4899-a746-3ca81f848e95', '0ae4b095-d957-4ff1-a34d-7a440cc8d8ca'),
 ('40c1b405-a157-405b-bc9b-f6c9a3218902', '0ae4b095-d957-4ff1-a34d-7a440cc8d8ca'),
 ('f93ecaa1-2dd4-4f34-abd1-37f2d3c395d2', '0ae4b095-d957-4ff1-a34d-7a440cc8d8ca'),
-('38527ac6-edb6-4a4f-8e60-eede49c4c2a6', '0ae4b095-d957-4ff1-a34d-7a440cc8d8ca');
+('38527ac6-edb6-4a4f-8e60-eede49c4c2a6', '0ae4b095-d957-4ff1-a34d-7a440cc8d8ca'),
+('e24b76e6-dee2-4262-80a1-f00f554d0440', '0ae4b095-d957-4ff1-a34d-7a440cc8d8ca'),
+('f2cc13e4-f865-4850-bf7c-8fc814e88915', '0ae4b095-d957-4ff1-a34d-7a440cc8d8ca');
 
 --
 -- Dumping data for table sec_r_user_role
@@ -257,7 +241,9 @@ INSERT INTO security.sec_r_user_role (user_uuid, role_uuid) VALUES
 ('47882cf5-d6c5-4899-a746-3ca81f848e95', '9295fefc-7dfe-44ed-a4e3-52165cf44373'),
 ('40c1b405-a157-405b-bc9b-f6c9a3218902', '9295fefc-7dfe-44ed-a4e3-52165cf44373'),
 ('f93ecaa1-2dd4-4f34-abd1-37f2d3c395d2', '9295fefc-7dfe-44ed-a4e3-52165cf44373'),
-('38527ac6-edb6-4a4f-8e60-eede49c4c2a6', 'd68a2ea7-f1cb-484c-a3d4-b669ef3ff3c8');
+('38527ac6-edb6-4a4f-8e60-eede49c4c2a6', 'd68a2ea7-f1cb-484c-a3d4-b669ef3ff3c8'),
+('e24b76e6-dee2-4262-80a1-f00f554d0440', 'd68a2ea7-f1cb-484c-a3d4-b669ef3ff3c8'),
+('f2cc13e4-f865-4850-bf7c-8fc814e88915', 'd68a2ea7-f1cb-484c-a3d4-b669ef3ff3c8');
 
 --
 -- Dumping data for table sec_settings
@@ -298,7 +284,9 @@ INSERT INTO security.sec_settings (settings_uuid, user_uuid) VALUES
 ('3d2693e0-76cb-4403-86f6-504ccc1ab344', '47882cf5-d6c5-4899-a746-3ca81f848e95'),
 ('0acac38b-816e-445a-9e98-5f1a7f6ae45c', '40c1b405-a157-405b-bc9b-f6c9a3218902'),
 ('0df0ab59-cdf4-4765-b1a3-4dc9c2113a04', 'f93ecaa1-2dd4-4f34-abd1-37f2d3c395d2'),
-('5fa21a4f-6231-4d25-9cdf-d7b1e25ff119', '38527ac6-edb6-4a4f-8e60-eede49c4c2a6');
+('5fa21a4f-6231-4d25-9cdf-d7b1e25ff119', '38527ac6-edb6-4a4f-8e60-eede49c4c2a6'),
+('e2dbaa84-5755-400e-9104-9013ea96d4bb', 'e24b76e6-dee2-4262-80a1-f00f554d0440'),
+('cf35c2cf-c21b-46af-81cb-32d67d744128', 'f2cc13e4-f865-4850-bf7c-8fc814e88915');
 
 --
 -- Dumping data for table sec_contact_user
@@ -339,14 +327,18 @@ INSERT INTO security.sec_contact_user (contact_user_uuid, user_uuid, fullname, a
 ('85a3ad95-82df-41e0-880c-b5a74d6879e0', '504d4dd4-e718-4e1a-b509-1fd3b270b698'	, 'Polda Sumatera Barat', 'Jl. Sudirman No 55 Padang', '075133416'),
 ('b431fb03-bf5c-49dd-b0fa-23d9a7adadbb', '65b02457-088c-43fe-b219-4fb9cfeca97a'	, 'Polda Sumatera Selatan', 'Jl. Jend Sudirman Km 4,5 Palembang', '0711320550'),
 ('bfad9391-0b0d-40c0-b823-321c9e5bd545', 'd59c50c6-4c88-40ab-ab32-127b8dcca3da'	, 'Polda Sumatera Utara', 'Jl. SM Raja XII Km 10,5 No 60 Medan', '0617879363'),
-('d4fd659f-7bd6-4b1c-9127-e2dcf04651b0', '38527ac6-edb6-4a4f-8e60-eede49c4c2a6'	, 'User 01', 'Tangerang', '02134567891');
+('d4fd659f-7bd6-4b1c-9127-e2dcf04651b0', '38527ac6-edb6-4a4f-8e60-eede49c4c2a6'	, 'User 01', 'Tangerang', '02134567891'),
+('b796e574-ac2d-4180-bf09-14dc146fd921', 'e24b76e6-dee2-4262-80a1-f00f554d0440'	, 'User Male', 'Bandung', '02134567892'),
+('c4fa0235-0e4a-4145-aa3b-779a7ff369c2', 'f2cc13e4-f865-4850-bf7c-8fc814e88915'	, 'User Female', 'Surabaya', '02134567893');
 
 --
 -- Dumping data for table sec_personal_info
 --
 	
 INSERT INTO security.sec_personal_info (personal_info_uuid, contact_user_uuid, id_number, gender, place_of_birth, date_of_birth) VALUES 
-('2d341632-2fad-4394-a96f-6cfa54500dfc', 'd4fd659f-7bd6-4b1c-9127-e2dcf04651b0'	, '12345678901234567', 'GENDER.MALE', 'Tangerang', '01-01-1990');
+('2d341632-2fad-4394-a96f-6cfa54500dfc', 'd4fd659f-7bd6-4b1c-9127-e2dcf04651b0'	, '12345678901234561', 'GENDER.MALE', 'Tangerang', '01-01-1990'),
+('863b16d2-943c-4a3c-a23a-00774aaaa82c', 'b796e574-ac2d-4180-bf09-14dc146fd921'	, '12345678901234562', 'GENDER.MALE', 'Bandung', '01-01-1990'),
+('37a8d21a-5e30-46c5-a2be-3d73961d8471', 'c4fa0235-0e4a-4145-aa3b-779a7ff369c2'	, '12345678901234563', 'GENDER.FEMALE', 'Surabaya', '01-01-1990');
 
 
 --
@@ -354,4 +346,6 @@ INSERT INTO security.sec_personal_info (personal_info_uuid, contact_user_uuid, i
 --
 	
 INSERT INTO security.sec_personal_support (personal_support_uuid, personal_info_uuid, reference_name, reference_address, reference_phone_number, relationship) VALUES 
-('189913b7-ac93-458d-8d98-5e6212bc1c05', '2d341632-2fad-4394-a96f-6cfa54500dfc'	, 'User Reference', 'Jakarta', '02134567890', 'RELATIONSHIP.OTHERS');
+('189913b7-ac93-458d-8d98-5e6212bc1c05', '2d341632-2fad-4394-a96f-6cfa54500dfc'	, 'User Reference', 'Jakarta', '02134567890', 'RELATIONSHIP.OTHERS'),
+('919f9504-e661-40ce-8021-3df63e59b011', '863b16d2-943c-4a3c-a23a-00774aaaa82c'	, 'User Reference Male', 'Tasik', '02134567891', 'RELATIONSHIP.SIBLING'),
+('8a8f7a93-c84d-497d-bed3-e04dd4600bbb', '37a8d21a-5e30-46c5-a2be-3d73961d8471'	, 'User Reference Female', 'Pasuruan', '02134567892', 'RELATIONSHIP.COUPLE');

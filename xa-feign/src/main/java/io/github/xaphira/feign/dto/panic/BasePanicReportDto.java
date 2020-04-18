@@ -21,7 +21,9 @@ public class BasePanicReportDto extends BaseAuditDto {
 	private Double latestLatitude;
 	private Double latestLongitude;
 	private String latestFormattedAddress;
-	private String latestArea;
+	private String latestProvince;
+	private String latestCity;
+	private String latestDistrict;
 	private String latestFileChecksum;
 	private String latestDeviceID;
 	private String latestDeviceName;

@@ -95,7 +95,9 @@ public class PanicReportImplService extends CommonService {
 				location = new LocationEntity();
 				location.setCoordinate(coordinate);
 				location.setFormattedAddress(dto.getLatestFormattedAddress());
-				location.setArea(dto.getLatestArea());
+				location.setProvince(dto.getLatestProvince());
+				location.setCity(dto.getLatestCity());
+				location.setDistrict(dto.getLatestDistrict());
 				location = locationRepo.saveAndFlush(location);
 			}
 			DeviceEntity device = new DeviceEntity();
@@ -116,7 +118,9 @@ public class PanicReportImplService extends CommonService {
 			}
 			panic.setLatestCoordinate(coordinate);
 			panic.setLatestFormattedAddress(dto.getLatestFormattedAddress());
-			panic.setLatestArea(dto.getLatestArea());		
+			panic.setLatestProvince(dto.getLatestProvince());
+			panic.setLatestCity(dto.getLatestCity());
+			panic.setLatestDistrict(dto.getLatestDistrict());
 			panic.setLatestFileChecksum(fileEvidence.getChecksum());
 			panic.setLatestDeviceID(dto.getLatestDeviceID());
 			panic.setLatestDeviceName(dto.getLatestDeviceName());
@@ -192,7 +196,9 @@ public class PanicReportImplService extends CommonService {
 		response.setLatestLatitude(panic.getLatestCoordinate().getX());
 		response.setLatestLongitude(panic.getLatestCoordinate().getY());
 		response.setLatestFormattedAddress(panic.getLatestFormattedAddress());
-		response.setLatestArea(panic.getLatestArea());
+		response.setLatestProvince(panic.getLatestProvince());
+		response.setLatestCity(panic.getLatestCity());
+		response.setLatestDistrict(panic.getLatestDistrict());
 		response.setLatestFileChecksum(panic.getLatestFileChecksum());
 		response.setLatestDeviceID(panic.getLatestDeviceID());
 		response.setLatestDeviceName(panic.getLatestDeviceName());

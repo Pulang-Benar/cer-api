@@ -61,6 +61,12 @@ public class FakeReportEntity extends BaseAuditEntity {
 	@Column(name = "id_number", nullable = false)
 	private String idNumber;
 
+	@Column(name = "month_report", nullable = false)
+	private String month;
+
+	@Column(name = "year_report", nullable = false)
+	private Integer year;
+
 	@Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "x", column = @Column(name = "latest_latitude", nullable = false)),
@@ -71,8 +77,14 @@ public class FakeReportEntity extends BaseAuditEntity {
 	@Column(name = "latest_formatted_address", nullable = true)
 	private String latestFormattedAddress;
 
-	@Column(name = "latest_area", nullable = true)
-	private String latestArea;
+	@Column(name = "latest_province", nullable = true)
+	private String latestProvince;
+
+	@Column(name = "latest_city", nullable = true)
+	private String latestCity;
+
+	@Column(name = "latest_district", nullable = true)
+	private String latestDistrict;
 
 	@Column(name = "latest_file_checksum", nullable = true)
 	private String latestFileChecksum;

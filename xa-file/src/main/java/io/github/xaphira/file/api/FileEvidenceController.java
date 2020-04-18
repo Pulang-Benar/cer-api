@@ -28,7 +28,7 @@ public class FileEvidenceController extends BaseControllerException {
     @Value("${xa.file.path.evidence}")
     protected String path;
 
-	@RequestMapping(value = "/vw/get/evidence/v.1/{checksum}/{user}", method = RequestMethod.GET, produces = MediaType.ALL_VALUE)	
+	@RequestMapping(value = "/vw/get/evidence/v.1/{checksum}/{user}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)	
 	public ResponseEntity<Resource> downloadFileEvidence(Authentication authentication,
 			@PathVariable(required = true) String checksum,
 			@PathVariable(required = true) String user,
