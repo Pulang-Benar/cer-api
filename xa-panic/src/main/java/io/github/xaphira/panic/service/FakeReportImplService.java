@@ -57,6 +57,8 @@ public class FakeReportImplService extends CommonService {
 				fake.setAge(panic.getAge());
 				fake.setPhoneNumber(panic.getPhoneNumber());
 				fake.setIdNumber(panic.getIdNumber());
+				fake.setMonth(panic.getMonth());
+				fake.setYear(panic.getYear());
 				fake.setLatestCoordinate(panic.getLatestCoordinate());
 				fake.setLatestFormattedAddress(panic.getLatestFormattedAddress());
 				fake.setLatestProvince(panic.getLatestProvince());

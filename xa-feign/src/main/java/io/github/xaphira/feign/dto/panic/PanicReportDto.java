@@ -28,6 +28,8 @@ public class PanicReportDto extends BasePanicReportDto {
 	private String phoneNumber;
 	private Integer age;
 	private String idNumber;
+	private String month;
+	private Integer year;
 	private String emergencyCategory;
 	private String status;
 	private FileMetadataDto fileMetadata;

@@ -119,10 +119,44 @@ public final class DateUtil {
 		}
 	}
 
+	public static String getMonthName(String locale, String month) {
+		if(locale == null) locale = "en-US";
+    	Locale i18n = Locale.forLanguageTag(locale);
+    	return getMonthName(i18n, month);
+	}
+
+	public static String getMonthName(Locale locale, String month) {
+		month = month.replaceAll(ParameterStatic.MONTH_PARAMETER, "");
+		SimpleDateFormat monthParse = new SimpleDateFormat("MM", locale);
+		SimpleDateFormat monthDisplay = new SimpleDateFormat("MMMM", locale);
+		try {
+			return monthDisplay.format(monthParse.parse("" + month));
+		} catch (ParseException e) {
+			return "";
+		}
+	}
+
+	public static String getMonthNumber(String locale, Date date) {
+		if(locale == null) locale = "en-US";
+    	Locale i18n = Locale.forLanguageTag(locale);
+    	return getMonthNumber(i18n, date);
+	}
+
+	public static String getMonthNumber(Locale locale, Date date) {
+		SimpleDateFormat monthDisplay = new SimpleDateFormat("MM", locale);
+		return monthDisplay.format(date);
+	}
+
 	public static int getYear(Locale locale, Date date) {
 		Calendar c = Calendar.getInstance(locale);
 		c.setTime(date);
 		return c.get(Calendar.YEAR);
+	}
+
+	public static int getYear(String locale, Date date) {
+		if(locale == null) locale = "en-US";
+    	Locale i18n = Locale.forLanguageTag(locale);
+    	return getYear(i18n, date);
 	}
 
 }

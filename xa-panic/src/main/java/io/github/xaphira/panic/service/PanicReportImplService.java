@@ -22,6 +22,7 @@ import io.github.xaphira.common.http.ApiBaseResponse;
 import io.github.xaphira.common.service.CommonService;
 import io.github.xaphira.common.utils.DateUtil;
 import io.github.xaphira.common.utils.ErrorCode;
+import io.github.xaphira.common.utils.ParameterStatic;
 import io.github.xaphira.feign.dto.file.FileMetadataDto;
 import io.github.xaphira.feign.dto.notification.PushNotificationDto;
 import io.github.xaphira.feign.dto.panic.BasePanicReportDto;
@@ -115,6 +116,8 @@ public class PanicReportImplService extends CommonService {
 				panic.setAge(personal.getAge());
 				panic.setPhoneNumber(personal.getPhoneNumber());
 				panic.setIdNumber(personal.getIdNumber());
+				panic.setMonth(ParameterStatic.MONTH_PARAMETER + DateUtil.getMonthNumber(p_locale, new Date()));
+				panic.setYear(DateUtil.getYear(p_locale, new Date()));
 			}
 			panic.setLatestCoordinate(coordinate);
 			panic.setLatestFormattedAddress(dto.getLatestFormattedAddress());
@@ -193,6 +196,8 @@ public class PanicReportImplService extends CommonService {
 		response.setAge(panic.getAge());
 		response.setPhoneNumber(panic.getPhoneNumber());
 		response.setIdNumber(panic.getIdNumber());
+		response.setMonth(DateUtil.getMonthName(p_locale, panic.getMonth()));
+		response.setYear(panic.getYear());
 		response.setLatestLatitude(panic.getLatestCoordinate().getX());
 		response.setLatestLongitude(panic.getLatestCoordinate().getY());
 		response.setLatestFormattedAddress(panic.getLatestFormattedAddress());
