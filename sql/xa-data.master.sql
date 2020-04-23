@@ -79,7 +79,7 @@ INSERT INTO master.mst_parameter_i18n (parameter_i18n_uuid, parameter_uuid, loca
 ('ab2bcd9e-4561-4d28-8d55-b596577ca89e', 'dbe9ce40-47f4-4b81-8dd1-a157757dd737', 'en-US', 'September', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('6a6c8f5c-578a-4c96-a329-e8b4f045ac2e', '6fd8fe8e-f2bb-44a6-815e-a004074cd29a', 'en-US', 'October', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('eabd2122-a616-4815-877a-582a7f41e2c7', '31778cf3-948c-4535-8ec0-9ba33c178f7b', 'en-US', 'November', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
-('d99ec250-624a-4b8d-852e-3d0b31e46d17', '53809977-edab-4e7e-9b5c-5614fc968529', 'en-US', 'Desember', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
+('d99ec250-624a-4b8d-852e-3d0b31e46d17', '53809977-edab-4e7e-9b5c-5614fc968529', 'en-US', 'December', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 
 ('c5939c36-1ae1-4380-91ce-3ac7fee85ddd', 'd78712b5-6c1e-498f-9981-9beb6d0997c5', 'en-US', 'exe', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
 ('fac9bc48-85f7-480b-89ad-33a0fd194da6', '112cf342-b9c9-4139-9a58-3cdfb5c68e07', 'en-US', 'bash', 0, true, '2018-12-05 11:48:40', NULL, NULL, NULL),
