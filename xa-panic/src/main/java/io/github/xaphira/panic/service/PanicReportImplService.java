@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -23,6 +24,8 @@ import io.github.xaphira.common.service.CommonService;
 import io.github.xaphira.common.utils.DateUtil;
 import io.github.xaphira.common.utils.ErrorCode;
 import io.github.xaphira.common.utils.ParameterStatic;
+import io.github.xaphira.feign.dto.common.CommonResponseDto;
+import io.github.xaphira.feign.dto.common.FilterDto;
 import io.github.xaphira.feign.dto.file.FileMetadataDto;
 import io.github.xaphira.feign.dto.notification.PushNotificationDto;
 import io.github.xaphira.feign.dto.panic.BasePanicReportDto;
@@ -36,6 +39,7 @@ import io.github.xaphira.panic.dao.DeviceRepo;
 import io.github.xaphira.panic.dao.LocationRepo;
 import io.github.xaphira.panic.dao.PanicDetailRepo;
 import io.github.xaphira.panic.dao.PanicReportRepo;
+import io.github.xaphira.panic.dao.specification.PanicReportSpecification;
 import io.github.xaphira.panic.entity.DeviceEntity;
 import io.github.xaphira.panic.entity.LocationEntity;
 import io.github.xaphira.panic.entity.PanicDetailEntity;
@@ -170,6 +174,7 @@ public class PanicReportImplService extends CommonService {
 		});
 		return response;
 	}
+
 	@Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = SystemErrorException.class)
 	public ApiBaseResponse doProcessPanicReport(Map<String, Object> dto, Authentication authentication, String p_locale) throws Exception {
 		if (dto != null) {
@@ -183,6 +188,21 @@ public class PanicReportImplService extends CommonService {
 				throw new SystemErrorException(ErrorCode.ERR_SYS0404);
 		} else
 			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+	}
+
+	public CommonResponseDto<PanicReportDto> getDatatablePanicReport(FilterDto filter, String locale) throws Exception {
+		Page<PanicReportEntity> param = panicReportRepo.findAll(PanicReportSpecification.getDatatable(filter.getKeyword()), page(filter.getOrder(), filter.getOffset(), filter.getLimit()));
+		CommonResponseDto<PanicReportDto> response = new CommonResponseDto<PanicReportDto>();
+		response.setTotalFiltered(new Long(param.getContent().size()));
+		response.setTotalRecord(panicReportRepo.count(PanicReportSpecification.getDatatable(filter.getKeyword())));
+		param.getContent().forEach(value -> {
+			try {
+				response.getData().add(toObject(value, locale));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		return response;
 	}
 	
 	private PanicReportDto toObject(PanicReportEntity panic, String p_locale) throws Exception {
@@ -207,8 +227,14 @@ public class PanicReportImplService extends CommonService {
 		response.setLatestFileChecksum(panic.getLatestFileChecksum());
 		response.setLatestDeviceID(panic.getLatestDeviceID());
 		response.setLatestDeviceName(panic.getLatestDeviceName());
-		response.setEmergencyCategory(panic.getEmergencyCategory());
-		response.setStatus(panic.getStatus());
+		if(panic.getEmergencyCategory() != null) {
+			temp.put("parameterCode", panic.getEmergencyCategory());
+			response.setEmergencyCategory(parameterI18nService.getParameter(temp, p_locale).getParameterValue());
+		}
+		if(panic.getStatus() != null) {
+			temp.put("parameterCode", panic.getStatus());
+			response.setStatus(parameterI18nService.getParameter(temp, p_locale).getParameterValue());
+		}
 		response.setActive(panic.isActive());
 		response.setVersion(panic.getVersion());
 		response.setCreatedDate(panic.getCreatedDate());

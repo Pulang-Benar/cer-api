@@ -18,6 +18,9 @@ import io.github.xaphira.common.aspect.ResponseSuccess;
 import io.github.xaphira.common.exceptions.BaseControllerException;
 import io.github.xaphira.common.http.ApiBaseResponse;
 import io.github.xaphira.common.utils.SuccessCode;
+import io.github.xaphira.feign.dto.common.CommonResponseDto;
+import io.github.xaphira.feign.dto.common.FilterDto;
+import io.github.xaphira.feign.dto.panic.FakeReportDto;
 import io.github.xaphira.panic.service.FakeReportImplService;
 
 @RestController
@@ -33,6 +36,13 @@ public class FakeReportController extends BaseControllerException {
 			@RequestBody(required = true) Map<String, Object> dto,
 			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
 		return new ResponseEntity<ApiBaseResponse>(this.fakeReportService.doFakeReport(dto, authentication, locale), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/vw/post/datatable/fake-reports/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<CommonResponseDto<FakeReportDto>> getDatatableFakeReport(Authentication authentication,
+			@RequestBody(required = true) FilterDto filter,
+			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
+		return new ResponseEntity<CommonResponseDto<FakeReportDto>>(this.fakeReportService.getDatatableFakeReport(filter, locale), HttpStatus.OK);
 	}
 	
 }

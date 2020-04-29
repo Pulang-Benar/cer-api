@@ -28,6 +28,8 @@ import io.github.xaphira.common.aspect.ResponseSuccess;
 import io.github.xaphira.common.exceptions.BaseControllerException;
 import io.github.xaphira.common.http.ApiBaseResponse;
 import io.github.xaphira.common.utils.SuccessCode;
+import io.github.xaphira.feign.dto.common.CommonResponseDto;
+import io.github.xaphira.feign.dto.common.FilterDto;
 import io.github.xaphira.feign.dto.panic.BasePanicReportDto;
 import io.github.xaphira.feign.dto.panic.PanicReportDto;
 import io.github.xaphira.panic.service.PanicReportImplService;
@@ -73,6 +75,13 @@ public class PanicReportController extends BaseControllerException {
 			@RequestBody(required = true) Map<String, Object> dto,
 			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
 		return new ResponseEntity<ApiBaseResponse>(this.panicReportService.doProcessPanicReport(dto, authentication, locale), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/vw/post/datatable/panic-reports/v.1", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<CommonResponseDto<PanicReportDto>> getDatatablePanicReport(Authentication authentication,
+			@RequestBody(required = true) FilterDto filter,
+			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
+		return new ResponseEntity<CommonResponseDto<PanicReportDto>>(this.panicReportService.getDatatablePanicReport(filter, locale), HttpStatus.OK);
 	}
 
 }

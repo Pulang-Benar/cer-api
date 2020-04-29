@@ -3,16 +3,26 @@ package io.github.xaphira.security.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
+import io.github.xaphira.common.exceptions.SystemErrorException;
+import io.github.xaphira.common.http.ApiBaseResponse;
+import io.github.xaphira.common.pattern.PatternGlobal;
+import io.github.xaphira.common.security.AESEncrypt;
 import io.github.xaphira.common.service.CommonService;
+import io.github.xaphira.common.utils.ErrorCode;
 import io.github.xaphira.feign.dto.common.CommonResponseDto;
 import io.github.xaphira.feign.dto.common.FilterDto;
 import io.github.xaphira.feign.dto.security.ProfileDto;
+import io.github.xaphira.feign.dto.security.SignUpDto;
 import io.github.xaphira.security.dao.UserRepo;
 import io.github.xaphira.security.dao.specification.UserSpecification;
 import io.github.xaphira.security.entity.UserEntity;
@@ -24,6 +34,12 @@ public class UserImplService extends CommonService implements UserDetailsService
 
 	@Autowired
 	private UserRepo userRepo;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
+	@Value("${xa.signature.aes.secret-key}")
+	private String secretKey;
 	
 	@Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
@@ -63,6 +79,25 @@ public class UserImplService extends CommonService implements UserDetailsService
 			response.getData().add(temp);
 		});
 		return response;
+	}
+
+	@Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = SystemErrorException.class)
+	public ApiBaseResponse doSignUp(SignUpDto dto, String locale) throws Exception {
+		UserEntity user = userRepo.loadByUsername(dto.getEmail().toLowerCase());
+		if(user == null) {
+			user = new UserEntity();
+			user.setUsername(dto.getEmail());
+			user.setEmail(dto.getEmail());
+			String password = AESEncrypt.decrypt(this.secretKey, dto.getPassword());
+			if (password.matches(PatternGlobal.PASSWORD_MEDIUM.getRegex())) {
+				user.setPassword(this.passwordEncoder.encode((String)password));
+			} else {
+				throw new SystemErrorException(ErrorCode.ERR_SCR0005);
+			}
+			user = userRepo.save(user);
+			return null;
+		} else
+			throw new SystemErrorException(ErrorCode.ERR_SCR0001);
 	}
 
 }

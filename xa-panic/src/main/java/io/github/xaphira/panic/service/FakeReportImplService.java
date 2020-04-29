@@ -1,5 +1,6 @@
 package io.github.xaphira.panic.service;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -15,11 +17,17 @@ import org.springframework.transaction.annotation.Transactional;
 import io.github.xaphira.common.exceptions.SystemErrorException;
 import io.github.xaphira.common.http.ApiBaseResponse;
 import io.github.xaphira.common.service.CommonService;
+import io.github.xaphira.common.utils.DateUtil;
 import io.github.xaphira.common.utils.ErrorCode;
+import io.github.xaphira.feign.dto.common.CommonResponseDto;
+import io.github.xaphira.feign.dto.common.FilterDto;
+import io.github.xaphira.feign.dto.panic.FakeReportDto;
 import io.github.xaphira.feign.service.CheckAccountService;
+import io.github.xaphira.feign.service.ParameterI18nService;
 import io.github.xaphira.panic.dao.FakeDetailRepo;
 import io.github.xaphira.panic.dao.FakeReportRepo;
 import io.github.xaphira.panic.dao.PanicReportRepo;
+import io.github.xaphira.panic.dao.specification.FakeReportSpecification;
 import io.github.xaphira.panic.entity.FakeDetailEntity;
 import io.github.xaphira.panic.entity.FakeReportEntity;
 import io.github.xaphira.panic.entity.PanicReportEntity;
@@ -40,6 +48,9 @@ public class FakeReportImplService extends CommonService {
 	
 	@Autowired
 	private CheckAccountService checkAccountService;
+	
+	@Autowired
+	private ParameterI18nService parameterI18nService;
 
 	@Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = SystemErrorException.class)
 	public ApiBaseResponse doFakeReport(Map<String, Object> dto, Authentication authentication, String p_locale) throws Exception {
@@ -83,6 +94,52 @@ public class FakeReportImplService extends CommonService {
 				throw new SystemErrorException(ErrorCode.ERR_SYS0404);
 		} else
 			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+	}
+
+	public CommonResponseDto<FakeReportDto> getDatatableFakeReport(FilterDto filter, String locale) throws Exception {
+		Page<FakeReportEntity> param = fakeReportRepo.findAll(FakeReportSpecification.getDatatable(filter.getKeyword()), page(filter.getOrder(), filter.getOffset(), filter.getLimit()));
+		CommonResponseDto<FakeReportDto> response = new CommonResponseDto<FakeReportDto>();
+		response.setTotalFiltered(new Long(param.getContent().size()));
+		response.setTotalRecord(fakeReportRepo.count(FakeReportSpecification.getDatatable(filter.getKeyword())));
+		param.getContent().forEach(value -> {
+			try {
+				response.getData().add(toObject(value, locale));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		return response;
+	}
+	
+	private FakeReportDto toObject(FakeReportEntity panic, String p_locale) throws Exception {
+		FakeReportDto response = new FakeReportDto();
+		response.setFakeCode(panic.getFakeCode());
+		response.setUsername(panic.getUsername());
+		response.setName(panic.getName());
+		Map<String, Object> temp = new HashMap<String, Object>();
+		temp.put("parameterCode", panic.getGender());
+		response.setGender(parameterI18nService.getParameter(temp, p_locale).getParameterValue());
+		response.setAge(panic.getAge());
+		response.setPhoneNumber(panic.getPhoneNumber());
+		response.setIdNumber(panic.getIdNumber());
+		response.setMonth(DateUtil.getMonthName(p_locale, panic.getMonth()));
+		response.setYear(panic.getYear());
+		response.setLatestLatitude(panic.getLatestCoordinate().getX());
+		response.setLatestLongitude(panic.getLatestCoordinate().getY());
+		response.setLatestFormattedAddress(panic.getLatestFormattedAddress());
+		response.setLatestProvince(panic.getLatestProvince());
+		response.setLatestCity(panic.getLatestCity());
+		response.setLatestDistrict(panic.getLatestDistrict());
+		response.setLatestFileChecksum(panic.getLatestFileChecksum());
+		response.setLatestDeviceID(panic.getLatestDeviceID());
+		response.setLatestDeviceName(panic.getLatestDeviceName());
+		response.setActive(panic.isActive());
+		response.setVersion(panic.getVersion());
+		response.setCreatedDate(panic.getCreatedDate());
+		response.setCreatedBy(panic.getCreatedBy());
+		response.setModifiedDate(panic.getModifiedDate());
+		response.setModifiedBy(panic.getModifiedBy());
+		return response;
 	}
 
 }
