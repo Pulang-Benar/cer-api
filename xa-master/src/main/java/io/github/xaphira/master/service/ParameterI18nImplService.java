@@ -123,7 +123,7 @@ public class ParameterI18nImplService extends CommonService implements Parameter
 	
 	public ParameterI18nDto getParameter(Map<String, Object> param, String locale) throws Exception {
     	Locale i18n = Locale.forLanguageTag(locale);
-    	if(i18n.getDisplayLanguage().isEmpty()) {
+    	if(i18n.getDisplayLanguage().isEmpty() || locale.contains(",")) {
     		locale = this.locale;
     	}
 		ParameterI18nEntity parameterI18n = parameterI18nRepo.findByParameter_ParameterCodeAndLocaleCode(param.get("parameterCode").toString(), locale);

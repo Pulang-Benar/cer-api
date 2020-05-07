@@ -229,7 +229,9 @@ public class PanicReportImplService extends CommonService {
 		response.setLatestDeviceName(panic.getLatestDeviceName());
 		if(panic.getEmergencyCategory() != null) {
 			temp.put("parameterCode", panic.getEmergencyCategory());
-			response.setEmergencyCategory(parameterI18nService.getParameter(temp, p_locale).getParameterValue());
+			try {
+				response.setEmergencyCategory(parameterI18nService.getParameter(temp, p_locale).getParameterValue());	
+			} catch (Exception e) {}
 		}
 		if(panic.getStatus() != null) {
 			temp.put("parameterCode", panic.getStatus());
