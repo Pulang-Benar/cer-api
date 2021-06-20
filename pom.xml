@@ -41,7 +41,7 @@
 		<spring-boot-maven.version>2.1.2.RELEASE</spring-boot-maven.version>
 		<spring-boot.version>2.1.2.RELEASE</spring-boot.version>
 		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
-		<spring.cloud.version>2.1.2.RELEASE</spring.cloud.version>
+		<spring.cloud.version>2.2.0.RELEASE</spring.cloud.version>
 		<spring.cloud.feign.version>1.4.6.RELEASE</spring.cloud.feign.version>
 		<spring.cloud.zipkin.version>2.1.2.RELEASE</spring.cloud.zipkin.version>
 		<spring.cloud.kafka.version>2.1.2.RELEASE</spring.cloud.kafka.version>
