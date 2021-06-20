@@ -29,4 +29,10 @@ public interface PanicReportRepo extends JpaRepository<PanicReportEntity, String
 	@Query("SELECT pr.month as periode, COUNT(pr) as total FROM PanicReportEntity pr WHERE pr.year = :year GROUP BY pr.month ORDER BY pr.month ASC")
 	List<Map<String, Object>> loadDataGroupByMonth(@Param("year") Integer year);
 
+	@Query("SELECT pr.latestDeviceName as device, COUNT(pr) as total FROM PanicReportEntity pr WHERE pr.year = :year GROUP BY pr.latestDeviceName ORDER BY pr.latestDeviceName ASC")
+	List<Map<String, Object>> loadDataGroupByDevice(@Param("year") Integer year);
+
+	@Query("SELECT pr.age as age, COUNT(pr) as total FROM PanicReportEntity pr WHERE pr.year = :year GROUP BY pr.age ORDER BY pr.age ASC")
+	List<Map<String, Object>> loadDataGroupByAge(@Param("year") Integer year);
+
 }

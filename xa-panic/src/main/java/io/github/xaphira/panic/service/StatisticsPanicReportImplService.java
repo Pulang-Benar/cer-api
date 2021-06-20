@@ -127,4 +127,105 @@ public class StatisticsPanicReportImplService {
 			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
 	}
 
+	@Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = SystemErrorException.class)
+	public CommonChartDto getStatisticsEmergency(Integer year, Authentication authentication, String p_locale) throws Exception {
+		if (year != null) {
+			List<Map<String, Object>> panics = panicReportRepo.loadDataGroupByEmergency(year);
+			if(panics != null) {
+				CommonChartDto chart = new CommonChartDto();
+				LegendChartDto legend = new LegendChartDto();
+				AxisChartDto axis = new AxisChartDto();
+				SeriesChartDto series = new SeriesChartDto();
+				series.setName("Emergency");
+				Map<String, Object> temp = new HashMap<String, Object>();
+				panics.forEach(panic -> {
+					temp.put("parameterCode", panic.get("emergency"));
+					try {
+						String keyData = parameterI18nService.getParameter(temp, p_locale).getParameterValue();
+						legend.getData().add(keyData);
+						series.getData().put(keyData, panic.get("total"));
+						axis.getData().add(keyData);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				});
+				chart.setLegend(legend);
+				chart.setAxis(axis);
+				chart.getSeries().add(series);
+				return chart;
+			} else
+				throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+		} else
+			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+	}
+
+	@Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = SystemErrorException.class)
+	public CommonChartDto getStatisticsDevice(Integer year, Authentication authentication, String p_locale) throws Exception {
+		if (year != null) {
+			List<Map<String, Object>> panics = panicReportRepo.loadDataGroupByDevice(year);
+			if(panics != null) {
+				CommonChartDto chart = new CommonChartDto();
+				LegendChartDto legend = new LegendChartDto();
+				AxisChartDto axis = new AxisChartDto();
+				SeriesChartDto series = new SeriesChartDto();
+				series.setName("Device");
+				legend.getData().add("Device");
+				panics.forEach(panic -> {
+					series.getData().put(panic.get("device").toString(), panic.get("total"));
+					axis.getData().add(panic.get("device").toString());
+				});
+				chart.setLegend(legend);
+				chart.setAxis(axis);
+				chart.getSeries().add(series);
+				return chart;
+			} else
+				throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+		} else
+			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+	}
+
+	@Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = SystemErrorException.class)
+	public CommonChartDto getStatisticsAge(Integer year, Authentication authentication, String p_locale) throws Exception {
+		if (year != null) {
+			List<Map<String, Object>> panics = panicReportRepo.loadDataGroupByAge(year);
+			if(panics != null) {
+				CommonChartDto chart = new CommonChartDto();
+				LegendChartDto legend = new LegendChartDto();
+				AxisChartDto axis = new AxisChartDto();
+				SeriesChartDto series = new SeriesChartDto();
+				series.setName("Age");
+				int limitAge = 30;
+				int ageUnder = 0;
+				int ageUpper = 0;
+				for(Map<String, Object> panic: panics) {
+					try {
+						Integer dataAge = Integer.parseInt(panic.get("age").toString());
+						Integer totalAge = Integer.parseInt(panic.get("total").toString());
+						if(dataAge<=limitAge) {
+							ageUnder = ageUnder + totalAge;
+						} else {
+							ageUpper = ageUpper + totalAge;
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				if(ageUnder>0 || ageUpper>0) {
+					legend.getData().add("<= 30 years old");
+					series.getData().put("<= 30 years old", ageUnder);
+					axis.getData().add("<= 30 years old");
+					legend.getData().add("> 30 years old");
+					series.getData().put("> 30 years old", ageUpper);
+					axis.getData().add("> 30 years old");	
+				}
+				chart.setLegend(legend);
+				chart.setAxis(axis);
+				chart.getSeries().add(series);
+				return chart;
+			} else
+				throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+		} else
+			throw new SystemErrorException(ErrorCode.ERR_SYS0404);
+	}
+
 }

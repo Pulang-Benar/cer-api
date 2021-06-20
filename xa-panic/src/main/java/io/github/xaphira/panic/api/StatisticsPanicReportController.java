@@ -37,12 +37,32 @@ public class StatisticsPanicReportController extends BaseControllerException {
 		return new ResponseEntity<CommonChartDto>(this.statisticsPanicReportService.getStatisticsGender(Integer.parseInt(year), authentication, locale), HttpStatus.OK);
 	}
 
-
 	@RequestMapping(value = "/vw/auth/statistics-periode/v.1/{year}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)	
 	public ResponseEntity<CommonChartDto> getStatisticsPeriode(Authentication authentication,
 			@PathVariable(required = true) String year,
 			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
 		return new ResponseEntity<CommonChartDto>(this.statisticsPanicReportService.getStatisticsPeriode(Integer.parseInt(year), authentication, locale), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/vw/auth/statistics-emergency/v.1/{year}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)	
+	public ResponseEntity<CommonChartDto> getStatisticsEmergency(Authentication authentication,
+			@PathVariable(required = true) String year,
+			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
+		return new ResponseEntity<CommonChartDto>(this.statisticsPanicReportService.getStatisticsEmergency(Integer.parseInt(year), authentication, locale), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/vw/auth/statistics-device/v.1/{year}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)	
+	public ResponseEntity<CommonChartDto> getStatisticsDevice(Authentication authentication,
+			@PathVariable(required = true) String year,
+			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
+		return new ResponseEntity<CommonChartDto>(this.statisticsPanicReportService.getStatisticsDevice(Integer.parseInt(year), authentication, locale), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/vw/auth/statistics-age/v.1/{year}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)	
+	public ResponseEntity<CommonChartDto> getStatisticsAge(Authentication authentication,
+			@PathVariable(required = true) String year,
+			@RequestHeader(name = HttpHeaders.ACCEPT_LANGUAGE, required = false) String locale) throws Exception {
+		return new ResponseEntity<CommonChartDto>(this.statisticsPanicReportService.getStatisticsAge(Integer.parseInt(year), authentication, locale), HttpStatus.OK);
 	}
 
 }
