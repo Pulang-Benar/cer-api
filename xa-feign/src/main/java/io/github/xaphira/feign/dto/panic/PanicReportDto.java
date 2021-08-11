@@ -31,7 +31,9 @@ public class PanicReportDto extends BasePanicReportDto {
 	private String month;
 	private Integer year;
 	private String emergencyCategory;
+	private String emergencyCategoryCode;
 	private String status;
+	private String statusCode;
 	private FileMetadataDto fileMetadata;
 	private List<PanicDetailDto> panicDetails = new ArrayList<PanicDetailDto>();
 

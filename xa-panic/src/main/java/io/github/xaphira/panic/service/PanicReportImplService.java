@@ -197,8 +197,8 @@ public class PanicReportImplService extends CommonService {
 				fcmData.setContentAvailable("true");
 				fcmData.getNotification().put("title", "Civillians Emergency Report");
 				fcmData.getNotification().put("body", parameterI18nService.getParameter(temp, "id-ID").getParameterValue());
-				fcmData.getData().put("latitude", "-6.359607");
-				fcmData.getData().put("longitude", "106.705098");
+				fcmData.getData().put("latitude", panic.getLatestCoordinate().getX());
+				fcmData.getData().put("longitude", panic.getLatestCoordinate().getY());
 				HttpHeaders headers = new HttpHeaders();
 				headers.setContentType(MediaType.APPLICATION_JSON);
 				headers.set("Authorization", "key=AAAAk4TEFVM:APA91bErfrTcoSiKt-oc7rS8dCqoN4Kl953dG7TTUJ3IEgJvcLdM1YMjB1n22cRg5XusbvbXTCVgvAxntljZbRhyugs8TkkO4Qcz6QgON_3TS6lJD32DYHaK8P_kL0iFWHvgerXWPmKf");
@@ -248,12 +248,14 @@ public class PanicReportImplService extends CommonService {
 		response.setLatestFileChecksum(panic.getLatestFileChecksum());
 		response.setLatestDeviceID(panic.getLatestDeviceID());
 		response.setLatestDeviceName(panic.getLatestDeviceName());
+		response.setEmergencyCategoryCode(panic.getEmergencyCategory());
 		if(panic.getEmergencyCategory() != null) {
 			temp.put("parameterCode", panic.getEmergencyCategory());
 			try {
 				response.setEmergencyCategory(parameterI18nService.getParameter(temp, p_locale).getParameterValue());	
 			} catch (Exception e) {}
 		}
+		response.setStatusCode(panic.getStatus());
 		if(panic.getStatus() != null) {
 			temp.put("parameterCode", panic.getStatus());
 			response.setStatus(parameterI18nService.getParameter(temp, p_locale).getParameterValue());
