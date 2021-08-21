@@ -111,7 +111,7 @@ public class StatisticsPanicReportImplService {
 					for(Map<String, Object> panic: panics) {
 						if(month.equals(panic.get("periode").toString())) {
 							series.getData().put(keyData, panic.get("total"));
-						} else {
+						} else { 
 							if(series.getData().get(keyData) == null) {
 								series.getData().put(keyData, 0);
 							}
