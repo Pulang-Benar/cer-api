@@ -108,13 +108,15 @@ public class StatisticsPanicReportImplService {
 					temp.put("parameterCode", month);
 					String keyData = parameterI18nService.getParameter(temp, p_locale).getParameterValue();
 					axis.getData().add(keyData);
-					panics.forEach(panic -> {
-						if(month.equals(panic.get("periode"))) {
+					for(Map<String, Object> panic: panics) {
+						if(month.equals(panic.get("periode").toString())) {
 							series.getData().put(keyData, panic.get("total"));
 						} else {
-							series.getData().put(keyData, 0);							
+							if(series.getData().get(keyData) == null) {
+								series.getData().put(keyData, 0);
+							}
 						}
-					});
+					}
 					if(panics.size() == 12) break;
 				}
 				chart.setLegend(legend);
@@ -138,7 +140,7 @@ public class StatisticsPanicReportImplService {
 				SeriesChartDto series = new SeriesChartDto();
 				series.setName("Emergency");
 				Map<String, Object> temp = new HashMap<String, Object>();
-				panics.forEach(panic -> {
+				for(Map<String, Object> panic: panics) {
 					temp.put("parameterCode", panic.get("emergency"));
 					try {
 						String keyData = parameterI18nService.getParameter(temp, p_locale).getParameterValue();
@@ -148,7 +150,7 @@ public class StatisticsPanicReportImplService {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-				});
+				}
 				chart.setLegend(legend);
 				chart.setAxis(axis);
 				chart.getSeries().add(series);
@@ -170,10 +172,10 @@ public class StatisticsPanicReportImplService {
 				SeriesChartDto series = new SeriesChartDto();
 				series.setName("Device");
 				legend.getData().add("Device");
-				panics.forEach(panic -> {
+				for(Map<String, Object> panic: panics) {
 					series.getData().put(panic.get("device").toString(), panic.get("total"));
 					axis.getData().add(panic.get("device").toString());
-				});
+				}
 				chart.setLegend(legend);
 				chart.setAxis(axis);
 				chart.getSeries().add(series);
