@@ -37,7 +37,7 @@ public class StatisticsPanicReportImplService {
 	@Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = SystemErrorException.class)
 	public CommonChartDto getStatisticsArea(Integer year, Authentication authentication, String p_locale) throws Exception {
 		if (year != null) {
-			List<Map<String, Object>> panics = panicReportRepo.loadDataGroupByProvince(year);
+			List<Map<String, Object>> panics = panicReportRepo.loadDataGroupByDistrict(year);
 			if(panics != null) {
 				CommonChartDto chart = new CommonChartDto();
 				LegendChartDto legend = new LegendChartDto();

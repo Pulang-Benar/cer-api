@@ -23,6 +23,9 @@ public interface PanicReportRepo extends JpaRepository<PanicReportEntity, String
 	@Query("SELECT pr.latestProvince as area, COUNT(pr) as total FROM PanicReportEntity pr WHERE pr.year = :year GROUP BY pr.latestProvince ORDER BY pr.latestProvince ASC")
 	List<Map<String, Object>> loadDataGroupByProvince(@Param("year") Integer year);
 
+	@Query("SELECT pr.latestDistrict as area, COUNT(pr) as total FROM PanicReportEntity pr WHERE pr.year = :year GROUP BY pr.latestDistrict ORDER BY pr.latestDistrict ASC")
+	List<Map<String, Object>> loadDataGroupByDistrict(@Param("year") Integer year);
+
 	@Query("SELECT pr.gender as gender, COUNT(pr) as total FROM PanicReportEntity pr WHERE pr.year = :year GROUP BY pr.gender ORDER BY pr.gender ASC")
 	List<Map<String, Object>> loadDataGroupByGender(@Param("year") Integer year);
 
