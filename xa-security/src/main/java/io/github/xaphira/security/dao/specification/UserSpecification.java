@@ -62,6 +62,7 @@ public class UserSpecification {
 						}
 					}
 				}
+				predicate = builder.and(predicate, builder.equal(root.get("active"), true));
 				return predicate;
 			}
 		};
